@@ -83,3 +83,73 @@ exports.login = (req, res, next) => {
             })
             .catch(error => res.status(500).json({ error }));
 };
+
+exports.modifyUser = (req, res, next) => {
+    console.log(req.body);
+    //Si il y a déjà un fichier image dans la requête
+    if (req.file) {
+        User.findOne({ _id: req.params.id })
+            .then(resUser => {
+                //Je récupère le nom du fichier existant et le split
+                //Le split retourne un tableau de 2 éléments ce qui vient avant le /images/ 
+                //et ce qui vient après le /images/ donc le nom du fichier
+                const filename = resUser.imageUrl.split('/images/')[1];
+                //Je le supprime
+                fs.unlink(`images/${filename}`, (error => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('image supprimée: ' + filename);
+                    }
+                }));
+            })
+    }
+
+    const userObject = req.file ?
+        //S'il existe, je récupère la chaine de caractère, je la parse en objet et je génère la nouvelle image 
+        {
+            ...JSON.parse(req.body.user),
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+            //sinon je prends le corps de la requête
+        } : { ...req.body };
+    //1er argument l'id qui correspond à l'id envoyé dans les paramètres de recherche, 
+    //2ème argument le nouveau user(...pour récupérer le user dans le corps de la requête; id correspond à celui des paramètres )
+    User.updateOne({ _id: req.params.id }, { ...userObject, _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.deleteUser = (req, res, next) => {
+    //Avant de supprimer l'objet de la base, je vais le chercher pour récupérer l'url de l'image, 
+    //je récupère le nom du fichier pour le supprimer
+    User.findOne({ _id: req.params.id })
+        .then(user => {
+            //Je récupère le nom du fichier de l'image et le split
+            //Le split retourne un tableau de 2 éléments ce qui vient avant le /images/ 
+            //et ce qui vient après le /images/ donc le nom du fichier
+            filename = user.imageUrl.split('/images/')[1];
+            //Avec ce nom, j'appelle la fonction unlink(supprimer un fichier)
+            //1er argument = string qui correspond au chemin du fichier
+            //2ème argument = le callback: ce qu'il faut faire une fois le fichier supprimé; càd supprimer le 'user' de la base de données
+            fs.unlink(`images/${filename}`, () => {
+                user.deleteOne({ _id: req.params.id })
+                    .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
+                    .catch(error => res.status(400).json({ error }));
+            });
+        })
+        .catch(error => res.status(500).json({ error }));
+};
+
+exports.getOneUser = (req, res, next) => {
+    //findOne permet de récupérer un user
+    User.findOne({ _id: req.params.id })
+        .then(user => res.status(200).json(user))
+        .catch(error => res.status(404).json({ error }));
+};
+
+exports.getAllUsers = (req, res, next) => {
+    //La méthode find permet de récupérer tous les users
+    User.find()
+        .then(users => res.status(200).json(users))
+        .catch(error => res.status(400).json({ error }));
+};
