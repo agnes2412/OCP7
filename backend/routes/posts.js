@@ -1,7 +1,4 @@
-//Le fichier de routes permet de voir toutes les routes disponibles de notre application
-//Le nom des fonctions permet de voir de quelle route il s'agit
 
-//Je récupère express pour crée un routeur
 const express = require('express');
 const router = express.Router();
 
@@ -21,7 +18,7 @@ router.delete('/:id', auth, postsCtrl.deletePost);
 //router.post('/:id/like', auth, postsCtrl.likePost);
 //Le : devant id indique à Express que ce chemin est dynamique 
 router.get('/:id', auth, postsCtrl.getOnePost);
-router.get('/', auth, postsCtrl.getAllPosts);
+//router.get('/', auth, postsCtrl.getAllPosts);
 
 //Je réexporte le routeur
 module.exports = router;

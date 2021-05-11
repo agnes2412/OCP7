@@ -1,6 +1,13 @@
-//Modèle de schéma pour un post
-/*const postSchema = ?({
-    title: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    userId: {type: String, required: true }
-})*/
+'use strict'
+
+module.exports = (sequelize, DataTypes) => {
+  const Post = sequelize.define('post', {
+    title: { type: DataTypes.STRING(255), },
+    content: { type: DataTypes.STRING(255), },
+  },
+    {});
+    //User.associate = function(models) {
+      //models.Comment.hasMany(models.Comment)
+    //};
+    return Post;
+}

@@ -7,8 +7,24 @@
 </head>
 
 <body>
+    <div>
+        <img src="images/icon-above-font.png" id="photo" alt="logo_groupomania">
+    </div>
     <div id="app">
-        <h1>Hello !</h1>
+        <h1>{{ message }}</h1>
+
+        <h2>Panier</h2>
+  <ul>
+    <li>Pommes: {{ costOfApples }} €</li>
+    <li>Bananes: {{ costOfBananas }} €</li>
+    <li>Noix de coco: {{ costOfCoconuts }} €</li>
+  </ul>
+        <p>{{ (2 + 8) * 10 }}</p>
+        <p>{{ "alexia".toUpperCase() }}</p>
+        <p>{{ 2 > 0 ? 'Deux est plus grand que zéro' : 'Vous ne verrez jamais cette phrase' }}</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>

@@ -6,8 +6,7 @@ const path = require('path');
 //J'importe mes routes posts et user
 const postsRoutes = require('./routes/posts');
 const userRoutes = require('./routes/user');
-const commentsRoutes = require('./routes/comments')
-//const Model = require('./models/user');
+const commentRoutes = require('./routes/comments');
 
 const app = express();
 
@@ -23,10 +22,9 @@ app.use((req, res, next) => {
   app.use(bodyParser.json());
   app.use(helmet());
   
-
   app.use('/api/posts', postsRoutes);
+  app.use('/api/comment', commentRoutes);
   app.use('/api/auth', userRoutes);
-  app.use('/api/comments', commentsRoutes)
 
 module.exports = app;
 
