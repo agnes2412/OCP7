@@ -1,7 +1,7 @@
 <template>
-  <div class="signup">
-    <SignupPage/>
-  </div>
+    <div class="signup">
+        <SignupPage/>
+    </div>
 </template>
 
 <script>
@@ -10,7 +10,7 @@ import SignupPage from '@/components/SignupPage.vue';
 export default {
   name: 'Signup',
   components: {
-    SignupPage
+    SignupPage,
   },
 }
 </script>

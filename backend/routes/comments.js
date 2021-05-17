@@ -4,17 +4,15 @@ const router = express.Router();
 
 //J'importe le middleware qui protège mes routes
 const auth = require('../middleware/auth');
-//J'importe le middleware qui permet de télécharger des fichiers image depuis le frontend
-const multer = require('../middleware/multer-config');
 //J'importe mes logiques métier (controllers) pour les intégrer à la route correspondante
 const commentsCtrl = require('../controllers/comments');
 
 
-router.post('/', auth, multer, commentsCtrl.createComment);
-router.put('/:id', auth, multer, commentsCtrl.modifyComment);
+router.post('/', auth, commentsCtrl.createComment);
+router.put('/:id', auth, commentsCtrl.modifyComment);
 router.delete('/:id', auth, commentsCtrl.deleteComment);
 //Le : devant id indique à Express que ce chemin est dynamique 
-router.get('/:id', auth, commentsCtrl.getOneComment);
+//router.get('/:id', auth, commentsCtrl.getOneComment);
 router.get('/', auth, commentsCtrl.getAllComments);
 
 //Je réexporte le routeur

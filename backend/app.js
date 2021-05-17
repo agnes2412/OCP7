@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
 
-//J'importe mes routes posts et user
+//J'importe mes routes posts, user et comment
 const postsRoutes = require('./routes/posts');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comments');

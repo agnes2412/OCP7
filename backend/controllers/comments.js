@@ -16,17 +16,8 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.modifyComment = (req, res, next) => {
-    console.log(req.body);
-    const commentObject = req.file ?
-        //S'il existe, je récupère la chaine de caractère, je la parse en objet et je génère la nouvelle image 
-        {
-            ...JSON.parse(req.body.comment),
-            //sinon je prends le corps de la requête
-        } : { ...req.body };
-    //1er argument l'id qui correspond à l'id envoyé dans les paramètres de recherche, 
-    //2ème argument le nouveau commentaire(...pour récupérer le commentaire dans le corps de la requête; id correspond à celui des paramètres )
     db.Comment.updateOne({ 
-        where: { id: req.params.id ,  ...commentObject, id: req.params.id }
+        where: { id: req.params.id }
          })
         .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
         .catch(error => res.status(400).json({ error }));
@@ -41,7 +32,6 @@ exports.deleteComment = (req, res, next) => {
 };
 
 exports.getOneComment = (req, res, next) => {
-    //La méthode find permet de récupérer tous les comments
     db.Comment.findOne({
         where: { id: req.params.id }
     })

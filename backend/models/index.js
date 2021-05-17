@@ -6,12 +6,12 @@ const baseName = path.basename(__filename);
 const db = {};
 const Sequelize = require('sequelize');
 
-let sequelize = new Sequelize('database', 'root', '', {
+let sequelize = new Sequelize('groupomania', 'root', '', {
     host: 'localhost',
     dialect: 'mysql'
 });
 
-sequelize.authenticate().then(() => console.log('La connexion est établie'))
+sequelize.authenticate().then(() => console.log('La connexion est établie !'))
     .catch((error) => console.log('La connexion a échouée !', error));
 
 fs.readdirSync(__dirname)
@@ -31,4 +31,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
 module.exports = db;

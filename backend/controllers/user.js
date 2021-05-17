@@ -1,4 +1,3 @@
-//Ce controleur comporte deux middleware d'authentification
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 //J'importe mon modèle user pour lire et enregistrer des users dans les middleware suivants
@@ -6,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 //Je crée un schéma pour recevoir des mots de passe sécurisés
 const schema = new passwordValidator();
-const db = require('../models/index');
+const db = require('../models');
 require('dotenv').config();
 
 //La fonction 'signup' pour l'enregistrement de nouveaux utilisateurs depuis l'appli frontend
@@ -15,20 +14,21 @@ exports.signup = (req, res, next) => {
     if (!schema.validate(req.body.password)) {
         res.status(401).json({ error: 'Les données entrées ne correspondent pas au schéma demandé !' });
         //Sinon si les données entrées correspondent au schéma
-    } else if (schema.validate(req.body.password)) {
+    } 
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
-                db.User.create({
+                console.log(req.body.email);
+                db.users.create({
                     name: req.body.name,
                     email: req.body.email,
                     password: hash
                 })
                     //Renvoi d'un 201 pour une création de ressource et un message
-                    .then(() => res.status(201).json({ message: 'Utisateur crée !' }))
+                    .then(() => res.status(201).json({ message: 'Utilisateur crée !' }))
                     .catch(error => res.status(400).json({ error }));
             })
             .catch(error => res.status(500).json({ error }));
-    }
+    
 };
 
 schema
@@ -43,7 +43,7 @@ schema
 //La fonction login pour la connexion des utilisateurs existants
 exports.login = (req, res, next) => {
     //Je mets l'objet de comparaison, ici l'utilisateur pour qui l'adresse mail correspond à l'adresse mail envoyée dans la requête
-    db.User.findOne({ 
+    db.users.findOne({ 
         where: { email: req.body.email },
     })
         //Je vérifie si la promise a récupérer un user
@@ -77,8 +77,16 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+exports.modifyUser = (req, res, next) => {
+    db.users.updateOne({ 
+        where: { id: req.params.id  }
+         })
+        .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
+        .catch(error => res.status(400).json({ error }));
+};
+
 exports.deleteUser = (req, res, next) => {
-    db.User.destroy({
+    db.users.destroy({
         where: { id: req.params.id },
     })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
@@ -86,8 +94,7 @@ exports.deleteUser = (req, res, next) => {
 };
 
 exports.getOneUser = (req, res, next) => {
-    //findOne permet de récupérer un user
-    db.User.findOne({
+    db.users.findOne({
         where: { id: req.params.id }
     })
         .then(user => res.status(200).json(user))
