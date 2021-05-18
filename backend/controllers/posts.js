@@ -1,15 +1,12 @@
 const fs = require('fs');
-const db = require('../models/index');
+const db = require('../models');
 
 exports.createPost = (req, res, next) => {
-    const postObject = JSON.parse(req.body.post);
-    //l'id renvoyé par le frontend n'est pas le bon donc j'enlève le champ id du corps de la requête
-    delete postObject.id;
     db.Post.create({
-        where: {
             title: req.body.title,
             content: req.body.content,
-        }
+            statut: 0,
+            UserId: 19
     })
         .then(() => res.status(201).json({ message: 'Post enregistré !' }))
         .catch(error => res.status(400).json({ error }));

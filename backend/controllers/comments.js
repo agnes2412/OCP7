@@ -1,13 +1,10 @@
 //const Comment = require('../models/comments');
-const db = require('../models/index');
+const db = require('../models');
 
 exports.createComment = (req, res, next) => {
-    const commentObject = JSON.parse(req.body.comment);
-    //l'id renvoyé par le frontend n'est pas le bon donc j'enlève le champ id du corps de la requête
-    delete commentObject._id;
-    //Je crée un nouvelle instance de mon modèle
     db.Comment.create({
-        where: { content: req.body.content }
+          content: req.body.content,
+          statut: 0,
     })
         //Même si la requête aboutit, je renvoie une réponse au frontend sinon expiration de la requête
         .then(() => res.status(201).json({ message: 'Commentaire enregistré !' }))

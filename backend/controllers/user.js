@@ -18,13 +18,14 @@ exports.signup = (req, res, next) => {
         bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 console.log(req.body.email);
-                db.users.create({
+                db.User.create({
                     name: req.body.name,
                     email: req.body.email,
                     password: hash
                 })
                     //Renvoi d'un 201 pour une création de ressource et un message
-                    .then(() => res.status(201).json({ message: 'Utilisateur crée !' }))
+                    .then(() => res.status(201).json({                   
+                        message: 'Utilisateur crée !' }))
                     .catch(error => res.status(400).json({ error }));
             })
             .catch(error => res.status(500).json({ error }));
@@ -43,7 +44,7 @@ schema
 //La fonction login pour la connexion des utilisateurs existants
 exports.login = (req, res, next) => {
     //Je mets l'objet de comparaison, ici l'utilisateur pour qui l'adresse mail correspond à l'adresse mail envoyée dans la requête
-    db.users.findOne({ 
+    db.User.findOne({ 
         where: { email: req.body.email },
     })
         //Je vérifie si la promise a récupérer un user
@@ -78,7 +79,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.modifyUser = (req, res, next) => {
-    db.users.updateOne({ 
+    db.User.updateOne({ 
         where: { id: req.params.id  }
          })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
@@ -86,7 +87,7 @@ exports.modifyUser = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
-    db.users.destroy({
+    db.User.destroy({
         where: { id: req.params.id },
     })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
@@ -94,7 +95,7 @@ exports.deleteUser = (req, res, next) => {
 };
 
 exports.getOneUser = (req, res, next) => {
-    db.users.findOne({
+    db.User.findOne({
         where: { id: req.params.id }
     })
         .then(user => res.status(200).json(user))

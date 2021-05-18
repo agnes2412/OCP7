@@ -48,13 +48,15 @@ export default {
         },
         {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           }
         })
         .then((res) => {
-          localStorage.setItem('user', JSON.stringify(res.data));
+          sessionStorage.setItem('token', res.data.token);
+          sessionStorage.setItem('userId', res.data.userId);
+          console.log(res.data.token);
           //location.reload();
-          location.href('./posts')
+          location.href ='http://localhost:8080/#/posts';
         })
         .catch((error) => {
           console.log(error);

@@ -38,7 +38,6 @@
 
 <script>
 import axios from "axios";
-//import router from '../router/index'
 
 export default {
   name: "SignupPage",
@@ -64,9 +63,9 @@ export default {
           }
         })
         .then((res) => {
-          localStorage.setItem('users', JSON.stringify(res.data));
-          //router.push({ name: "Posts"});
-          location.href('./Posts')
+          console.log(res.data.token);
+          alert("Votre compte est crée !");
+          window.location.href ='http://localhost:8080/#/login';
         })
         .catch((error) => {
           console.log(error);
