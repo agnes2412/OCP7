@@ -1,7 +1,6 @@
 <template>
   <div class="login">
     <LoginPage />
-    <!--<PostsPage />-->
   </div>
 </template>
 
@@ -14,7 +13,6 @@ export default {
   name: "Login",
   components: {
     LoginPage,
-    //PostsPage
   },
 };
 </script>

@@ -3,8 +3,9 @@ const db = require('../models');
 
 exports.createComment = (req, res, next) => {
     db.Comment.create({
-          content: req.body.content,
-          statut: 0,
+        content: req.body.content,
+        statut: 0,
+        UserId: req.body.UserId,
     })
         //Même si la requête aboutit, je renvoie une réponse au frontend sinon expiration de la requête
         .then(() => res.status(201).json({ message: 'Commentaire enregistré !' }))
@@ -13,19 +14,19 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.modifyComment = (req, res, next) => {
-    db.Comment.updateOne({ 
+    db.Comment.updateOne({
         where: { id: req.params.id }
-         })
+    })
         .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.deleteComment = (req, res, next) => {
-                db.Comment.deleteOne({ 
-                    where: {id: req.params.id }
-                })
-                    .then(() => res.status(200).json({ message: 'Commentaire supprimé !' }))
-                    .catch(error => res.status(400).json({ error }));
+    db.Comment.deleteOne({
+        where: { id: req.params.id }
+    })
+        .then(() => res.status(200).json({ message: 'Commentaire supprimé !' }))
+        .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneComment = (req, res, next) => {

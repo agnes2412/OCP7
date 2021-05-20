@@ -1,4 +1,4 @@
-<template>
+--<template>
 
   <div class="posts">
     <PostsPage />
@@ -9,6 +9,7 @@
 <script>
 // @ is an alias to /src
 import PostsPage from "@/components/PostsPage.vue";
+
 export default {
   name: "Posts",
   components: {
