@@ -8,8 +8,9 @@ const userCtrl = require('../controllers/user');
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 
-router.get('/:id',userCtrl.getOneUser);
-router.delete('/:id', userCtrl.deleteUser);
+router.get('/:id',userCtrl.getAccountUser);
+router.put('/:id', userCtrl.modifyAccountUser);
+router.delete('/:id', userCtrl.deleteAccountUser);
 //Le : devant id indique à Express que ce chemin est dynamique 
 
 //J'exporte ce routeur pour pouvoir l'importer sur app.js

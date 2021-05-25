@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 //Je crée un schéma pour recevoir des mots de passe sécurisés
 const schema = new passwordValidator();
+//const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const db = require('../models');
+//const user = require('../models/user');
 require('dotenv').config();
 
 //La fonction 'signup' pour l'enregistrement de nouveaux utilisateurs depuis l'appli frontend
@@ -14,22 +16,27 @@ exports.signup = (req, res, next) => {
     if (!schema.validate(req.body.password)) {
         res.status(401).json({ error: 'Les données entrées ne correspondent pas au schéma demandé !' });
         //Sinon si les données entrées correspondent au schéma
-    } 
-        bcrypt.hash(req.body.password, 10)
-            .then(hash => {
-                console.log(req.body.email);
-                db.User.create({
-                    name: req.body.name,
-                    email: req.body.email,
-                    password: hash
-                })
-                    //Renvoi d'un 201 pour une création de ressource et un message
-                    .then(() => res.status(201).json({                   
-                        message: 'Utilisateur crée !' }))
-                    .catch(error => res.status(400).json({ error }));
-            })
-            .catch(error => res.status(500).json({ error }));
-    
+    }
+    bcrypt.hash(req.body.password, 10)
+        .then(hash => {
+            console.log(req.body.email);
+            db.User.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: hash,
+                statut: 0
+            }
+            )
+            //if (!emailRegex.test(email)) {
+                //return res.status(400).json({'error': 'email non valide'})
+            //}
+                //Renvoi d'un 201 pour une création de ressource et un message
+                .then(() => res.status(201).json({
+                message: 'Utilisateur crée !'
+            }))
+                .catch(error => res.status(400).json({ error }));
+        })
+        .catch(error => res.status(500).json({ error }));
 };
 
 schema
@@ -43,9 +50,11 @@ schema
 
 //La fonction login pour la connexion des utilisateurs existants
 exports.login = (req, res, next) => {
-    //Je mets l'objet de comparaison, ici l'utilisateur pour qui l'adresse mail correspond à l'adresse mail envoyée dans la requête
-    db.User.findOne({ 
-        where: { email: req.body.email },
+    //Je mets l'objet de comparaison, ici l'utilisateur pour qui le nom et l'adresse mail correspondent à ceux envoyés dans la requête
+    db.User.findOne({
+        where: {
+            email: req.body.email
+        },
     })
         //Je vérifie si la promise a récupérer un user
         .then(user => {
@@ -62,10 +71,11 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         //Renvoi d'un objet json qui contient l'identifiant du user dans la base
                         userId: user.id,
+                        userAdmin: user.statut,
                         //Renvoi d'un token, appel de la fonction 'sign' de jwt qui prend comme arguments les données que je veux encoder
                         token: jwt.sign(
-                            //1er argument : L'objet userId sera l'identifiant user de l'utilisateur
-                            { userId: user.id },
+                            //1er argument : L'objet userId sera l'identifiant user de l'utilisateur ou de l'admin
+                            { userId: user.id, userAdmin: user.statut },
                             //2ème argument: clé secrète pour l'encodage
                             `${process.env.JWT_SECRETE_KEY}`,
                             //3ème argument de configuration avec expiration du token à 24h
@@ -78,15 +88,23 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.modifyUser = (req, res, next) => {
-    db.User.updateOne({ 
-        where: { id: req.params.id  }
-         })
+exports.getAccountUser = (req, res, next) => {
+    db.User.findOne({
+        where: { id: req.params.id }
+    })
+        .then(user => res.status(200).json(user))
+        .catch(error => res.status(404).json({ error }));
+};
+
+exports.modifyAccountUser = (req, res, next) => {
+    db.User.updateOne({
+        where: { id: req.params.id }
+    })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.deleteUser = (req, res, next) => {
+exports.deleteAccountUser = (req, res, next) => {
     db.User.destroy({
         where: { id: req.params.id },
     })
@@ -94,13 +112,7 @@ exports.deleteUser = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.getOneUser = (req, res, next) => {
-    db.User.findOne({
-        where: { id: req.params.id }
-    })
-        .then(user => res.status(200).json(user))
-        .catch(error => res.status(404).json({ error }));
-};
+
 
 /*exports.getAllUsers = (req, res, next) => {
     //La méthode find permet de récupérer tous les users

@@ -1,6 +1,19 @@
 <template>
-  <router-view/>
+<router-view/>
 </template>
+
+
+<script>
+export default {
+  name: "App",
+data() {
+    return {
+      statut: sessionStorage.getItem('userAdmin')
+    };
+  },
+}
+  
+</script>
 
 <style lang="scss">
 #app {

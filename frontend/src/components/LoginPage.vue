@@ -61,16 +61,17 @@ export default {
             email: this.email,
             password: this.password,
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "token",
-            },
-          }
         )
         .then((res) => {
+          console.log(res);
+          sessionStorage.setItem('userId', res.data.userId);
+          sessionStorage.setItem('userAdmin', res.data.userAdmin);
+          console.log(res.data.userId);
           sessionStorage.setItem("token", res.data.token);
-          location.href = "http://localhost:8080/#/posts";
+          console.log(res.data.token);
+          console.log(res.data.userAdmin);
+          this.$router.push("/users/groupomania");
+          location.href = "/posts";
         })
         .catch((error) => {
           console.log(error);

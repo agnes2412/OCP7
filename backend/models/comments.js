@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
   },
     {});
     Comment.associate = function(models) {
-      models.Comment.hasMany(models.User, {
+      models.Comment.belongsTo(models.User, {
         foreignKey: { alloNull: false }
       }),
-      models.Comment.hasMany(models.Post, {
+      models.Comment.belongsTo(models.Post, {
+        //onDelete: 'cascade',
         foreignKey: { alloNull: false }
       });
     };

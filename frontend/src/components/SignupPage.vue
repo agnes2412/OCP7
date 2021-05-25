@@ -62,10 +62,9 @@ export default {
             'Content-Type': 'application/json'
           }
         })
-        .then((res) => {
-          console.log(res.data.token);
+        .then(() => {
           alert("Votre compte est crée !");
-          window.location.href ='http://localhost:8080/#/login';
+          window.location.href ='/login';
         })
         .catch((error) => {
           console.log(error);

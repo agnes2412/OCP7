@@ -5,10 +5,10 @@ exports.createPost = (req, res, next) => {
     db.Post.create({
         title: req.body.title,
         content: req.body.content,
-        statut: 0,
-        UserId: req.body.UserId
+        statut: 0
+        //UserId: req.body.UserId
     })
-        .then(() => res.status(201).json({ message: 'Post enregistré !' }))
+        .then(() => res.status(201).json({ message: 'Post créé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
@@ -17,7 +17,8 @@ exports.modifyPost = (req, res, next) => {
         where: {
             id: req.params.id,
             title: req.body.title,
-            content: req.body.content
+            content: req.body.content,
+            statut: 0
         }
     })
         .then(() => res.status(200).json({ message: 'Post modifié !' }))
@@ -25,7 +26,7 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    db.Post.findOne({
+    db.Post.destroy({
         where: { id: req.params.id },
     })
         .then(() => res.status(200).json({ message: 'Post supprimé !' }))
@@ -41,7 +42,12 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.getAllPosts = (req, res, next) => {
-    db.Post.findAll()
+    db.Post.findAll({
+        include: [{
+            model: db.User,
+            attribute: ["name"]
+        }], order: [["createdAt", "DESC"]]
+    })
         .then(posts => res.status(200).json(posts))
         .catch(error => res.status(400).json({ error }));
 };

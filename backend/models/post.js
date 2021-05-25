@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   },
     {});
     Post.associate = function(models) {
-      models.Post.hasMany(models.User, {
+      models.User.hasMany(models.Comment),
+      models.Post.belongsTo(models.User, {
         foreignKey: { alloNull: false }
       });
     };

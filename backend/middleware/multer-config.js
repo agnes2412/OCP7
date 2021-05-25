@@ -1,4 +1,4 @@
-const multer = require('multer');
+/*const multer = require('multer');
 
 //Je me prépare un dictionnaire des extensions
 const MIME_TYPES = {
@@ -28,4 +28,4 @@ const storage = multer.diskStorage({
 });
 
 //J'exporte le middleware multer configuré, j'ajoute single pour signifié qu'il s'agit d'un fichier image unique
-module.exports = multer({ storage }).single('image');
+module.exports = multer({ storage }).single('image');*/

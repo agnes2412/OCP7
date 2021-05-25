@@ -1,9 +1,7 @@
---<template>
-
+<template>
   <div class="posts">
     <PostsPage />
   </div>
-  
 </template>
 
 <script>
