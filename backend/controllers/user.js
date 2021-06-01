@@ -27,13 +27,13 @@ exports.signup = (req, res, next) => {
                 statut: 0
             }
             )
-            //if (!emailRegex.test(email)) {
+                //if (!emailRegex.test(email)) {
                 //return res.status(400).json({'error': 'email non valide'})
-            //}
+                //}
                 //Renvoi d'un 201 pour une création de ressource et un message
                 .then(() => res.status(201).json({
-                message: 'Utilisateur crée !'
-            }))
+                    message: 'Utilisateur crée !'
+                }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
@@ -71,11 +71,12 @@ exports.login = (req, res, next) => {
                     res.status(200).json({
                         //Renvoi d'un objet json qui contient l'identifiant du user dans la base
                         userId: user.id,
-                        userAdmin: user.statut,
+                        userStatut: user.statut,
+                        userName: user.name,
                         //Renvoi d'un token, appel de la fonction 'sign' de jwt qui prend comme arguments les données que je veux encoder
                         token: jwt.sign(
                             //1er argument : L'objet userId sera l'identifiant user de l'utilisateur ou de l'admin
-                            { userId: user.id, userAdmin: user.statut },
+                            { userId: user.id, userStatut: user.statut, userName: user.name },
                             //2ème argument: clé secrète pour l'encodage
                             `${process.env.JWT_SECRETE_KEY}`,
                             //3ème argument de configuration avec expiration du token à 24h
@@ -97,8 +98,12 @@ exports.getAccountUser = (req, res, next) => {
 };
 
 exports.modifyAccountUser = (req, res, next) => {
-    db.User.updateOne({
-        where: { id: req.params.id }
+    db.User.save({
+        where: {
+            id: req.params.id,
+            name: req.body.name,
+            email: req.body.email
+        }
     })
         .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
@@ -113,10 +118,9 @@ exports.deleteAccountUser = (req, res, next) => {
 };
 
 
-
-/*exports.getAllUsers = (req, res, next) => {
-    //La méthode find permet de récupérer tous les users
-    User.findAll()
+exports.getAllUsers = (req, res, next) => {
+    //La méthode findAll permet de récupérer tous les users
+    db.User.findAll()
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
-};*/
+};

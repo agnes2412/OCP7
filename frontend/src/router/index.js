@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+//import store from '../../store';
 import Home from '../views/Home.vue'
 
 ///Les routes sont définies via des objets qui définissent chaque route
@@ -29,8 +30,44 @@ const routes = [
     path: '/posts',
     name: 'Posts',
 
-    component: () => import(/*webpackChunkName:"posts" */'../views/Posts.vue')
-  }
+    component: () => import(/*webpackChunkName:"posts" */'../views/Posts.vue'),
+    //meta: { requiresAuth: true }
+  },
+  {
+    path: '/onePost',
+    name: 'OnePost',
+
+    component: () => import(/*webpackChunkName:"posts" */'../views/OnePost.vue'),
+    //meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+
+    component: () => import(/*webpackChunkName:"posts" */'../views/Admin.vue'),
+    //meta: { requiresAuth: true }
+  },
+  {
+    path: '/userAccount',
+    name: 'UserAccount',
+
+    component: () => import(/*webpackChunkName:"posts" */'../views/UserAccount.vue'),
+    //meta: { requiresAuth: true }
+  },
+  {
+    path: '/createPost',
+    name: 'CreatePost',
+
+    component: () => import(/*webpackChunkName:"posts" */'../views/CreatePost.vue'),
+    //meta: { requiresAuth: true }
+  },
+  //{
+    //path: '/post/:id',
+    //name: 'OnePost',
+
+    //component: () => import(/*webpackChunkName:"posts" */'../views/OnePost.vue'),
+    //meta: { requiresAuth: true }
+ //}
 ]
 
 const router = createRouter({
@@ -38,4 +75,16 @@ const router = createRouter({
   routes
 })
 
-export default router
+//router.beforeEach((to, from, next) => {
+  //if (to.meta.requiresAuth) {
+    //if (!store.Posts) {
+     // next({
+       // name:"http://localhost:8080/#/login"
+      //})
+   // }
+ // } else {
+   // next();
+  //}
+//});
+
+export default router;

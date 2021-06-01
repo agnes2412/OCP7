@@ -14,8 +14,12 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.modifyComment = (req, res, next) => {
-    db.Comment.updateOne({
-        where: { id: req.params.id }
+    db.Comment.save({
+        where: {
+            id: req.params.id,
+            content: req.body.content,
+            statut: 0
+        }
     })
         .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
         .catch(error => res.status(400).json({ error }));
@@ -31,7 +35,11 @@ exports.deleteComment = (req, res, next) => {
 
 exports.getOneComment = (req, res, next) => {
     db.Comment.findOne({
-        where: { id: req.params.id }
+        where: { id: req.params.id },
+        include: [{
+            model: db.User,
+            attribute: ["name"]
+        }],
     })
         .then(comment => res.status(200).json(comment))
         .catch(error => res.status(400).json({ error }));
@@ -39,7 +47,13 @@ exports.getOneComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => {
     //La méthode find permet de récupérer tous les comments
-    db.Comment.findAll()
+    db.Comment.findAll({
+        where: { id: req.params.id },
+        include: [{
+            model: db.User,
+            attribute: ["name"]
+        }], order: [["createdAt", "DESC"]]
+    })
         .then(comments => res.status(200).json(comments))
         .catch(error => res.status(400).json({ error }));
 };

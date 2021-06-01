@@ -1,7 +1,9 @@
 <template>
   <nav>
-    <router-link to="/user_account">Mon compte</router-link> |
+    <span @click="userAccount()">Mon compte</span> |
     <span id="btn_disconnect" @click="disconnect()">Me déconnecter</span>
+
+    <button v-if="statut === 1">| Admin</button>
   </nav>
 </template>
 
@@ -9,19 +11,41 @@
 export default {
   name: "Header",
 
+  data() {
+    return {
+      statut: sessionStorage.getItem('userStatut'),
+    }
+  },
+  mounted() {
+console.log(this.statut);
+  },
+
   methods: {
-    disconnect() {
-      localStorage.removeItem("user");
-      window.location.href = "http://localhost:8080/#/";
+    userAccount() {
+      window.location.href = "http://localhost:8080/#/userAccount";
     },
+
+    disconnect() {
+      sessionStorage.removeItem("user");
+      window.location.href = "http://localhost:8080";
+    },
+  },
+  adminPage() {
+    window.location.href = "http://localhost:8080";
   },
 };
 </script>
 
-<style lang="scss">
-
+<style scoped>
 nav span {
-    cursor: pointer;
+  cursor: pointer;
 }
 
+nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgb(245, 239, 239);
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
 </style>

@@ -12,6 +12,7 @@ router.get('/:id',userCtrl.getAccountUser);
 router.put('/:id', userCtrl.modifyAccountUser);
 router.delete('/:id', userCtrl.deleteAccountUser);
 //Le : devant id indique à Express que ce chemin est dynamique 
+router.get('/', userCtrl.getAllUsers);
 
 //J'exporte ce routeur pour pouvoir l'importer sur app.js
 module.exports = router;

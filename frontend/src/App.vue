@@ -4,14 +4,14 @@
 
 
 <script>
-export default {
+/*export default {
   name: "App",
 data() {
     return {
-      statut: sessionStorage.getItem('userAdmin')
+      statut: sessionStorage.getItem('userStatut')
     };
   },
-}
+}*/
   
 </script>
 

@@ -12,15 +12,28 @@
 </template>
 
 <script>
+//import router from 'vue-router';
 // @ is an alias to /src
 
 export default {
   name: "Home",
   components: {},
 };
+/*router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem('token');
+    if (token) {
+        next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+        })
+    } else {
+        next()
+    }
+});*/
 </script>
 
-<style lang="scss">
+<style scoped>
+
 img {
   width: 100%;
 }
