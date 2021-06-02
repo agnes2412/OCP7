@@ -70,7 +70,6 @@ export default {
           console.log(res);
           sessionStorage.setItem("userId", res.data.userId);
           sessionStorage.setItem("userStatut", res.data.userStatut);
-          sessionStorage.setItem("userName", res.data.userName);
           console.log(res.data.userId);
           console.log(res.data.userName);
           sessionStorage.setItem("token", res.data.token);

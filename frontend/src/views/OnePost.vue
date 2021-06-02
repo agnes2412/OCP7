@@ -3,8 +3,8 @@
     <Header />
     <article>
       <h1>Laissez votre commentaire</h1>
-      <h2>{{}}</h2>
-      <div>{{}}</div>
+      <h2>{{ post.title }}</h2>
+      <div>{{ post.content }}</div>
     </article>
   </div>
 </template>
@@ -25,6 +25,9 @@ export default {
     return {
       moment: moment,
       post: [],
+      statut: sessionStorage.getItem("userStatut"), 
+      id: this.$route.params.id,
+      userId: sessionStorage.getItem('userId')
     };
   },
 
@@ -35,7 +38,7 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => console.log(res.data)); //(this.post = res.data));
+      .then((res) => console.log(res.data.id)); //(this.post = res.data));
   },
 };
 </script>

@@ -3,7 +3,7 @@
     <span @click="userAccount()">Mon compte</span> |
     <span id="btn_disconnect" @click="disconnect()">Me déconnecter</span>
 
-    <button v-if="statut === 1">| Admin</button>
+    <span v-if="statut == 1" @click="adminPage()"> | Admin</span>
   </nav>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     }
   },
   mounted() {
-console.log(this.statut);
+console.log("statut :" + this.statut);
   },
 
   methods: {
@@ -29,10 +29,11 @@ console.log(this.statut);
       sessionStorage.removeItem("user");
       window.location.href = "http://localhost:8080";
     },
+    adminPage() {
+    window.location.href = "http://localhost:8080/#/admin";
   },
-  adminPage() {
-    window.location.href = "http://localhost:8080";
   },
+  
 };
 </script>
 

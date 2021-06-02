@@ -3,14 +3,25 @@
     <Header />
     <div class="bloc-page">
       <div id="container">
-        <router-link to="/CreatePost"
-          ><div class="new_post">
-            <h3>Créer votre post</h3>
-          </div></router-link
-        >
+        <h3>Votre post</h3>
+        <div class="create_post">
+      
+      <form class="new_post" @submit.prevent="newPost()">
+        <label for="title_new_post"></label>
+        <input id="title_new_post" type="text" placeholder="Votre titre..." v-model="title" required>
+        <textarea class="content_new_post" placeholder="Votre contenu..." v-model="content"></textarea>
+        <p class="date_post">
+            Post publié le
+            {{  }} par
+            {{  }}
+          </p>
+
+        <button id="btn_new_post" type="submit">Publier votre post</button></form>
+          
+        </div>
 
         <article class="one_post" v-for="post in posts" :key="post.id">
-          <button v-if="statut === 1">Supprimer</button>
+          <button v-if="statut == 1">Supprimer</button>
           <h4 class="title_post">{{ post.title }}</h4>
           <div class="content_post">
             {{ post.content }}
@@ -47,14 +58,13 @@ export default {
     return {
       moment: moment,
       posts: [],
-      statut: sessionStorage.getItem("userStatut"),
-      name: sessionStorage.getItem("userName"),
+      statut: sessionStorage.getItem("userStatut"), 
     };
   },
 
   methods: {
     onePost() {
-      window.location.href = "http://localhost:8080/#/OnePost";
+      window.location.href = "http://localhost:8080/#/OnePost?id";
     },
     /*btnOnePost() {
     axios
@@ -96,8 +106,7 @@ nav {
   margin: auto;
 }
 
-.new_post {
-  cursor: pointer;
+.create_post {
   margin-top: 20px;
   max-height: 100px;
   background-image: url("../assets/icon.png");
@@ -109,6 +118,7 @@ nav {
   border-top: 6px solid rgb(141, 117, 117);
   padding: 5px;
   margin-bottom: 30px;
+  min-height: 230px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
