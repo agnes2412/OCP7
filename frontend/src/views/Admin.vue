@@ -8,14 +8,14 @@
       v-bind:id="user.id"
     >
       <p class="user_name">
-        {{ user.name }}<br /><button @click="showStatut()">
-          Voir le statut :
-        </button>
+        {{ user.name }}<br /><a :href='"http://localhost:8080/#/Statut/" + user.id'>
+          Voir le statut
+        </a>
       </p>
-      <div v-if="isDisplay">
+      <!--<div v-if="isDisplay">
         <div class="display_statut">
           <input
-            @click="refused()"
+            @click="refused(user.id)"
             type="radio"
             id="1"
             value="Utilisateur refusé"
@@ -25,7 +25,7 @@
           <label for="userRefused">Utilisateur refusé</label>
           <br />
           <input
-            @click="accepted()"
+            @click="accepted(user.id)"
             type="radio"
             id="userAccepted"
             value="Utilisateur accepté"
@@ -35,7 +35,7 @@
           <br />
 
           <input
-            @click="admin()"
+            @click="admin(user.id)"
             type="radio"
             id="userAdmin"
             value="Administrateur"
@@ -48,7 +48,7 @@
           <span>Statut de l'utilisateur : {{ Userstatut }}</span>
         </div>
         <button @click="hideStatut()">Cacher le statut</button>
-      </div>
+      </div>-->
     </article>
   </div>
 </template>
@@ -59,7 +59,6 @@ import Header from "@/components/Header.vue";
 const statut = sessionStorage.getItem("userStatut");
 
 export default {
-  statuts: "",
   users: "",
   name: "Admin",
   components: {
@@ -71,20 +70,23 @@ export default {
       isDisplay: false,
       Userstatut: "",
       users: [],
-      user: [],
+      user: "",
+      id: this.$route.params.id,
+      userId: sessionStorage.getItem("userId"),
+      statut: sessionStorage.getItem("userStatut"),
     };
   },
 
   methods: {
-    showStatut() {
-      this.isDisplay = true;
-    },
-    hideStatut() {
-      this.isDisplay = false;
-    },
+    //showStatut() {
+      //this.isDisplay = true;
+    //},
+    //hideStatut() {
+      //this.isDisplay = false;
+    //},
 
-    refused(toto) {
-      console.log(toto);
+    refused() {
+      console.log("statut");
       statut === 2;
     },
     accepted() {
@@ -103,6 +105,8 @@ export default {
         },
       })
       .then((res) => (this.users = res.data));
+
+   
   },
 };
 </script>

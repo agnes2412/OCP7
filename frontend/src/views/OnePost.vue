@@ -24,21 +24,21 @@ export default {
   data() {
     return {
       moment: moment,
-      post: [],
-      statut: sessionStorage.getItem("userStatut"), 
+      post: "",
       id: this.$route.params.id,
-      userId: sessionStorage.getItem('userId')
+      userId: sessionStorage.getItem('userId'),
+      statut: sessionStorage.getItem("userStatut"), 
     };
   },
 
   mounted() {
     axios
-      .get("http://localhost:3000/api/posts/:id", {
+      .get("http://localhost:3000/api/posts/" + this.id, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => console.log(res.data.id)); //(this.post = res.data));
+      .then((res) => (this.post = res.data));
   },
 };
 </script>

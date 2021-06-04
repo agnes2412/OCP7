@@ -1,6 +1,18 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 //import store from '../../store';
 import Home from '../views/Home.vue'
+//import router from 'vue-router';
+//const token = sessionStorage.getItem('token');
+
+/*router.beforeEach((to, from, next) => {
+  if (!token) {
+      next('/')
+      console.log('Not allowed here')
+  } else {
+      next('/posts')
+    }
+})*/
+
 
 ///Les routes sont définies via des objets qui définissent chaque route
 const routes = [
@@ -23,7 +35,14 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-
+    /*beforeEnter(to, from, next) {
+      const token = sessionStorage.getItem('token');
+        if (token) {
+          next('/posts');
+        } else {
+            next()
+        }
+    },*/
     component: () => import(/*webpackChunkName:"login" */'../views/Login.vue')
   },
   {
@@ -31,20 +50,27 @@ const routes = [
     name: 'Posts',
 
     component: () => import(/*webpackChunkName:"posts" */'../views/Posts.vue'),
-    //meta: { requiresAuth: true }
+  //meta: { requiresAuth: true }
   },
   {
-    path: '/onePost',
+    path: '/onePost/:id',
     name: 'OnePost',
 
     component: () => import(/*webpackChunkName:"posts" */'../views/OnePost.vue'),
     //meta: { requiresAuth: true }
   },
   {
-    path: '/admin',
+    path: '/admin/',
     name: 'Admin',
 
     component: () => import(/*webpackChunkName:"posts" */'../views/Admin.vue'),
+    //meta: { requiresAuth: true }
+  },
+  {
+    path: '/statut/:id',
+    name: 'Statut',
+
+    component: () => import(/*webpackChunkName:"posts" */'../views/Statut.vue'),
     //meta: { requiresAuth: true }
   },
   {
@@ -75,16 +101,16 @@ const router = createRouter({
   routes
 })
 
-//router.beforeEach((to, from, next) => {
-  //if (to.meta.requiresAuth) {
-    //if (!store.Posts) {
-     // next({
-       // name:"http://localhost:8080/#/login"
-      //})
-   // }
- // } else {
-   // next();
-  //}
-//});
+/*router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    if (!store.Posts) {
+      next({
+        name:"http://localhost:8080/#/posts"
+      })
+    }
+  } else {
+    next();
+  }
+});*/
 
 export default router;

@@ -38,7 +38,7 @@ exports.getOneComment = (req, res, next) => {
         where: { id: req.params.id },
         include: [{
             model: db.User,
-            attribute: ["name"]
+            attributes: ["name"]
         }],
     })
         .then(comment => res.status(200).json(comment))
@@ -51,7 +51,7 @@ exports.getAllComments = (req, res, next) => {
         where: { id: req.params.id },
         include: [{
             model: db.User,
-            attribute: ["name"]
+            attributes: ["name"]
         }], order: [["createdAt", "DESC"]]
     })
         .then(comments => res.status(200).json(comments))

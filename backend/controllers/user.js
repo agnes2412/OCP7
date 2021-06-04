@@ -117,10 +117,26 @@ exports.deleteAccountUser = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
+exports.getOneUser = (req, res, next) => {
+    db.User.findOne({
+        where: {
+            id: req.params.id,
+            statut: 0
+        },
+        include: [{
+            model: db.User,
+            attributes: ["statut"]
+        }]
+    })
+        .then(post => res.status(200).json(post))
+        .catch(error => res.status(404).json({ error }));
+};
+
 
 exports.getAllUsers = (req, res, next) => {
     //La méthode findAll permet de récupérer tous les users
-    db.User.findAll()
+    db.User.findAll({
+    })
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
 };

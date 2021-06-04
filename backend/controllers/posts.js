@@ -40,7 +40,7 @@ exports.getOnePost = (req, res, next) => {
         },
         include: [{
             model: db.User,
-            attribute: ["name"]
+            attributes: ["name"]
         }]
     })
         .then(post => res.status(200).json(post))
@@ -54,7 +54,7 @@ exports.getAllPosts = (req, res, next) => {
         },
         include: [{
             model: db.User,
-            attribute: ["name"]
+            attributes: ["name"]
         }], order: [["createdAt", "DESC"]]
     })
         .then(posts => res.status(200).json(posts))

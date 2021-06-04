@@ -5,23 +5,27 @@
       <div id="container">
         <h3>Votre post</h3>
         <div class="create_post">
-      
-      <form class="new_post" @submit.prevent="newPost()">
-        <label for="title_new_post"></label>
-        <input id="title_new_post" type="text" placeholder="Votre titre..." v-model="title" required>
-        <textarea class="content_new_post" placeholder="Votre contenu..." v-model="content"></textarea>
-        <p class="date_post">
-            Post publié le
-            {{  }} par
-            {{  }}
-          </p>
+          <form class="new_post" @submit.prevent="newPost()">
+            <label for="title_new_post"></label>
+            <input
+              id="title_new_post"
+              type="text"
+              placeholder="Votre titre..."
+              v-model="title"
+              required
+            />
+            <textarea
+              class="content_new_post"
+              placeholder="Votre contenu..."
+              v-model="content"
+            ></textarea>
 
-        <button id="btn_new_post" type="submit">Publier votre post</button></form>
-          
+            <button id="btn_new_post" type="submit">Publier votre post</button>
+          </form>
         </div>
 
         <article class="one_post" v-for="post in posts" :key="post.id">
-          <button v-if="statut == 1">Supprimer</button>
+          <button class="btn_delete" v-if="statut == 1">X</button>
           <h4 class="title_post">{{ post.title }}</h4>
           <div class="content_post">
             {{ post.content }}
@@ -29,10 +33,15 @@
           <p class="date_post">
             Post publié le
             {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par
-            {{ post.nameId }}
+            <span>
+              <!-- Je récupère le 'name'de mon model User -->
+              {{ post.User.name }}</span
+            >
           </p>
           <span class="btn_one_post"
-            ><button v-on:click="onePost()">Voir le post</button></span
+            ><a :href="'http://localhost:8080/#/onePost/' + post.id"
+              ><button>Voir le post</button></a
+            ></span
           >
         </article>
       </div>
@@ -45,7 +54,6 @@
 import axios from "axios";
 const moment = require("moment");
 import Header from "@/components/Header.vue";
-//import OnePost from "@/components/OnePost.vue";
 
 export default {
   name: "Posts",
@@ -56,28 +64,16 @@ export default {
   },
   data() {
     return {
+      title: "",
+      content: "",
+      name: "",
       moment: moment,
       posts: [],
-      statut: sessionStorage.getItem("userStatut"), 
+      users: [],
+      user: "",
+      id: this.$route.params.id,
+      statut: sessionStorage.getItem("userStatut"),
     };
-  },
-
-  methods: {
-    onePost() {
-      window.location.href = "http://localhost:8080/#/OnePost?id";
-    },
-    /*btnOnePost() {
-    axios
-      .get("http://localhost:3000/api/posts/:id", {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        location.href = "http://localhost:8080/#/posts/:id";
-      });
-  },*/
   },
 
   mounted() {
@@ -88,7 +84,14 @@ export default {
         },
       })
       .then((res) => (this.posts = res.data));
-      axios
+
+    axios
+      .get("http://localhost:3000/api/auth/", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => console.log(res)); //(this.users = res.data.name));
   },
 };
 </script>
@@ -156,6 +159,12 @@ article {
 p {
   font-size: 0.8em;
   text-align: left;
+}
+
+.btn_delete {
+  margin-top: 10px;
+  color: #f4330d;
+  font-weight: bold;
 }
 
 button {

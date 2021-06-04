@@ -40,8 +40,6 @@
 // @ is an alias to /src
 import axios from "axios";
 //import router from 'vue-router';
-//import LoginPage from "@/components/LoginPage.vue";
-//import PostsPage from "@components/PostsPage.vue";
 
 export default {
   name: "Login",
