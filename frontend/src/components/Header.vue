@@ -1,10 +1,10 @@
 <template>
   <nav>
     <!-- <span @click="userAccount()">Mon compte</span> |
-  <span id="btn_disconnect" @click="disconnect()">Me déconnecter</span>
+  
   <span v-if="statut == 1" @click="adminPage()"> | Admin</span>-->
 
-    <span id="btn_disconnect"
+    <span @click="disconnect()"
       ><a :href="'http://localhost:8080'">Me déconnecter </a></span
     >
     <span
@@ -31,17 +31,8 @@ export default {
   },
 
   methods: {
-    //userAccount() {
-    //window.location.href = "http://localhost:8080/#/userAccount";
-    //},
-
-    //disconnect() {
-    // sessionStorage.removeItem("user");
-    // window.location.href = "http://localhost:8080";
-    //},
-
-    adminPage() {
-      window.location.href = "http://localhost:8080/#/admin";
+    disconnect() {
+      sessionStorage.clear();
     },
   },
 };
@@ -53,11 +44,11 @@ nav span {
 }
 
 nav {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   background-color: rgb(245, 239, 239);
   margin-top: 5px;
   margin-bottom: 20px;
-  box-shadow:  0px 6px 3px rgba(29, 28, 28, 0.6);
+  box-shadow: 0px 6px 3px rgba(29, 28, 28, 0.6);
 }
 </style>

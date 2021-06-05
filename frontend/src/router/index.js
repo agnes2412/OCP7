@@ -57,6 +57,7 @@ const routes = [
     name: 'OnePost',
 
     component: () => import(/*webpackChunkName:"posts" */'../views/OnePost.vue'),
+    props: true,
     //meta: { requiresAuth: true }
   },
   {

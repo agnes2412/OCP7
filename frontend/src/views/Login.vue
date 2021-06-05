@@ -47,10 +47,10 @@ export default {
   },
   data() {
     return {
-      name: "",
       email: "",
       password: "",
-      msg: "Bienvenue, vous pouvez vous connecter !"
+      msg: "Bienvenue, vous pouvez vous connecter !",
+      statut: sessionStorage.getItem("userStatut"),
     };
   },
 
@@ -60,7 +60,6 @@ export default {
       //this.$router.push("posts");
       axios
         .post("http://localhost:3000/api/auth/login", {
-          name: this.name,
           email: this.email,
           password: this.password
         })
@@ -85,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+
+h2 {
+  font-size: 1em;
+}
 .bloc-page {
   background-color: #f4330d;
   opacity: 0.7;

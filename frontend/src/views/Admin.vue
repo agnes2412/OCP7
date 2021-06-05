@@ -1,17 +1,23 @@
 <template>
   <div class="statut">
     <Header />
+    <p class="return">
+    <i class="fas fa-long-arrow-alt-left"></i>
+      <a :href="'http://localhost:8080/#/posts/'">Retour</a></p>
     <article
       class="one_post"
       v-for="user in users"
       :key="user.id"
       v-bind:id="user.id"
     >
-      <p class="user_name">
-        {{ user.name }}<br /><a :href='"http://localhost:8080/#/Statut/" + user.id'>
-          Voir le statut
-        </a>
-      </p>
+      <p class="user_name">Nom de l'utilisateur : 
+        {{ user.name }}</p>
+        <p class="display_statut"
+          ><a :href="'http://localhost:8080/#/Statut/' + user.id">
+            Voir le statut
+          </a></p
+        >
+
       <!--<div v-if="isDisplay">
         <div class="display_statut">
           <input
@@ -67,7 +73,7 @@ export default {
 
   data() {
     return {
-      isDisplay: false,
+      //isDisplay: false,
       Userstatut: "",
       users: [],
       user: "",
@@ -79,10 +85,10 @@ export default {
 
   methods: {
     //showStatut() {
-      //this.isDisplay = true;
+    //this.isDisplay = true;
     //},
     //hideStatut() {
-      //this.isDisplay = false;
+    //this.isDisplay = false;
     //},
 
     refused() {
@@ -105,15 +111,39 @@ export default {
         },
       })
       .then((res) => (this.users = res.data));
-
-   
   },
 };
 </script>
 
 <style scoped>
+
+.return {
+  text-align: right;
+  margin-right: 20px;;
+}
+
+article {
+  background-image: url("../assets/icon.png");
+  background-repeat: no-repeat;
+  background-position: top-left;
+  background-size: 60px;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-top: 6px solid rgb(141, 117, 117);
+  min-height: 100px;
+  max-width: 600px;
+  margin: auto;
+  padding: 5px;
+  margin-bottom: 30px;
+  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+}
 .user_name {
-  text-align: left;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.display_statut {
+  text-align: center;
 }
 </style>
 

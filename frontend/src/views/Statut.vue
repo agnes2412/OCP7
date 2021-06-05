@@ -1,46 +1,47 @@
 <template>
   <div class="statut">
     <Header />
+<p class="return">
+    <i class="fas fa-long-arrow-alt-left"></i>
+      <a :href="'http://localhost:8080/#/Admin/'">Retour</a></p>
+
     <article class="statut_post">
       <p class="user_name">{{ user.name }}<br /></p>
 
       <div class="display_statut">
         <input
-          @click="refused(user.id)"
+          @click="refused()"
           type="radio"
           id="1"
           value="Utilisateur refusé"
-          v-model="Userstatut"
+          v-model="user.statut"
         />
 
         <label for="userRefused">Utilisateur refusé</label>
       </div>
       <div class="display_statut">
         <input
-          @click="accepted(user.id)"
+          @click="accepted()"
           type="radio"
           id="userAccepted"
           value="Utilisateur accepté"
-          v-model="Userstatut"
+          v-model="user.statut"
         />
         <label for="userAccepted">Utilisateur accepté</label>
       </div>
 
       <div class="display_statut">
         <input
-          @click="admin(user.id)"
+          @click="admin()"
           type="radio"
           id="userAdmin"
           value="Administrateur"
-          v-model="Userstatut"
+          v-model="user.statut"
         />
         <label for="userAdmin">Administrateur</label>
       </div>
 
-      <div class="statut_user">Statut de l'utilisateur : {{ Userstatut }}</div>
-
-      <i class="fas fa-long-arrow-alt-left"></i>
-      <a :href="'http://localhost:8080/#/Admin/'">Retour</a>
+      <div class="statut_user">Statut de l'utilisateur {{ user.name }} : {{ user.statut }}</div>
     </article>
   </div>
 </template>
@@ -50,6 +51,9 @@
 import axios from "axios";
 import Header from "@/components/Header.vue";
 const statut = sessionStorage.getItem("userStatut");
+//const userAccepted = 0;
+//const userRefused = 2;
+//const userAdmin = 1;
 
 export default {
   user: "",
@@ -60,10 +64,9 @@ export default {
 
   data() {
     return {
-      isDisplay: false,
-      Userstatut: "",
+      Userstatut: [],
       users: [],
-      user: "",
+      user: [],
       id: this.$route.params.id,
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
@@ -71,19 +74,10 @@ export default {
   },
 
   methods: {
-    //showStatut() {
-    //this.isDisplay = true;
-    //},
-    //hideStatut() {
-    //this.isDisplay = false;
-    //},
-
     refused() {
-      console.log(statut);
       statut === 2;
     },
     accepted() {
-      console.log(statut);
       statut === 0;
     },
     admin() {
@@ -98,15 +92,46 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => (this.user = res.data)); //console.log(res));//
+      .then((res) => (this.user = res.data)); //console.log(res.data.statut));//
   },
 };
 </script>
 
 <style scoped>
+
+.user_name{
+  text-align: left;
+  margin-left: 15%;
+  padding-bottom: 10px;
+  margin-bottom: 35px;
+  border-bottom: 1px solid #f4330d;
+
+}
+
+article {
+  background-image: url("../assets/icon.png");
+  background-repeat: no-repeat;
+  background-position: top-left;
+  background-size: 60px;
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-top: 6px solid rgb(141, 117, 117);
+  min-height: 230px;
+  max-width: 600px;
+  margin: auto;
+  padding: 5px;
+  margin-bottom: 30px;
+  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+}
+
+
+.return {
+  text-align: right;
+  margin-right: 20px;;
+}
 .display_statut {
   display: flex;
-  margin-left: 30px;
+  margin-left: 25%;
   margin-bottom: 20px;
 }
 
@@ -115,11 +140,11 @@ label {
 }
 
 .statut_user {
-  margin-top: 30px;
-  margin-left: 30px;
-  margin-bottom: 50px;
+  margin-top: 50px;
+  margin-left: 15%;
+  margin-bottom: 20px;
+  border-top: 1px solid #f4330d;
+  padding-top: 10px;
   text-align: left;
 }
-
-
 </style>

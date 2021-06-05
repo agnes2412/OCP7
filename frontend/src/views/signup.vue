@@ -23,6 +23,7 @@
             type="email"
             placeholder="Votre email"
             v-model="email"
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
             required
           />
 
@@ -46,7 +47,7 @@
 <script>
 import axios from "axios";
 // @ is an alias to /src
-//import SignupPage from '@/components/SignupPage.vue';
+
 export default {
   name: "Signup",
   components: {
@@ -61,6 +62,7 @@ export default {
   },
 
   methods: {
+    
     signup() {
       axios
         .post(
@@ -77,7 +79,7 @@ export default {
           }
         )
         .then(() => {
-          alert("Votre compte est crée !");
+          console.log("Votre compte est crée !");
           location.href = "http://localhost:8080/#/login";
         })
         .catch((error) => {

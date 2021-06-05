@@ -3,29 +3,12 @@
     <Header />
     <div class="bloc-page">
       <div id="container">
-        <h3>Votre post</h3>
         <div class="create_post">
-          <form class="new_post" @submit.prevent="newPost()">
-            <label for="title_new_post"></label>
-            <input
-              id="title_new_post"
-              type="text"
-              placeholder="Votre titre..."
-              v-model="title"
-              required
-            />
-            <textarea
-              class="content_new_post"
-              placeholder="Votre contenu..."
-              v-model="content"
-            ></textarea>
-
-            <button id="btn_new_post" type="submit">Publier votre post</button>
-          </form>
+          <div id="btn_new_post" type="submit"><a :href="'http://localhost:8080/#/createPost/'">Créer votre post</a></div>
         </div>
 
         <article class="one_post" v-for="post in posts" :key="post.id">
-          <button class="btn_delete" v-if="statut == 1">X</button>
+          <button class="btn_delete" v-if="statut == 1 || userId === post.User.id">X</button>
           <h4 class="title_post">{{ post.title }}</h4>
           <div class="content_post">
             {{ post.content }}
@@ -70,9 +53,9 @@ export default {
       moment: moment,
       posts: [],
       users: [],
-      user: "",
       id: this.$route.params.id,
       statut: sessionStorage.getItem("userStatut"),
+      userId: sessionStorage.getItem("userId")
     };
   },
 
@@ -112,26 +95,21 @@ nav {
 .create_post {
   margin-top: 20px;
   max-height: 100px;
-  background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
   background-size: 60px;
   background-color: white;
   border: 1px solid lightgrey;
   border-top: 6px solid rgb(141, 117, 117);
-  padding: 5px;
+  padding-top: 20px;
   margin-bottom: 30px;
-  min-height: 230px;
+  min-height: 50px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
-h3 {
-  transition-duration: 0.4s;
-}
-
-h3:hover {
-  color: #f4330d;
-  font-size: 1.2em;
+#btn_new_post {
+  cursor: pointer;
+  text-align: center;
 }
 
 article {
@@ -172,10 +150,9 @@ button {
   border: 2px solid rgb(141, 117, 117);
   background-color: white;
   border-radius: 10px;
-  position: relative;
   float: right;
   margin-top: -35px;
-  transition-duration: 0.4s;
+  transition-duration: 0.6s;
   font-size: 0.9em;
 }
 
