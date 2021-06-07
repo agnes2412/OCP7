@@ -3,9 +3,11 @@ const db = require('../models');
 
 exports.createPost = (req, res, next) => {
     db.Post.create({
+        //Je renseigne la clé étrangère(id de l'utilisateur)pour le champ UserId de la table post
+        UserId: req.user.id,
         title: req.body.title,
         content: req.body.content,
-        statut: 0
+        statut: 0,
     })
         .then(() => res.status(201).json({ message: 'Post créé !' }))
         .catch(error => res.status(400).json({ error }));

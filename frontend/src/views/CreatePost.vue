@@ -50,10 +50,11 @@ export default {
     newPost() {
       axios
         .post(
-          "http://localhost:3000/api/posts",
+          "http://localhost:3000/api/posts/",
           {
             title: this.title,
             content: this.content,
+            userId: this.UserId
           },
           {
             headers: {

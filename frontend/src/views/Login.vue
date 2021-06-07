@@ -39,12 +39,12 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
+//const statut = sessionStorage.getItem("userStatut");
 //import router from 'vue-router';
 
 export default {
   name: "Login",
-  components: {
-  },
+  components: {},
   data() {
     return {
       email: "",
@@ -58,11 +58,13 @@ export default {
     login() {
       //store.posts = this.name;
       //this.$router.push("posts");
+      //if (statut == 1 || statut == 0) {
       axios
         .post("http://localhost:3000/api/auth/login", {
           email: this.email,
-          password: this.password
+          password: this.password,
         })
+
         .then((res) => {
           console.log(res);
           sessionStorage.setItem("userId", res.data.userId);
@@ -78,13 +80,13 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+     // }
     },
   },
 };
 </script>
 
 <style scoped>
-
 h2 {
   font-size: 1em;
 }

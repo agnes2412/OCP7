@@ -12,8 +12,7 @@
         {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par {{  }}
         <span>
           <!-- Je récupère le 'name'de mon model User -->
-          {{
-        }}</span>
+          {{  }}</span>
       </p>
     </article>
 
@@ -59,6 +58,7 @@ export default {
     return {
       content: "",
       moment: moment,
+      users: [],
       post: "",
       name: "",
       comments: [],
@@ -70,10 +70,10 @@ export default {
 
     methods: {
     newcomment() {
-      console.log(this.content);
+      console.log();
       axios
         .post(
-          "http://localhost:3000/api/comment",
+          "http://localhost:3000/api/comment/",
           {
             content: this.content,
           },
@@ -88,6 +88,14 @@ export default {
   },
 
   mounted() {
+    axios
+      .get("http://localhost:3000/api/comment/", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => (this.comments = res.data));//console.log(res));
+
     axios
       .get("http://localhost:3000/api/posts/" + this.id, {
         headers: {

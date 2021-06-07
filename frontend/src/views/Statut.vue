@@ -1,20 +1,23 @@
 <template>
   <div class="statut">
     <Header />
-<p class="return">
-    <i class="fas fa-long-arrow-alt-left"></i>
-      <a :href="'http://localhost:8080/#/Admin/'">Retour</a></p>
+    <p class="return">
+      <i class="fas fa-long-arrow-alt-left"></i>
+      <a :href="'http://localhost:8080/#/Admin/'">Retour</a>
+    </p>
 
     <article class="statut_post">
       <p class="user_name">{{ user.name }}<br /></p>
 
       <div class="display_statut">
         <input
-          @click="refused()"
+          @click="refused()" 
+          name="statut"
           type="radio"
-          id="1"
+          id="userRefused"
           value="Utilisateur refusé"
-          v-model="user.statut"
+          v-model="userStatut"
+          :checked="user.statut == 2"
         />
 
         <label for="userRefused">Utilisateur refusé</label>
@@ -22,10 +25,12 @@
       <div class="display_statut">
         <input
           @click="accepted()"
+          name="statut"
           type="radio"
           id="userAccepted"
           value="Utilisateur accepté"
-          v-model="user.statut"
+          v-model="userStatut"
+          :checked="user.statut == 0"
         />
         <label for="userAccepted">Utilisateur accepté</label>
       </div>
@@ -33,15 +38,19 @@
       <div class="display_statut">
         <input
           @click="admin()"
+          name="statut"
           type="radio"
           id="userAdmin"
           value="Administrateur"
-          v-model="user.statut"
+          v-model="userStatut"
+          :checked="user.statut == 1"
         />
         <label for="userAdmin">Administrateur</label>
       </div>
 
-      <div class="statut_user">Statut de l'utilisateur {{ user.name }} : {{ user.statut }}</div>
+      <div class="statut_user">
+        Statut de l'utilisateur {{ user.name }} : {{ userStatut }}
+      </div>
     </article>
   </div>
 </template>
@@ -64,8 +73,6 @@ export default {
 
   data() {
     return {
-      Userstatut: [],
-      users: [],
       user: [],
       id: this.$route.params.id,
       userId: sessionStorage.getItem("userId"),
@@ -75,13 +82,13 @@ export default {
 
   methods: {
     refused() {
-      statut === 2;
+      statut == 2;
     },
     accepted() {
-      statut === 0;
+      statut == 0;
     },
     admin() {
-      statut === 1;
+      statut == 1;
     },
   },
 
@@ -98,14 +105,12 @@ export default {
 </script>
 
 <style scoped>
-
-.user_name{
+.user_name {
   text-align: left;
   margin-left: 15%;
   padding-bottom: 10px;
   margin-bottom: 35px;
   border-bottom: 1px solid #f4330d;
-
 }
 
 article {
@@ -124,10 +129,9 @@ article {
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
-
 .return {
   text-align: right;
-  margin-right: 20px;;
+  margin-right: 20px;
 }
 .display_statut {
   display: flex;

@@ -4,11 +4,21 @@
     <div class="bloc-page">
       <div id="container">
         <div class="create_post">
-          <div id="btn_new_post" type="submit"><a :href="'http://localhost:8080/#/createPost/'">Créer votre post</a></div>
+          <div id="btn_new_post" type="submit">
+            <a :href="'http://localhost:8080/#/createPost/'"
+              >Créer votre post</a
+            >
+          </div>
         </div>
 
         <article class="one_post" v-for="post in posts" :key="post.id">
-          <button class="btn_delete" v-if="statut == 1 || userId === post.User.id">X</button>
+          <button
+            class="btn_delete"
+            v-if="statut == 1 || userId === post.userId"
+            @click="deletePost()"
+          >
+            X
+          </button>
           <h4 class="title_post">{{ post.title }}</h4>
           <div class="content_post">
             {{ post.content }}
@@ -49,14 +59,27 @@ export default {
     return {
       title: "",
       content: "",
-      name: "",
+     // name: "",
       moment: moment,
+      //post: [],
       posts: [],
-      users: [],
+      //users: [],
       id: this.$route.params.id,
       statut: sessionStorage.getItem("userStatut"),
-      userId: sessionStorage.getItem("userId")
+      userId: sessionStorage.getItem("userId"),
     };
+  },
+
+  methods: {
+    deletePost() {
+      axios
+        .delete("http://localhost:3000/api/posts/" + this.post.id, {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        })
+        .then((res) => console.log(res)); //(this.users = res.data.name));
+    },
   },
 
   mounted() {

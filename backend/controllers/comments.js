@@ -3,9 +3,11 @@ const db = require('../models');
 
 exports.createComment = (req, res, next) => {
     db.Comment.create({
+        //Je renseigne la clé étrangère(id de l'utilisateur et du post) pour le champ UserId et PostId de la table comment
+        UserId: req.user.id,
+        PostId: req.params.id,
         content: req.body.content,
-        statut: 0,
-        //UserId: req.body.UserId,
+        statut: 0
     })
         //Même si la requête aboutit, je renvoie une réponse au frontend sinon expiration de la requête
         .then(() => res.status(201).json({ message: 'Commentaire créé !' }))
@@ -48,7 +50,10 @@ exports.getOneComment = (req, res, next) => {
 exports.getAllComments = (req, res, next) => {
     //La méthode find permet de récupérer tous les comments
     db.Comment.findAll({
-        where: { id: req.params.id },
+        where: {
+            //id: req.params.id,
+            statut: 0
+        },
         include: [{
             model: db.User,
             attributes: ["name"]

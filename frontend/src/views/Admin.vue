@@ -62,7 +62,7 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
-const statut = sessionStorage.getItem("userStatut");
+//const statut = sessionStorage.getItem("userStatut");
 
 export default {
   users: "",
@@ -83,25 +83,24 @@ export default {
     };
   },
 
-  methods: {
+  //methods: {
     //showStatut() {
     //this.isDisplay = true;
     //},
     //hideStatut() {
     //this.isDisplay = false;
     //},
-
-    refused() {
-      console.log("statut");
-      statut === 2;
-    },
-    accepted() {
-      statut === 0;
-    },
-    admin() {
-      statut === 1;
-    },
-  },
+    //refused() {
+     // console.log("statut");
+     // statut == 2;
+    //},
+    //accepted() {
+      //statut == 0;
+   // },
+    //admin() {
+      //statut == 1;
+   // },
+ //},
 
   mounted() {
     axios
