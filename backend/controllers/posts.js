@@ -43,8 +43,6 @@ exports.getOnePost = (req, res, next) => {
         include: [{
             model: db.User,
             attributes: ["name"],
-            //model: db.Comment,
-            //attributes: ["content"]
         }]
     })
         .then(post => res.status(200).json(post))

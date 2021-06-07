@@ -37,7 +37,9 @@ exports.deleteComment = (req, res, next) => {
 
 exports.getOneComment = (req, res, next) => {
     db.Comment.findOne({
-        where: { id: req.params.id },
+        where: {
+            id: req.params.id,
+        },
         include: [{
             model: db.User,
             attributes: ["name"]
@@ -48,11 +50,11 @@ exports.getOneComment = (req, res, next) => {
 };
 
 exports.getAllComments = (req, res, next) => {
-    //La méthode find permet de récupérer tous les comments
     db.Comment.findAll({
         where: {
-            //id: req.params.id,
-            statut: 0
+            //Permet de récupérer les commentaires pour chancun des posts
+            PostId: req.params.id,
+            //statut: 0
         },
         include: [{
             model: db.User,

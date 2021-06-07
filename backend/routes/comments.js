@@ -12,8 +12,9 @@ router.post('/', auth, commentsCtrl.createComment);
 router.put('/:id', auth, commentsCtrl.modifyComment);
 router.delete('/:id', auth, commentsCtrl.deleteComment);
 //Le : devant id indique à Express que ce chemin est dynamique 
-//router.get('/:id', auth, commentsCtrl.getOneComment);
-router.get('/', auth, commentsCtrl.getAllComments);
+router.get('/:id', auth, commentsCtrl.getOneComment);
+//:id ici permet aux controller de récupérer les commentaires pour chacun des posts 
+router.get('/:id', auth, commentsCtrl.getAllComments);
 
 //Je réexporte le routeur
 module.exports = router;
