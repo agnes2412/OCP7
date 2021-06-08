@@ -73,7 +73,7 @@ export default {
   methods: {
     deletePost() {
       axios
-        .delete("http://localhost:3000/api/posts/" + this.post.id, {
+        .delete("http://localhost:3000/api/posts/" + this.id, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },

@@ -2,42 +2,47 @@
   <div class="one_post">
     <Header />
     <div class="container_one_post">
-    <article>
-      <h3>{{ post.title }}</h3>
-      <div class="content_post">
-        {{ post.content }}
-      </div>
-      <p class="date_post">
-        Post publié le
-        {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par 
-        <span>
-          <!-- Je récupère le 'name'de mon model User -->
-          {{ }}</span>
+      <p class="return">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
-    </article>
+      <article>
+        <h3>{{ post.title }}</h3>
+        <div class="content_post">
+          {{ post.content }}
+        </div>
+        <p class="date_post">
+          Post publié le
+          {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par {{  }}
+          <span>
+            <!-- Je récupère le 'name'de mon model User -->
+            {{
+          }}</span>
+        </p>
+      </article>
 
-    <div class="one_comment" v-for="comment in comments" :key="comment.id">
-      <button class="btn_delete" v-if="statut == 1">X</button>
-      <div class="content_comment">
-        {{ comment.User.name }} <br>
-        {{ comment.content }}  
+      <div class="one_comment" v-for="comment in comments" :key="comment.id">
+        <button class="btn_delete" v-if="statut == 1 || userId == comment.UserId">X</button>
+        <div class="content_comment">
+          {{ comment.User.name }} <br />
+          {{ comment.content }}
+        </div>
       </div>
-    </div>
 
-    <div class="container_new_comment">
-      <h4>Laissez votre commentaire</h4>
-      <form class="new_comment" @submit.prevent="newComment()">
-        <textarea
-          id="content_new_comment"
-          placeholder="Votre commentaire..."
-          v-model="content"
-        ></textarea>
+      <div class="container_new_comment">
+        <h4>Laissez votre commentaire</h4>
+        <form class="new_comment" @submit.prevent="newComment()">
+          <textarea
+            id="content_new_comment"
+            placeholder="Votre commentaire..."
+            v-model="content"
+          ></textarea>
 
-        <button id="btn_new_comment" type="submit">
-          Publier votre commentaire
-        </button>
-      </form>
-    </div>
+          <button id="btn_new_comment" type="submit">
+            Publier votre commentaire
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -61,19 +66,22 @@ export default {
       users: [],
       post: "",
       comments: [],
+      //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
 
-    methods: {
-    newcomment() {
+  methods: {
+    newComment() {
       axios
         .post(
           "http://localhost:3000/api/comment/",
           {
             content: this.content,
+            UserId: this.userId,
+            PostId: this.id,
           },
           {
             headers: {
@@ -92,7 +100,7 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => (this.comments = res.data));//console.log(res));
+      .then((res) => (this.comments = res.data)); //console.log(res));
 
     axios
       .get("http://localhost:3000/api/posts/" + this.id, {
@@ -101,29 +109,25 @@ export default {
         },
       })
       .then((res) => (this.post = res.data));
-
-    axios
-      .get("http://localhost:3000/api/auth/", {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      })
-      .then((res) => console.log(res)); //(this.users = res.data.name));
   },
 };
 </script>
 
 <style scoped>
-
 .container_one_post {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   max-width: 600px;
   margin: auto;
+}
 
+.return {
+  text-align: right;
+  margin-right: 20px;;
 }
 article {
+  margin-top: 50px;
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
@@ -157,7 +161,14 @@ form {
   flex-direction: column;
   min-height: 150px;
   padding: 5px;
-  
+}
+
+.btn_delete {
+  margin-right: 10px;
+  margin-top: 10px;
+  color: #f4330d;
+  font-weight: bold;
+  width: 30px;
 }
 
 textarea {

@@ -4,8 +4,8 @@ const db = require('../models');
 exports.createComment = (req, res, next) => {
     db.Comment.create({
         //Je renseigne la clé étrangère(id de l'utilisateur et du post) pour le champ UserId et PostId de la table comment
-        UserId: req.user.id,
-        PostId: req.params.id,
+        UserId: req.body.UserId,
+        PostId: req.body.PostId,
         content: req.body.content,
         statut: 0
     })
@@ -16,7 +16,7 @@ exports.createComment = (req, res, next) => {
 };
 
 exports.modifyComment = (req, res, next) => {
-    db.Comment.save({
+    db.Comment.update({
         where: {
             id: req.params.id,
             content: req.body.content,

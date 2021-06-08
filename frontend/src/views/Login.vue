@@ -58,28 +58,30 @@ export default {
     login() {
       //store.posts = this.name;
       //this.$router.push("posts");
-      //if (statut == 1 || statut == 0) {
-      axios
-        .post("http://localhost:3000/api/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
+      //if (!statut == 1 || !statut == 0) {
+        //alert("Vous n'êtes pas autorisé !");
+     // } else {
+        axios
+          .post("http://localhost:3000/api/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
 
-        .then((res) => {
-          console.log(res);
-          sessionStorage.setItem("userId", res.data.userId);
-          sessionStorage.setItem("userStatut", res.data.userStatut);
-          console.log(res.data.userId);
-          console.log(res.data.userName);
-          sessionStorage.setItem("token", res.data.token);
-          console.log(res.data.token);
-          console.log(res.data.userStatut);
-          //this.$router.push("/users/groupomania");
-          location.href = "http://localhost:8080/#/posts";
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+          .then((res) => {
+            console.log(res);
+            sessionStorage.setItem("userId", res.data.userId);
+            sessionStorage.setItem("userStatut", res.data.userStatut);
+            console.log(res.data.userId);
+            console.log(res.data.userName);
+            sessionStorage.setItem("token", res.data.token);
+            console.log(res.data.token);
+            console.log(res.data.userStatut);
+            //this.$router.push("/users/groupomania");
+            location.href = "http://localhost:8080/#/posts";
+          })
+          .catch((error) => {
+            console.log(error);
+          });
      // }
     },
   },

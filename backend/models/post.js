@@ -8,8 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   },
     {});
     Post.associate = function(models) {
-      //models.User.hasMany(models.Comment),
+      //models.Post va fournir une clé étrangère à models.comment
       models.Post.hasMany(models.Comment),
+      //models.Post va recevoir une clé étrangère de models.User
       models.Post.belongsTo(models.User, {
         onDelete: 'cascade',
         foreignKey: { alloNull: false }

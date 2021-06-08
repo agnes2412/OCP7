@@ -98,7 +98,7 @@ exports.getAccountUser = (req, res, next) => {
 };
 
 exports.modifyAccountUser = (req, res, next) => {
-    db.User.save({
+    db.User.update({
         where: {
             id: req.params.id,
             name: req.body.name,
@@ -114,6 +114,22 @@ exports.deleteAccountUser = (req, res, next) => {
         where: { id: req.params.id },
     })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.modifyStatutUser = (req, res, next) => {
+    console.log(req.body);
+    console.log(req.params.id);
+    db.User.update({
+        statut: req.body.statut
+    },
+        {
+            where: {
+                //Je récupère l'objet de l'id passé dans l'url du PUT
+                id: req.params.id,
+            }
+        })
+        .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
@@ -134,7 +150,6 @@ exports.getOneUser = (req, res, next) => {
 
 
 exports.getAllUsers = (req, res, next) => {
-    //La méthode findAll permet de récupérer tous les users
     db.User.findAll({
     })
         .then(users => res.status(200).json(users))

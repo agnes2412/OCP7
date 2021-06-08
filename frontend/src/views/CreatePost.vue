@@ -2,6 +2,10 @@
   <div class="create_post">
     <Header />
     <div class="container_new_post">
+      <p class="return">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <a :href="'http://localhost:8080/#/posts/'">Retour</a>
+      </p>
       <article>
         <h3>Votre post</h3>
         <form class="new_post" @submit.prevent="newPost()">
@@ -38,10 +42,10 @@ export default {
 
   data() {
     return {
-      posts:[],
+      posts: [],
       title: "",
       content: "",
-      id: "",
+      //id: "",
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
@@ -52,9 +56,11 @@ export default {
         .post(
           "http://localhost:3000/api/posts/",
           {
+            //Je récupère le titre et le contenu du post
             title: this.title,
             content: this.content,
-            userId: this.UserId
+            //Je fournis la clé étrangère associé au post (renseignée dans le controlleur posts create.post)
+            user: this.userId,
           },
           {
             headers: {
@@ -69,12 +75,16 @@ export default {
 </script>
 
 <style scoped>
+.return {
+  text-align: right;
+  margin-right: 20px;
+}
 .container_new_post {
   max-width: 600px;
   margin: auto;
 }
 article {
-  margin-top: 20px;
+  margin-top: 50px;
   max-height: 100px;
   background-repeat: no-repeat;
   background-position: top-left;
@@ -83,7 +93,7 @@ article {
   border: 1px solid lightgrey;
   border-top: 6px solid rgb(141, 117, 117);
   padding: 5px;
-  margin-top: 100px;
+
   min-height: 300px;
 
   box-shadow: 5px 10px 10px rgb(141, 117, 117);

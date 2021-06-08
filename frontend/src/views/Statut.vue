@@ -11,7 +11,7 @@
 
       <div class="display_statut">
         <input
-          @click="refused()" 
+          @click="refused()"
           name="statut"
           type="radio"
           id="userRefused"
@@ -49,7 +49,7 @@
       </div>
 
       <div class="statut_user">
-        Statut de l'utilisateur {{ user.name }} : {{ userStatut }}
+        Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
       </div>
     </article>
   </div>
@@ -59,10 +59,7 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
-const statut = sessionStorage.getItem("userStatut");
-//const userAccepted = 0;
-//const userRefused = 2;
-//const userAdmin = 1;
+//const statut = sessionStorage.getItem("userStatut");
 
 export default {
   user: "",
@@ -73,6 +70,7 @@ export default {
 
   data() {
     return {
+      userStatut: "",
       user: [],
       id: this.$route.params.id,
       userId: sessionStorage.getItem("userId"),
@@ -82,13 +80,34 @@ export default {
 
   methods: {
     refused() {
-      statut == 2;
+      //console.log(statut);
+      //Je mets la valeur 2 dans le userStatut qui sera refusé
+      this.userStatut = 2;
+      //J'appelle la fonction pour mettre à jour la base de données
+      this.modify();
     },
     accepted() {
-      statut == 0;
+      //console.log(statut);
+      //Je mets la valeur 2 pour le userStatut qui sera accepté
+      this.userStatut = 0;
+      this.modify();
     },
     admin() {
-      statut == 1;
+      //console.log(statut);
+      //Je mets la valeur 2 pour le userStatut qui sera admin
+      this.userStatut = 1;
+      this.modify();
+    },
+    modify() {
+      axios
+        .put("http://localhost:3000/api/auth/moderate/" + this.id, {
+          statut: this.userStatut,
+
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        })
+        .then((res) => (this.user = res.data)); //console.log(res);
     },
   },
 
