@@ -4,18 +4,19 @@
     <div class="bloc-page">
       <div id="container">
         <div class="create_post">
-          <div id="btn_new_post" type="submit">
+          <h2>
             <a :href="'http://localhost:8080/#/createPost/'"
               >Créer votre post</a
             >
-          </div>
+          </h2>
         </div>
 
+        <!--post.id est la valeur actuelle passée en argument dans l'écouteur d'évènement qui apelle la fonction "deletePost()-->
         <article class="one_post" v-for="post in posts" :key="post.id">
           <button
-            class="btn_delete"
-            v-if="statut == 1 || userId === post.userId"
-            @click="deletePost()"
+            class="btn_delete_post"
+            v-if="statut == 1 || userId == post.UserId"
+            @click="deletePost(post.id)"
           >
             X
           </button>
@@ -31,9 +32,9 @@
               {{ post.User.name }}</span
             >
           </p>
-          <span class="btn_one_post"
+          <span
             ><a :href="'http://localhost:8080/#/onePost/' + post.id"
-              ><button>Voir le post</button></a
+              ><button class="btn_one_post">Voir le post</button></a
             ></span
           >
         </article>
@@ -59,9 +60,8 @@ export default {
     return {
       title: "",
       content: "",
-     // name: "",
+      // name: "",
       moment: moment,
-      //post: [],
       posts: [],
       //users: [],
       id: this.$route.params.id,
@@ -71,14 +71,16 @@ export default {
   },
 
   methods: {
-    deletePost() {
+    //Le paramètre postId est le placeholder 
+    deletePost(postId) {
       axios
-        .delete("http://localhost:3000/api/posts/" + this.id, {
+        .delete("http://localhost:3000/api/posts/" + postId, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
-        .then((res) => console.log(res)); //(this.users = res.data.name));
+        .then((res) => console.log(res)); 
+        window.location.reload()
     },
   },
 
@@ -121,18 +123,20 @@ nav {
   background-repeat: no-repeat;
   background-position: top-left;
   background-size: 60px;
-  background-color: white;
-  border: 1px solid lightgrey;
-  border-top: 6px solid rgb(141, 117, 117);
-  padding-top: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   min-height: 50px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  border: 2px solid rgb(141, 117, 117);
+  border-radius: 10px;
+  margin-top: 20px;
+  transition-duration: 0.6s;
+  font-size: 0.9em;
 }
 
-#btn_new_post {
-  cursor: pointer;
-  text-align: center;
+.create_post:hover {
+  background-color: rgb(224, 161, 161);
+  box-shadow: none;
+  border: 2px solid rgb(224, 161, 161);
 }
 
 article {
@@ -162,10 +166,25 @@ p {
   text-align: left;
 }
 
-.btn_delete {
+.btn_delete_post {
   margin-top: 10px;
   color: #f4330d;
   font-weight: bold;
+  font-size: 1em;
+  border: none;
+  font-weight: bold;
+  width: 38px;
+  box-shadow: none;
+}
+
+.btn_delete_post:hover {
+  background-color: red;
+  color: white;
+  border: none;
+}
+
+.btn_one_post {
+  border: 1px solid rgb(141, 117, 117);
 }
 
 button {
@@ -173,14 +192,18 @@ button {
   border: 2px solid rgb(141, 117, 117);
   background-color: white;
   border-radius: 10px;
-  float: right;
   margin-top: -35px;
+  float: right;
   transition-duration: 0.6s;
-  font-size: 0.9em;
+  font-size: 1em;
+  font-weight: bold;
+  box-shadow: 3px 3px 5px rgb(141, 117, 117);
 }
 
 button:hover {
-  background-color: rgb(141, 117, 117);
-  color: white;
+  background-color: rgb(224, 161, 161);
+  box-shadow: none;
+  border: 2px solid rgb(224, 161, 161);
+  
 }
 </style>

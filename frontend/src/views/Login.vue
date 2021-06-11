@@ -3,7 +3,7 @@
     <div class="bloc-page">
       <div id="container">
         <img
-          src="../assets/icon-left-font-monochrome-white.png"
+          src="../assets/icon-left-font-monochrome-black.png"
           alt="Groupomania logo"
         />
 
@@ -58,31 +58,29 @@ export default {
     login() {
       //store.posts = this.name;
       //this.$router.push("posts");
-      //if (!statut == 1 || !statut == 0) {
-        //alert("Vous n'êtes pas autorisé !");
-     // } else {
-        axios
-          .post("http://localhost:3000/api/auth/login", {
-            email: this.email,
-            password: this.password,
-          })
 
-          .then((res) => {
-            console.log(res);
-            sessionStorage.setItem("userId", res.data.userId);
-            sessionStorage.setItem("userStatut", res.data.userStatut);
-            console.log(res.data.userId);
-            console.log(res.data.userName);
-            sessionStorage.setItem("token", res.data.token);
-            console.log(res.data.token);
-            console.log(res.data.userStatut);
-            //this.$router.push("/users/groupomania");
-            location.href = "http://localhost:8080/#/posts";
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-     // }
+      axios
+        .post("http://localhost:3000/api/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
+
+        .then((res) => {
+          console.log(res);
+          //J'ajoute l'id du User (récupéré dans la réponse) dans le sessionStorage
+          sessionStorage.setItem("userId", res.data.userId);
+          sessionStorage.setItem("userStatut", res.data.userStatut);
+          console.log(res.data.userId);
+          console.log(res.data.userName);
+          sessionStorage.setItem("token", res.data.token);
+          console.log(res.data.token);
+          console.log(res.data.userStatut);
+          //this.$router.push("/users/groupomania");
+          location.href = "http://localhost:8080/#/posts";
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
@@ -91,22 +89,19 @@ export default {
 <style scoped>
 h2 {
   font-size: 1em;
+  text-align: left;
 }
 .bloc-page {
-  background-color: #f4330d;
-  opacity: 0.7;
-  padding-bottom: 40px;
+  padding-bottom: 150px;
 }
 
 label {
-  color: white;
   text-align: left;
 }
 
 #thanks_signup {
   font-size: 1.6em;
-  color: white;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 form {
@@ -115,10 +110,22 @@ form {
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 30px;
   font-size: 1.2em;
-  padding: 10px;
+  padding: 13px;
   max-width: 200px;
+  border-radius: 15px;
+  transition-duration: 0.6s;
+  border: 2px solid rgb(141, 117, 117);
+  background-color: white;
+  box-shadow: 5px 5px 10px rgb(141, 117, 117);
+}
+
+button:hover {
+  background-color: rgb(95, 78, 78);
+  color: white;
+  box-shadow: none;
+  border: 2px solid rgb(95, 78, 78);
 }
 
 img {
@@ -132,7 +139,8 @@ img {
 }
 
 form input {
-  padding: 10px;
+  border: 2px solid rgb(141, 117, 117);
+  padding: 15px;
   margin-bottom: 15px;
   margin-top: 5px;
 }

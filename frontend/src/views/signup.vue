@@ -35,9 +35,9 @@
             v-model="password"
             required
           />
-          <div class="btn">
+          
             <button id="btn" type="submit">S'inscrire</button>
-          </div>
+         
         </form>
       </div>
     </div>
@@ -92,8 +92,11 @@ export default {
 
 <style scoped>
 #bloc-page {
-  background-color: rgb(233, 230, 222);
   padding-bottom: 50px;
+}
+
+label{
+  text-align: left;
 }
 
 form {
@@ -102,10 +105,22 @@ form {
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 30px;
   font-size: 1.2em;
-  padding: 10px;
+  padding: 13px;
   max-width: 200px;
+  border-radius: 15px;
+  transition-duration: 0.6s;
+  border: 2px solid rgb(141, 117, 117);
+  background-color: white;
+  box-shadow: 5px 5px 10px rgb(141, 117, 117);
+}
+
+button:hover {
+  background-color: rgb(95, 78, 78);
+  color: white;
+  box-shadow: none;
+  border: 2px solid rgb(95, 78, 78);
 }
 
 img {
@@ -119,12 +134,9 @@ img {
 }
 
 form input {
-  padding: 10px;
+  border: 2px solid rgb(141, 117, 117);
+  padding: 15px;
   margin-bottom: 15px;
   margin-top: 5px;
-}
-
-label {
-  text-align: left;
 }
 </style>

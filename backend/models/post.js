@@ -7,14 +7,16 @@ module.exports = (sequelize, DataTypes) => {
     statut: { type: DataTypes.INTEGER(1), },
   },
     {});
-    Post.associate = function(models) {
-      //models.Post va fournir une clé étrangère à models.comment
-      models.Post.hasMany(models.Comment),
-      //models.Post va recevoir une clé étrangère de models.User
-      models.Post.belongsTo(models.User, {
-        onDelete: 'cascade',
-        foreignKey: { alloNull: false }
-      });
-    };
-    return Post;
+  Post.associate = function (models) {
+    //models.Post va fournir une clé étrangère à models.comment
+    models.Post.hasMany(models.Comment, {
+      onDelete: 'cascade',
+    })
+    //models.Post va recevoir une clé étrangère de models.User
+    models.Post.belongsTo(models.User, {
+      onDelete: 'cascade',
+      foreignKey: { allowNull: false }
+    });
+  };
+  return Post;
 }

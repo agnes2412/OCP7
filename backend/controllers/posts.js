@@ -2,10 +2,10 @@ const fs = require('fs');
 const db = require('../models');
 
 exports.createPost = (req, res, next) => {
-    console.log(req.body)
+    console.log(req.body.user)
     db.Post.create({
         //Je renseigne la clé étrangère (id de l'utilisateur) pour le champ UserId de la table post
-        UserId: req.body.user,
+        UserId: req.body.user_id,
         //Je récupère les données des champs titre et contenu
         title: req.body.title,
         content: req.body.content,
@@ -17,6 +17,7 @@ exports.createPost = (req, res, next) => {
 
 exports.modifyPost = (req, res, next) => {
     db.Post.update({
+        UserId: req.body.user,
         post: req.body.post
     }, {
         where: {
@@ -31,14 +32,20 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    db.Post.destroy({
-        where: { id: req.params.id },
-    })
+    //console.log(req.body);
+    console.log("id :" + req.params.id);
+    db.Post.destroy(
+        {
+            where: {
+                id: req.params.id,
+            },
+        })
         .then(() => res.status(200).json({ message: 'Post supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOnePost = (req, res, next) => {
+    console.log(req.params);
     db.Post.findOne({
         where: {
             id: req.params.id,
@@ -54,16 +61,12 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.getAllPosts = (req, res, next) => {
+    //console.log(req.body);
+    //console.log(req.params.id);
     db.Post.findAll({
-        //where: {
-        //PostId: req.params.id,
-        //statut: 0
-        //},
         include: [{
             model: db.User,
             attributes: ["name"],
-            //model: db.Comment,
-            //attributes: ["content"]
         }], order: [["createdAt", "DESC"]]
     })
         .then(posts => res.status(200).json(posts))

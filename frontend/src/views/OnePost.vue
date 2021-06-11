@@ -7,6 +7,11 @@
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
       <article>
+        <!--<button class="btn_delete_post"
+          v-if="userId == post.UserId"
+          @click="deletepost()"
+        >X</button
+        >-->
         <h3>{{ post.title }}</h3>
         <div class="content_post">
           {{ post.content }}
@@ -14,15 +19,24 @@
         <p class="date_post">
           Post publié le
           {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par {{  }}
-          <span>
-            <!-- Je récupère le 'name'de mon model User -->
-            {{
-          }}</span>
+          <span
+            class="btn_modify_post"
+            v-if="userId == post.UserId"
+            @click="modifyPost()"
+            >Modifier votre post
+          </span>
         </p>
       </article>
 
       <div class="one_comment" v-for="comment in comments" :key="comment.id">
-        <button class="btn_delete" v-if="statut == 1 || userId == comment.UserId">X</button>
+        <!-- Seuls les statuts admin et le user associé à la clé étrangère 'UserId' du comment peuvent le supprimer-->
+        <button
+          class="btn_delete_comment"
+          v-if="statut == 1 || userId == comment.UserId"
+          @click="deleteComment(comment.id)"
+        >
+          X
+        </button>
         <div class="content_comment">
           {{ comment.User.name }} <br />
           {{ comment.content }}
@@ -63,8 +77,9 @@ export default {
     return {
       content: "",
       moment: moment,
+      posts: [],
       users: [],
-      post: "",
+      post: [],
       comments: [],
       //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
@@ -75,13 +90,17 @@ export default {
 
   methods: {
     newComment() {
+      //const post = post.userId.name;
       axios
         .post(
           "http://localhost:3000/api/comment/",
           {
+            //content: this.content,
+           // UserId: this.userId,
+            //PostId: this.id,
             content: this.content,
-            UserId: this.userId,
-            PostId: this.id,
+            user_id: this.userId,
+            post_id: this.id,
           },
           {
             headers: {
@@ -90,6 +109,19 @@ export default {
           }
         )
         .then((res) => console.log(res));
+      window.location.reload();
+    },
+
+    deleteComment(commentId) {
+      axios
+        .delete("http://localhost:3000/api/comment/" + commentId, {
+          //comment: this.comment,
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        })
+        .then((res) => console.log(res));
+      window.location.reload();
     },
   },
 
@@ -124,8 +156,13 @@ export default {
 
 .return {
   text-align: right;
-  margin-right: 20px;;
+  margin-right: 20px;
 }
+
+.return:hover {
+text-decoration:underline;
+}
+
 article {
   margin-top: 50px;
   background-image: url("../assets/icon.png");
@@ -140,12 +177,36 @@ article {
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
+.date_post {
+  font-size: 0.8em;
+  text-align: left;
+}
+
 .content_post {
   border-bottom: 1px solid #f4330d;
   border-top: 2px solid #f4330d;
   min-height: 140px;
   padding-top: 10px;
   text-align: left;
+}
+
+.btn_modify_post {
+  padding: 7px 10px;
+  border: 1px solid rgb(141, 117, 117);
+  background-color: white;
+  border-radius: 10px;
+  float: right;
+  margin-top: -8px;
+  transition-duration: 0.6s;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgb(141, 117, 117);
+}
+
+.btn_modify_post:hover {
+  background-color: rgb(141, 117, 117);
+  color: white;
+  box-shadow: none;
 }
 .content_comment {
   background-color: rgb(245, 239, 239);
@@ -163,12 +224,21 @@ form {
   padding: 5px;
 }
 
-.btn_delete {
+.btn_delete_comment {
   margin-right: 10px;
+  font-size: 1.2em;
   margin-top: 10px;
   color: #f4330d;
+  border: none;
   font-weight: bold;
-  width: 30px;
+  width: 35px;
+  box-shadow: none;
+  background-color: rgb(245, 239, 239);
+}
+
+.btn_delete_comment:hover {
+  background-color: red;
+  color: white;
 }
 
 textarea {
@@ -178,19 +248,22 @@ textarea {
 }
 
 button {
-  padding: 7px 10px;
+  padding: 10px 12px;
   border: 2px solid rgb(141, 117, 117);
   background-color: white;
   border-radius: 10px;
-  float: right;
   margin-top: 10px;
+  float: right;
   transition-duration: 0.6s;
   font-size: 0.9em;
-  width: 200px;
+  max-width: 200px;
+  cursor: pointer;
+  box-shadow: 5px 5px 10px rgb(141, 117, 117);
 }
 
 button:hover {
   background-color: rgb(141, 117, 117);
   color: white;
+  box-shadow: none;
 }
 </style>

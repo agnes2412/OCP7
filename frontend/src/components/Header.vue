@@ -7,6 +7,7 @@
     <span @click="disconnect()"
       ><a :href="'http://localhost:8080'">Me déconnecter </a></span
     >
+
     <span
       ><a :href="'http://localhost:8080/#/userAccount'">| Mon compte </a></span
     >
@@ -18,16 +19,17 @@
 </template>
 
 <script>
+
 export default {
   name: "Header",
 
   data() {
     return {
+      user: [],
+      User: [],
+      userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
-  },
-  mounted() {
-    console.log("statut :" + this.statut);
   },
 
   methods: {
@@ -49,6 +51,6 @@ nav {
   background-color: rgb(245, 239, 239);
   margin-top: 5px;
   margin-bottom: 20px;
-  box-shadow: 0px 6px 3px rgba(29, 28, 28, 0.6);
+  box-shadow: 0px 6px 3px rgb(141, 117, 117);
 }
 </style>

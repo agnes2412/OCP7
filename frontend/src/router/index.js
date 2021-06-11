@@ -75,10 +75,11 @@ const routes = [
     //meta: { requiresAuth: true }
   },
   {
-    path: '/userAccount',
+    path: '/userAccount/',
     name: 'UserAccount',
 
     component: () => import(/*webpackChunkName:"posts" */'../views/UserAccount.vue'),
+    props:true,
     //meta: { requiresAuth: true }
   },
   {

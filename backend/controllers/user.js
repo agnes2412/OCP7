@@ -89,31 +89,36 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.getAccountUser = (req, res, next) => {
-    db.User.findOne({
-        where: { id: req.params.id }
-    })
-        .then(user => res.status(200).json(user))
-        .catch(error => res.status(404).json({ error }));
-};
+//exports.findAccountUser = (req, res, next) => {
+    //db.User.findOne({
+        //where: { id: req.params.id }
+    //})
+        //.then(user => res.status(200).json(user))
+       // .catch(error => res.status(404).json({ error }));
+//};
 
 exports.modifyAccountUser = (req, res, next) => {
+    console.log(req.body);
+    console.log("params :" + req.params.id);
     db.User.update({
+        userId: req.body.user,
         where: {
             id: req.params.id,
             name: req.body.name,
             email: req.body.email
         }
     })
-        .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
+        .then(() => res.status(200).json({ message: 'Compte utilisateur modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
+
 exports.deleteAccountUser = (req, res, next) => {
+    console.log("id :" + req.params);
     db.User.destroy({
         where: { id: req.params.id },
     })
-        .then(() => res.status(200).json({ message: 'Utilisateur supprimé !' }))
+        .then(() => res.status(200).json({ message: 'Compte utilisateur supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
@@ -129,11 +134,12 @@ exports.modifyStatutUser = (req, res, next) => {
                 id: req.params.id,
             }
         })
-        .then(() => res.status(200).json({ message: 'Utilisateur modifié !' }))
+        .then(() => res.status(200).json({ message: 'Statut modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneUser = (req, res, next) => {
+    console.log(req.params.id)
     db.User.findOne({
         where: {
             id: req.params.id,

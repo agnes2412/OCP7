@@ -62,7 +62,7 @@ import Header from "@/components/Header.vue";
 //const statut = sessionStorage.getItem("userStatut");
 
 export default {
-  user: "",
+  //user: "",
   name: "Admin",
   components: {
     Header,
@@ -80,21 +80,15 @@ export default {
 
   methods: {
     refused() {
-      //console.log(statut);
-      //Je mets la valeur 2 dans le userStatut qui sera refusé
       this.userStatut = 2;
       //J'appelle la fonction pour mettre à jour la base de données
       this.modify();
     },
     accepted() {
-      //console.log(statut);
-      //Je mets la valeur 2 pour le userStatut qui sera accepté
       this.userStatut = 0;
       this.modify();
     },
     admin() {
-      //console.log(statut);
-      //Je mets la valeur 2 pour le userStatut qui sera admin
       this.userStatut = 1;
       this.modify();
     },
@@ -107,7 +101,7 @@ export default {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
-        .then((res) => (this.user = res.data)); //console.log(res);
+        .then((res) => (this.userStatut = res.data)); //console.log(res);
     },
   },
 
@@ -118,8 +112,8 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => (this.user = res.data)); //console.log(res.data.statut));//
-  },
+      .then((res) => (this.user = res.data));
+ },
 };
 </script>
 

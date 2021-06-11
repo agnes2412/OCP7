@@ -59,8 +59,8 @@ export default {
             //Je récupère le titre et le contenu du post
             title: this.title,
             content: this.content,
-            //Je fournis la clé étrangère associé au post (renseignée dans le controlleur posts create.post)
-            user: this.userId,
+            //Je fournis la clé étrangère associé au post (renseignée dans le controleur posts create.post)
+            user_id: this.userId,
           },
           {
             headers: {
@@ -69,6 +69,9 @@ export default {
           }
         )
         .then((res) => console.log(res));
+      console.log("Votre post est crée !");
+      location.href = "http://localhost:8080/#/posts";
+      window.location.reload()
     },
   },
 };
@@ -125,12 +128,14 @@ button {
   float: right;
   margin-top: -35px;
   transition-duration: 0.6s;
-  font-size: 0.9em;
+  font-size: 1em;
   width: 200px;
+  box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
 button:hover {
-  background-color: rgb(141, 117, 117);
-  color: white;
+  background-color: rgb(224, 161, 161);
+  box-shadow: none;
+  border: 2px solid rgb(224, 161, 161);
 }
 </style>
