@@ -105,6 +105,9 @@ export default {
 </script>
 
 <style scoped>
+.posts {
+  background-color: rgb(226, 225, 230);
+}
 nav {
   margin-bottom: 30px;
 }
@@ -121,32 +124,39 @@ nav {
   margin-top: 20px;
   max-height: 100px;
   background-repeat: no-repeat;
-  background-position: top-left;
+  background-color: white;
   background-size: 60px;
   margin-bottom: 50px;
   min-height: 50px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
-  border: 2px solid rgb(141, 117, 117);
   border-radius: 10px;
   margin-top: 20px;
-  transition-duration: 0.6s;
+  transition-duration: 0.8s;
   font-size: 0.9em;
 }
 
+h2 a {
+  color:rgb(83, 83, 110);
+}
+
+h2 a:hover{
+  color: white;
+}
+
 .create_post:hover {
-  background-color: rgb(224, 161, 161);
+  background-color: rgb(83, 83, 110);
   box-shadow: none;
-  border: 2px solid rgb(224, 161, 161);
 }
 
 article {
+  color: rgb(65, 65, 88);
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
   background-size: 60px;
   background-color: white;
   border: 1px solid lightgrey;
-  border-top: 6px solid rgb(141, 117, 117);
+  border-top: 6px solid rgb(241, 116, 116);
   min-height: 230px;
   padding: 5px;
   margin-bottom: 30px;
@@ -154,8 +164,8 @@ article {
 }
 
 .content_post {
-  border-bottom: 1px solid #f4330d;
-  border-top: 2px solid #f4330d;
+  border-bottom: 1px solid rgb(83, 83, 110);
+  border-top: 2px solid rgb(83, 83, 110);
   min-height: 140px;
   padding-top: 10px;
   text-align: left;
@@ -168,7 +178,7 @@ p {
 
 .btn_delete_post {
   margin-top: 10px;
-  color: #f4330d;
+  color: rgb(241, 116, 116);
   font-weight: bold;
   font-size: 1em;
   border: none;
@@ -178,7 +188,7 @@ p {
 }
 
 .btn_delete_post:hover {
-  background-color: red;
+  background-color: rgb(241, 116, 116);
   color: white;
   border: none;
 }

@@ -8,8 +8,7 @@ const userCtrl = require('../controllers/user');
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 
-//router.get('/user/:id',userCtrl.getAccountUser);
-router.put('/user/:id', userCtrl.modifyAccountUser);
+//router.put('/user/:id', userCtrl.modifyAccountUser);
 router.put('/moderate/:id', userCtrl.modifyStatutUser);
 router.delete('/:id', userCtrl.deleteAccountUser);
 //Le : devant id indique à Express que ce chemin est dynamique 

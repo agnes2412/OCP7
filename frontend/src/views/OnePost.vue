@@ -146,6 +146,10 @@ export default {
 </script>
 
 <style scoped>
+.one_posts {
+  background-color: rgb(226, 225, 230);
+}
+
 .container_one_post {
   display: flex;
   flex-direction: column;

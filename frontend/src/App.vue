@@ -23,6 +23,10 @@ data() {
   text-align: center;
   color: black;
 }
+
+body {
+  margin: 0;
+}
   a {
     font-weight: bold;
     color: black;

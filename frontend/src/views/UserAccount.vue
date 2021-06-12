@@ -7,7 +7,7 @@
     </p>
     <h1>Bienvenue sur votre compte {{ user.name }}</h1>
 
-    <form class="changeAccount" @submit.prevent="modifyAccount(user.id)">
+    <form class="changeAccount" @submit.prevent="modifyAccount()">
       <p>Votre nom : {{ user.name }}</p>
       <input
         id="change_name"
@@ -28,7 +28,7 @@
         id="btn_delete_account"
         type="submit"
         v-if="statut == 1"
-        @click="deleteAccount(user.id)"
+        @click="deleteAccount()"
       >
         Supprimer
       </button>
@@ -38,6 +38,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import axios from "axios";
+
 
 export default {
   name: "UserAccount",
@@ -51,8 +52,9 @@ export default {
       ],
       //newName: "",
       //newEmail: "",
-      name: "",
-      email: "",
+      id: this.$route.params.id,
+      //name: "",
+      //email: "",
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
@@ -68,14 +70,14 @@ export default {
     // })
     //.then((res) => console.log(res)); //(this.user = res.data)); //
     // },
-    deleteAccount(userId) {
+    deleteAccount() {
       axios
-        .delete("http://localhost:3000/api/auth/" + userId, {
+        .delete("http://localhost:3000/api/auth/" + this.user.id, {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
-        .then((res) => console.log(res))
+        .then((res) => console.log("res deleted :" + res))
     },
   },
   mounted() {
@@ -85,7 +87,7 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => (this.user = res.data)); //console.log(res));
+      .then((res) => console.log("res user : " + res));//(this.user = res.data)); 
   },
 };
 </script>
