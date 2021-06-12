@@ -58,7 +58,6 @@ exports.getAllComments = (req, res, next) => {
         where: {
             //Permet de récupérer les commentaires pour chancun des posts
             PostId: req.params.id,
-            //statut: 0
         },
         include: [{
             model: db.User,

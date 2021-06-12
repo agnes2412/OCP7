@@ -71,7 +71,8 @@ export default {
   data() {
     return {
       userStatut: "",
-      user: [],
+      //Je récupère l'objet user
+      user: {},
       id: this.$route.params.id,
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
@@ -93,6 +94,7 @@ export default {
       this.modify();
     },
     modify() {
+      console.log("statut : " + this.userStatut)
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id, {
           statut: this.userStatut,
@@ -112,6 +114,7 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
+      //La res user sert à afficher le statut et le name
       .then((res) => (this.user = res.data));
  },
 };

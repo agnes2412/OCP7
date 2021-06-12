@@ -47,9 +47,7 @@ export default {
   },
   data() {
     return {
-      user: [
-        /*Récupération des users*/
-      ],
+      user: [],
       //newName: "",
       //newEmail: "",
       id: this.$route.params.id,
@@ -61,7 +59,6 @@ export default {
   },
   methods: {
     //modifyAccount(userId) {
-    //console.log()
     // axios
     //.put("http://localhost:3000/api/auth/user/" + userId, {
     // headers: {

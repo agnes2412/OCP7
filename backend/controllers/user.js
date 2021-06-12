@@ -143,12 +143,11 @@ exports.getOneUser = (req, res, next) => {
     db.User.findOne({
         where: {
             id: req.params.id,
-            statut: 0
         },
-        include: [{
-            model: db.User,
-            attributes: ["statut"]
-        }]
+        //include: [{
+            //model: db.User,
+            //attributes: ["statut"]
+        //}]
     })
         .then(post => res.status(200).json(post))
         .catch(error => res.status(404).json({ error }));

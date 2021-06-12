@@ -79,7 +79,7 @@ export default {
       moment: moment,
       posts: [],
       users: [],
-      post: [],
+      post: {},
       comments: [],
       //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
@@ -135,6 +135,7 @@ export default {
       .then((res) => (this.comments = res.data)); //console.log(res));
 
     axios
+    //Je récupère l'id du post via l'url router.get(':id, userCtrl.getOnePost)
       .get("http://localhost:3000/api/posts/" + this.id, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),

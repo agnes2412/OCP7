@@ -49,7 +49,6 @@ exports.getOnePost = (req, res, next) => {
     db.Post.findOne({
         where: {
             id: req.params.id,
-            statut: 0
         },
         include: [{
             model: db.User,

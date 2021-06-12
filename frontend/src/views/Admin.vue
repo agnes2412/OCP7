@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       //isDisplay: false,
-      Userstatut: "",
+      //Userstatut: "",
       users: [],
       user: "",
       id: this.$route.params.id,
@@ -104,7 +104,8 @@ export default {
 
   mounted() {
     axios
-      .get("http://localhost:3000/api/auth/", {
+      //.get(`http://localhost:3000/api/auth/${sessionStorage.getItem("userId")}`, {
+        .get("http://localhost:3000/api/auth/", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
