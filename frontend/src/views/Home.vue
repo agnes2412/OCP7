@@ -44,6 +44,7 @@ img {
 }
 
 #nav {
+  font-size: 1.2em;
   margin-top: 30px;
   margin-bottom: 100px;
 }

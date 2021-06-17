@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `groupomania`.`posts` (
   `content` LONGTEXT NOT NULL,
   `updatedAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   `statut` TINYINT(1) NOT NULL,
+  `image` BLOB NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_posts_users_idx` (`UserId` ASC),
   CONSTRAINT `fk_posts_users`

@@ -1,57 +1,61 @@
 <template>
   <div class="statut">
     <Header />
-    <p class="return">
-      <i class="fas fa-long-arrow-alt-left"></i>
-      <a :href="'http://localhost:8080/#/Admin/'">Retour</a>
-    </p>
+    <div class="container">
+      <p class="return">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <a :href="'http://localhost:8080/#/admin/'">Retour</a>
+      </p>
 
-    <article class="statut_post">
-      <p class="user_name">{{ user.name }}<br /></p>
+      <article class="statut_post">
+        <p class="user_name">{{ user.name }}<br /></p>
 
-      <div class="display_statut">
-        <input
-          @click="refused()"
-          name="statut"
-          type="radio"
-          id="userRefused"
-          value="Utilisateur refusé"
-          v-model="userStatut"
-          :checked="user.statut == 2"
-        />
+        <div class="display_statut">
+          <input
+            @click="admin()"
+            name="statut"
+            type="radio"
+            id="admin"
+            value="Administrateur"
+            v-model="userStatut"
+            :checked="user.statut == 2"
+          />
 
-        <label for="userRefused">Utilisateur refusé</label>
-      </div>
-      <div class="display_statut">
-        <input
-          @click="accepted()"
-          name="statut"
-          type="radio"
-          id="userAccepted"
-          value="Utilisateur accepté"
-          v-model="userStatut"
-          :checked="user.statut == 0"
-        />
-        <label for="userAccepted">Utilisateur accepté</label>
-      </div>
+          <label for="admin">Administrateur</label>
+        </div>
+        <div class="display_statut">
+          <input
+            @click="accepted()"
+            name="statut"
+            type="radio"
+            id="userAccepted"
+            value="Utilisateur accepté"
+            v-model="userStatut"
+            :checked="user.statut == 0"
+          />
+          <label for="userWaiting">Utilisateur accepté</label>
+        </div>
 
-      <div class="display_statut">
-        <input
-          @click="admin()"
-          name="statut"
-          type="radio"
-          id="userAdmin"
-          value="Administrateur"
-          v-model="userStatut"
-          :checked="user.statut == 1"
-        />
-        <label for="userAdmin">Administrateur</label>
-      </div>
+        <div class="display_statut">
+          <input
+            @click="blocked()"
+            name="statut"
+            type="radio"
+            id="userBlocked"
+            value="Utilisateur bloqué"
+            v-model="userStatut"
+            :checked="user.statut == 1"
+          />
+          <label for="userBlocked">Utilisateur bloqué</label>
+        </div>
 
-      <div class="statut_user">
-        Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
-      </div>
-    </article>
+        <div class="statut_user">
+          Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
+        </div>
+        <button class="display_statut" v-if="statut == 2"
+      @click="deleteAccountByAdmin()">Supprimer le compte utilisateur</button>
+      </article>
+    </div>
   </div>
 </template>
 
@@ -70,17 +74,19 @@ export default {
 
   data() {
     return {
+      //je récupère le statut du user
       userStatut: "",
       //Je récupère l'objet user
       user: {},
+      //la variable id correspond ici à l'id du this.id de l'axios get (donc au user)
       id: this.$route.params.id,
-      userId: sessionStorage.getItem("userId"),
+      user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
 
   methods: {
-    refused() {
+    admin() {
       this.userStatut = 2;
       //J'appelle la fonction pour mettre à jour la base de données
       this.modify();
@@ -89,12 +95,12 @@ export default {
       this.userStatut = 0;
       this.modify();
     },
-    admin() {
+    blocked() {
       this.userStatut = 1;
       this.modify();
     },
     modify() {
-      console.log("statut : " + this.userStatut)
+      console.log("statut : " + this.userStatut);
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id, {
           statut: this.userStatut,
@@ -104,6 +110,19 @@ export default {
           },
         })
         .then((res) => (this.userStatut = res.data)); //console.log(res);
+      window.location.reload();
+    },
+
+    deleteAccountByAdmin() {
+      axios
+      .delete("http://localhost:3000/api/auth/moderate/" + this.id, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => console.log(res));
+      window.location.reload();
+      location.href = "http://localhost:8080/#/admin/";
     },
   },
 
@@ -116,17 +135,27 @@ export default {
       })
       //La res user sert à afficher le statut et le name
       .then((res) => (this.user = res.data));
- },
+  },
 };
 </script>
 
 <style scoped>
+
+.statut {
+  background-color: rgb(245, 234, 234);
+  padding: 5px;;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding-bottom: 400px;
+}
 .user_name {
   text-align: left;
   margin-left: 15%;
   padding-bottom: 10px;
   margin-bottom: 35px;
-  border-bottom: 1px solid #f4330d;
+  border-bottom: 1px solid rgb(241, 116, 116);
 }
 
 article {
@@ -136,10 +165,9 @@ article {
   background-size: 60px;
   background-color: white;
   border: 1px solid lightgrey;
-  border-top: 6px solid rgb(141, 117, 117);
+  border-top: 6px solid rgb(241, 116, 116);
+  margin-top: 50px;
   min-height: 230px;
-  max-width: 600px;
-  margin: auto;
   padding: 5px;
   margin-bottom: 30px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
@@ -147,7 +175,6 @@ article {
 
 .return {
   text-align: right;
-  margin-right: 20px;
 }
 .display_statut {
   display: flex;

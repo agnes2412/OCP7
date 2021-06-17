@@ -22,6 +22,11 @@
             placeholder="Votre contenu..."
             v-model="content"
           ></textarea>
+          <div class="fichier_image">
+            <label for="upload_file">Charger l'image</label>
+            <input type="file" id="upload_file" class="input_image" ref="image"
+            @change="upload()"/>
+          </div>
 
           <button id="btn_new_post" type="submit">Publier votre post</button>
         </form>
@@ -33,6 +38,7 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
+//const statut = sessionStorage.getItem("userStatut");
 
 export default {
   name: "CreatePost",
@@ -45,11 +51,15 @@ export default {
       posts: [],
       title: "",
       content: "",
-      //id: "",
+      image: null,
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
+      postStatut: sessionStorage.getItem("postStatut"),
     };
   },
+  upload() {
+        this.image = this.$refs.image.files[0];
+      },
   methods: {
     newPost() {
       axios
@@ -59,6 +69,7 @@ export default {
             //Je récupère le titre et le contenu du post
             title: this.title,
             content: this.content,
+            image: this.image,
             //Je fournis la clé étrangère associé au post (renseignée dans le controleur posts create.post)
             user_id: this.userId,
           },
@@ -71,13 +82,25 @@ export default {
         .then((res) => console.log(res));
       console.log("Votre post est crée !");
       location.href = "http://localhost:8080/#/posts";
-      window.location.reload()
+      window.location.reload();
+
+      // sessionStorage.setItem("postStatut", res.data.postStatut);
+      //if(postStatut == 1) {
+      //location.href = "http://localhost:8080/#/posts";
+
+      //console.log(res.data.postStatut);
+      //window.location.reload()
+      // }
     },
   },
 };
 </script>
 
 <style scoped>
+.create_post {
+  background-color: rgb(245, 234, 234);
+  padding-bottom: 400px;
+}
 .return {
   text-align: right;
   margin-right: 20px;
@@ -88,17 +111,10 @@ export default {
 }
 article {
   margin-top: 50px;
-  max-height: 100px;
-  background-repeat: no-repeat;
-  background-position: top-left;
-  background-size: 60px;
-  background-color: white;
-  border: 1px solid lightgrey;
-  border-top: 6px solid rgb(141, 117, 117);
+  background-color: rgb(169, 169, 185);
+  border-top: 6px solid rgb(83, 83, 110);
   padding: 5px;
-
-  min-height: 300px;
-
+  min-height: 320px;
   box-shadow: 5px 10px 10px rgb(141, 117, 117);
 }
 
@@ -111,6 +127,8 @@ input {
   padding: 10px;
   margin-bottom: 15px;
   margin-top: 5px;
+  border: none;
+  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 
 textarea {
@@ -118,24 +136,27 @@ textarea {
   min-height: 90px;
   margin-bottom: 50px;
   margin-top: 5px;
+  border: none;
+  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 
 button {
-  padding: 7px 10px;
-  border: 2px solid rgb(141, 117, 117);
+  padding: 7px;
   background-color: white;
-  border-radius: 10px;
-  float: right;
-  margin-top: -35px;
+  margin-top: -20px;
   transition-duration: 0.6s;
   font-size: 1em;
   width: 200px;
-  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 6px rgb(83, 83, 110);
+  border: none;
+  font-size: 1.2em;
 }
 
 button:hover {
-  background-color: rgb(224, 161, 161);
+  background-color: rgb(83, 83, 110);
   box-shadow: none;
-  border: 2px solid rgb(224, 161, 161);
+  color: white;
+  cursor: pointer;
+  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 </style>

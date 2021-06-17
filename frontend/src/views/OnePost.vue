@@ -1,44 +1,34 @@
 <template>
   <div class="one_post">
     <Header />
-    <div class="container_one_post">
+    <div class="container">
       <p class="return">
         <i class="fas fa-long-arrow-alt-left"></i>
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
       <article>
-        <!--<button class="btn_delete_post"
-          v-if="userId == post.UserId"
-          @click="deletepost()"
-        >X</button
-        >-->
         <h3>{{ post.title }}</h3>
         <div class="content_post">
           {{ post.content }}
         </div>
+        <div>{{ post.image }}</div>
         <p class="date_post">
           Post publié le
-          {{ moment(post.createdAt).format("DD/MM/YY à H: mm") }} par {{  }}
-          <span
-            class="btn_modify_post"
-            v-if="userId == post.UserId"
-            @click="modifyPost()"
-            >Modifier votre post
-          </span>
+          {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }} par {{  }}
         </p>
       </article>
 
       <div class="one_comment" v-for="comment in comments" :key="comment.id">
-        <!-- Seuls les statuts admin et le user associé à la clé étrangère 'UserId' du comment peuvent le supprimer-->
+        <!-- Seuls les statuts admin et le user associé au comment peuvent le supprimer-->
         <button
           class="btn_delete_comment"
-          v-if="statut == 1 || userId == comment.UserId"
+          v-if="statut == 2 || user_id == comment.UserId"
           @click="deleteComment(comment.id)"
         >
           X
         </button>
+        <div class="user_name_comment">{{ comment.User.name }} a écrit :</div>
         <div class="content_comment">
-          {{ comment.User.name }} <br />
           {{ comment.content }}
         </div>
       </div>
@@ -75,15 +65,18 @@ export default {
 
   data() {
     return {
-      content: "",
+      name:{},
       moment: moment,
-      posts: [],
+      content:"",
+      //posts: [],
       users: [],
       post: {},
       comments: [],
+      comment: {},
+      image: null,
       //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
-      userId: sessionStorage.getItem("userId"),
+      user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
@@ -96,10 +89,10 @@ export default {
           "http://localhost:3000/api/comment/",
           {
             //content: this.content,
-           // UserId: this.userId,
+            // UserId: this.userId,
             //PostId: this.id,
             content: this.content,
-            user_id: this.userId,
+            user_id: this.user_id,
             post_id: this.id,
           },
           {
@@ -135,7 +128,7 @@ export default {
       .then((res) => (this.comments = res.data)); //console.log(res));
 
     axios
-    //Je récupère l'id du post via l'url router.get(':id, userCtrl.getOnePost)
+      //Je récupère l'id du post via l'url router.get(':id, userCtrl.getOnePost)
       .get("http://localhost:3000/api/posts/" + this.id, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -147,11 +140,13 @@ export default {
 </script>
 
 <style scoped>
-.one_posts {
-  background-color: rgb(226, 225, 230);
+.one_post {
+ background-color: rgb(245, 234, 234);
+ padding-bottom: 200px;;
 }
 
-.container_one_post {
+.container {
+  padding: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -161,25 +156,23 @@ export default {
 
 .return {
   text-align: right;
-  margin-right: 20px;
 }
 
 .return:hover {
-text-decoration:underline;
+  text-decoration: underline;
 }
 
 article {
-  margin-top: 50px;
+  margin-top: 10px;
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border-top: 6px solid rgb(141, 117, 117);
-  min-height: 230px;
+  border-top: 6px solid rgb(241, 116, 116);
   padding: 5px;
   margin-bottom: 30px;
-  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 3px rgb(68, 67, 67);
 }
 
 .date_post {
@@ -188,38 +181,48 @@ article {
 }
 
 .content_post {
-  border-bottom: 1px solid #f4330d;
-  border-top: 2px solid #f4330d;
+  border-bottom: 1px solid rgb(83, 83, 110);
+  font-size: 18px;
+  border-top: 2px solid rgb(241, 116, 116);
   min-height: 140px;
-  padding-top: 10px;
-  text-align: left;
+  padding: 10px;
+  text-align: justify;
 }
 
 .btn_modify_post {
   padding: 7px 10px;
-  border: 1px solid rgb(141, 117, 117);
   background-color: white;
+  border: 2px solid rgb(83, 83, 110);
   border-radius: 10px;
   float: right;
   margin-top: -8px;
   transition-duration: 0.6s;
   font-size: 1.2em;
   cursor: pointer;
-  box-shadow: 5px 5px 10px rgb(141, 117, 117);
 }
 
 .btn_modify_post:hover {
-  background-color: rgb(141, 117, 117);
+  background-color: rgb(83, 83, 110);
   color: white;
   box-shadow: none;
 }
-.content_comment {
-  background-color: rgb(245, 239, 239);
-  border-radius: 10px;
-  min-height: 40px;
-  padding: 10px 10px;
+
+.user_name_comment {
+  margin-left: 10px;
+  color: rgb(83, 83, 110);
+  font-weight: bold;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 5px;;
+}
+
+.content_comment {
+  background-color: white;
+  border-radius: 10px;
+  min-height: 20px;
+  padding: 15px;
+  margin-bottom: 25px;
+  text-align: justify;
+  box-shadow: 3px 3px 5px rgb(83, 83, 110);
 }
 
 form {
@@ -232,29 +235,30 @@ form {
 .btn_delete_comment {
   margin-right: 10px;
   font-size: 1.2em;
-  margin-top: 10px;
-  color: #f4330d;
+  margin-top: 25px;
+  color: rgb(248, 88, 88);
   border: none;
   font-weight: bold;
   width: 35px;
-  box-shadow: none;
-  background-color: rgb(245, 239, 239);
+  background-color: white;
 }
 
 .btn_delete_comment:hover {
-  background-color: red;
-  color: white;
+  font-size: 1.3em;
+  color: black;
+  background-color: white;
 }
 
 textarea {
   padding: 10px;
   min-height: 40px;
   margin-bottom: 20px;
+  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 
 button {
   padding: 10px 12px;
-  border: 2px solid rgb(141, 117, 117);
+  border: 2px solid rgb(83, 83, 110);
   background-color: white;
   border-radius: 10px;
   margin-top: 10px;
@@ -263,11 +267,10 @@ button {
   font-size: 0.9em;
   max-width: 200px;
   cursor: pointer;
-  box-shadow: 5px 5px 10px rgb(141, 117, 117);
 }
 
 button:hover {
-  background-color: rgb(141, 117, 117);
+  background-color: rgb(83, 83, 110);
   color: white;
   box-shadow: none;
 }

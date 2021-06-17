@@ -19,18 +19,6 @@ exports.createComment = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-//exports.modifyComment = (req, res, next) => {
-    //db.Comment.update({
-        //where: {
-            //id: req.params.id,
-            //content: req.body.content,
-            //statut: 0
-        //}
-    //})
-        //.then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
-        //.catch(error => res.status(400).json({ error }));
-//};
-
 exports.deleteComment = (req, res, next) => {
     db.Comment.destroy({
         where: { id: req.params.id }
@@ -43,6 +31,7 @@ exports.getOneComment = (req, res, next) => {
     db.Comment.findOne({
         where: {
             id: req.params.id,
+            //statut: 1
         },
         include: [{
             model: db.User,
@@ -58,6 +47,7 @@ exports.getAllComments = (req, res, next) => {
         where: {
             //Permet de récupérer les commentaires pour chancun des posts
             PostId: req.params.id,
+            //statut: 1
         },
         include: [{
             model: db.User,

@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     title: { type: DataTypes.STRING(255), },
     content: { type: DataTypes.STRING(255), },
     statut: { type: DataTypes.INTEGER(1), },
+    image: { type: DataTypes.STRING(500), },
   },
     {});
   Post.associate = function (models) {

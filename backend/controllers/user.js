@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 //Je crée un schéma pour recevoir des mots de passe sécurisés
 const schema = new passwordValidator();
-//const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const db = require('../models');
 //const user = require('../models/user');
 require('dotenv').config();
@@ -89,33 +89,19 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-//exports.findAccountUser = (req, res, next) => {
-    //db.User.findOne({
-        //where: { id: req.params.id }
-    //})
-        //.then(user => res.status(200).json(user))
-       // .catch(error => res.status(404).json({ error }));
-//};
-
-exports.modifyAccountUser = (req, res, next) => {
-    console.log(req.body);
-    console.log("params :" + req.params.id);
-    db.User.update({
-        userId: req.body.user,
-        where: {
-            id: req.params.id,
-            name: req.body.name,
-            email: req.body.email
-        }
+exports.deleteAccountUser = (req, res, next) => {
+    //console.log(req.params);
+    db.User.destroy({
+        where: { id: req.params.id },
     })
-        .then(() => res.status(200).json({ message: 'Compte utilisateur modifié !' }))
+        .then(() => res.status(200).json({ message: 'Compte utilisateur supprimé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
-
-exports.deleteAccountUser = (req, res, next) => {
-    console.log("id :" + req.params);
+exports.deleteAccountUserByAdmin = (req, res, next) => {
+    console.log(req.params);
     db.User.destroy({
+        //Je récupère l'objet de l'id passé dans l'url du DELETE
         where: { id: req.params.id },
     })
         .then(() => res.status(200).json({ message: 'Compte utilisateur supprimé !' }))
@@ -145,7 +131,7 @@ exports.getOneUser = (req, res, next) => {
             id: req.params.id,
         },
         //include: [{
-            //model: db.User,
+           // model: db.User,
             //attributes: ["statut"]
         //}]
     })
@@ -156,6 +142,9 @@ exports.getOneUser = (req, res, next) => {
 
 exports.getAllUsers = (req, res, next) => {
     db.User.findAll({
+        //where: {
+            //statut: 0
+        //}
     })
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));

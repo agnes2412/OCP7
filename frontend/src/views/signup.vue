@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <div id="bloc-page">
+    
       <div id="container">
         <img
           src="../assets/icon-left-font-monochrome-black.png"
@@ -40,7 +40,7 @@
          
         </form>
       </div>
-    </div>
+    
   </div>
 </template>
 
@@ -84,6 +84,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          alert('Cette adresse mail est déjà utilisée !');
         });
     },
   },
@@ -91,8 +92,9 @@ export default {
 </script>
 
 <style scoped>
-#bloc-page {
-  padding-bottom: 50px;
+.signup {
+  background-color: rgb(245, 234, 234);
+  padding: 10px;
 }
 
 label{
@@ -105,25 +107,26 @@ form {
 }
 
 button {
-  margin-top: 30px;
-  font-size: 1.2em;
-  padding: 13px;
+  margin-top: 50px;
+  font-size: 1.1em;
+  padding: 10px;
   max-width: 200px;
-  border-radius: 15px;
   transition-duration: 0.6s;
-  border: 2px solid rgb(141, 117, 117);
+  border: 3px solid rgb(83, 83, 110);
   background-color: white;
-  box-shadow: 5px 5px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 5px rgb(83, 83, 110);
 }
 
 button:hover {
-  background-color: rgb(95, 78, 78);
+  background-color: rgb(83, 83, 110);
   color: white;
   box-shadow: none;
-  border: 2px solid rgb(95, 78, 78);
+  border: 3px solid rgb(83, 83, 110);
+  cursor:pointer;
 }
 
 img {
+  margin-top: -120px;
   width: 100%;
   max-width: 450px;
 }
@@ -131,12 +134,14 @@ img {
 #container {
   max-width: 600px;
   margin: auto;
+  padding-bottom: 200px;
 }
 
 form input {
-  border: 2px solid rgb(141, 117, 117);
+  border: 2px solid rgb(83, 83, 110);
+  box-shadow: inset 1px 1px 3px rgb(83, 83, 110);
   padding: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   margin-top: 5px;
 }
 </style>

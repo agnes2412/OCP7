@@ -1,37 +1,36 @@
 <template>
   <div class="login">
-    <div class="bloc-page">
-      <div id="container">
-        <img
-          src="../assets/icon-left-font-monochrome-black.png"
-          alt="Groupomania logo"
+    <div class="container">
+      <img
+        src="../assets/icon-left-font-monochrome-white.png"
+        alt="Groupomania logo"
+      />
+
+      <div id="thanks_signup">
+        <h1>Bienvenue !</h1>
+        <h2>{{ msg }}</h2>
+      </div>
+      <form @submit.prevent="login()">
+        <label for="login_email">Email :</label>
+        <input
+          id="login_email"
+          type="email"
+          placeholder="Votre email"
+          v-model="email"
+          required
         />
 
-        <div id="thanks_signup">
-          <h2>{{ msg }}</h2>
-        </div>
-        <form @submit.prevent="login()">
-          <label for="login_email">Email :</label>
-          <input
-            id="login_email"
-            type="email"
-            placeholder="Votre email"
-            v-model="email"
-            required
-          />
+        <label for="login_password">Mot de passe :</label>
+        <input
+          id="login_password"
+          type="password"
+          placeholder="Votre mot de passe"
+          v-model="password"
+          required
+        />
 
-          <label for="login_password">Mot de passe :</label>
-          <input
-            id="login_password"
-            type="password"
-            placeholder="Votre mot de passe"
-            v-model="password"
-            required
-          />
-
-          <button id="login_btn" type="submit">Se connecter</button>
-        </form>
-      </div>
+        <button id="login_btn" type="submit">Se connecter</button>
+      </form>
     </div>
   </div>
 </template>
@@ -39,7 +38,7 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-//const statut = sessionStorage.getItem("userStatut");
+const statut = sessionStorage.getItem("userStatut");
 //import router from 'vue-router';
 
 export default {
@@ -49,8 +48,9 @@ export default {
     return {
       email: "",
       password: "",
-      msg: "Bienvenue, vous pouvez vous connecter !",
+      msg: "Vous pouvez vous connecter ",
       statut: sessionStorage.getItem("userStatut"),
+      user_id: sessionStorage.getItem("userId"),
     };
   },
 
@@ -60,11 +60,18 @@ export default {
       //this.$router.push("posts");
 
       axios
-        .post("http://localhost:3000/api/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-
+        .post(
+          "http://localhost:3000/api/auth/login",
+          {
+            email: this.email,
+            password: this.password,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          }
+        )
         .then((res) => {
           console.log(res);
           //J'ajoute l'id du User (récupéré dans la réponse) dans le sessionStorage
@@ -76,7 +83,12 @@ export default {
           console.log(res.data.token);
           console.log(res.data.userStatut);
           //this.$router.push("/users/groupomania");
-          location.href = "http://localhost:8080/#/posts";
+          if (statut == 0 || statut == 2) {
+            location.href = "http://localhost:8080/#/posts";
+          } else {
+            alert("Votre compte a été bloqué, veuillez contacter l'administrateur");
+            //sessionStorage.clear();
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -87,16 +99,37 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  font-size: 1em;
+.login {
+  background-color: rgb(83, 83, 110);
+  padding: 10px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding-bottom: 200px;
+}
+
+h1 {
+  border-top: 6px solid rgb(241, 116, 116);
+
+  margin-top: -100px;
+  padding-top: 50px;
+
+  color: white;
+  font-size: 1.1em;
   text-align: left;
 }
-.bloc-page {
-  padding-bottom: 150px;
+
+h2 {
+  color: white;
+  font-size: 0.9em;
+  text-align: left;
 }
 
 label {
   text-align: left;
+  color: white;
 }
 
 #thanks_signup {
@@ -105,43 +138,41 @@ label {
 }
 
 form {
+  max-width: 600px;
   display: flex;
   flex-direction: column;
 }
 
 button {
-  margin-top: 30px;
+  margin-top: 70px;
   font-size: 1.2em;
   padding: 13px;
   max-width: 200px;
-  border-radius: 15px;
   transition-duration: 0.6s;
-  border: 2px solid rgb(141, 117, 117);
+  border: 2px solid rgb(83, 83, 110);
   background-color: white;
-  box-shadow: 5px 5px 10px rgb(141, 117, 117);
+  box-shadow: 5px 5px 10px rgb(32, 32, 42);
 }
 
 button:hover {
-  background-color: rgb(95, 78, 78);
+  background-color: rgb(241, 116, 116);
+  cursor: pointer;
   color: white;
   box-shadow: none;
-  border: 2px solid rgb(95, 78, 78);
+  border: 2px solid white;
 }
 
 img {
+  margin-top: -120px;
   width: 100%;
   max-width: 450px;
 }
 
-#container {
-  max-width: 600px;
-  margin: auto;
-}
-
 form input {
-  border: 2px solid rgb(141, 117, 117);
+  border: none;
+  box-shadow: inset 3px 3px 5px rgb(32, 32, 42);
   padding: 15px;
   margin-bottom: 15px;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 </style>

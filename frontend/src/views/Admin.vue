@@ -1,24 +1,25 @@
 <template>
-  <div class="statut">
+  <div class="admin">
     <Header />
-    <p class="return">
-    <i class="fas fa-long-arrow-alt-left"></i>
-      <a :href="'http://localhost:8080/#/posts/'">Retour</a></p>
-    <article
-      class="one_post"
-      v-for="user in users"
-      :key="user.id"
-      v-bind:id="user.id"
-    >
-      <p class="user_name">Nom de l'utilisateur : 
-        {{ user.name }}</p>
-        <p class="display_statut"
-          ><a :href="'http://localhost:8080/#/Statut/' + user.id">
-            Voir le statut
-          </a></p
+    <div class="container">
+      <p class="return">
+        <i class="fas fa-long-arrow-alt-left"></i>
+        <a :href="'http://localhost:8080/#/posts/'">Retour</a>
+      </p>
+      <article
+        class="one_post"
+        v-for="user in users"
+        :key="user.id"
+        v-bind:id="user.id"
+      >
+        <p class="user_name">Nom de l'utilisateur : {{ user.name }}</p>
+        <a :href="'http://localhost:8080/#/Statut/' + user.id"
+          ><p class="display_statut">Voir le statut</p></a
         >
 
-      <!--<div v-if="isDisplay">
+       
+
+        <!--<div v-if="isDisplay">
         <div class="display_statut">
           <input
             @click="refused(user.id)"
@@ -55,7 +56,8 @@
         </div>
         <button @click="hideStatut()">Cacher le statut</button>
       </div>-->
-    </article>
+      </article>
+    </div>
   </div>
 </template>
 
@@ -76,36 +78,44 @@ export default {
       //isDisplay: false,
       //Userstatut: "",
       users: [],
-      user: "",
-      id: this.$route.params.id,
-      userId: sessionStorage.getItem("userId"),
+      //user: [],
+      //id: this.$route.params.id,
+      user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
 
-  //methods: {
-    //showStatut() {
-    //this.isDisplay = true;
+  methods: {
+    //deleteAccountByAdmin() {
+      //axios
+      //.delete("http://localhost:3000/api/auth/moderate/" + this.id, {
+        //headers: {
+          //Authorization: "Bearer " + sessionStorage.getItem("token"),
+       // },
+      //})
+      //.then((res) => console.log(res));
     //},
-    //hideStatut() {
-    //this.isDisplay = false;
-    //},
-    //refused() {
-     // console.log("statut");
-     // statut == 2;
-    //},
-    //accepted() {
-      //statut == 0;
-   // },
-    //admin() {
-      //statut == 1;
-   // },
- //},
+  //showStatut() {
+  //this.isDisplay = true;
+  //},
+  //hideStatut() {
+  //this.isDisplay = false;
+  //},
+  //refused() {
+  // console.log("statut");
+  // statut == 2;
+  //},
+  //accepted() {
+  //statut == 0;
+  // },
+  //admin() {
+  //statut == 1;
+  // },
+  },
 
   mounted() {
     axios
-      //.get(`http://localhost:3000/api/auth/${sessionStorage.getItem("userId")}`, {
-        .get("http://localhost:3000/api/auth/", {
+      .get("http://localhost:3000/api/auth/", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -116,10 +126,18 @@ export default {
 </script>
 
 <style scoped>
+.admin {
+  background-color: rgb(245, 234, 234);
+  padding: 5px;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+}
 
 .return {
   text-align: right;
-  margin-right: 20px;;
 }
 
 article {
@@ -129,21 +147,34 @@ article {
   background-size: 60px;
   background-color: white;
   border: 1px solid lightgrey;
-  border-top: 6px solid rgb(141, 117, 117);
+  border-top: 6px solid rgb(241, 116, 116);
   min-height: 100px;
-  max-width: 600px;
-  margin: auto;
   padding: 5px;
   margin-bottom: 30px;
-  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 5px rgb(105, 50, 50);
 }
 .user_name {
-  text-align: center;
+  text-align: left;
+  margin-left: 60px;
   margin-top: 20px;
 }
 
 .display_statut {
-  text-align: center;
+  padding: 10px 12px;
+  border: 2px solid rgb(83, 83, 110);
+  background-color: white;
+  border-radius: 10px;
+  float: right;
+  transition-duration: 0.6s;
+  font-size: 0.9em;
+  max-width: 200px;
+  cursor: pointer;
+  margin-top: -10px;
+}
+
+.display_statut:hover {
+  color: white;
+   background-color: rgb(83, 83, 110);
 }
 </style>
 
