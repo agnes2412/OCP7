@@ -6,7 +6,7 @@
         ><a :href="'http://localhost:8080'">Me déconnecter </a></span
       >
 
-      <span 
+      <span v-if="statut == 0"
         ><a :href="'http://localhost:8080/#/userAccount'"
           >| Mon compte
         </a></span

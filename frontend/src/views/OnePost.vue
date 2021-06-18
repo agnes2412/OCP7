@@ -11,26 +11,35 @@
         <div class="content_post">
           {{ post.content }}
         </div>
-        <div>{{ post.image }}</div>
+        <!--<div class="image_post"><img :src="post.image" alt="image" /></div>-->
         <p class="date_post">
           Post publié le
-          {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }} par {{  }}
+          {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }} par
+          {{ post.UserId }}
         </p>
       </article>
 
       <div class="one_comment" v-for="comment in comments" :key="comment.id">
         <!-- Seuls les statuts admin et le user associé au comment peuvent le supprimer-->
-        <button
+        <span
           class="btn_delete_comment"
           v-if="statut == 2 || user_id == comment.UserId"
           @click="deleteComment(comment.id)"
         >
           X
-        </button>
-        <div class="user_name_comment">{{ comment.User.name }} a écrit :</div>
-        <div class="content_comment">
+        </span>
+        <div class="user_name_comment" v-if="user_id == comment.UserId">
+          {{ msgCommentUser }} le
+          {{ moment(comment.createdAt).format("DD/MM/YY à H:mm") }}
+        </div>
+        <div class="name_comment" v-else>
+          {{ comment.User.name }} a écrit le
+          {{ moment(comment.createdAt).format("DD/MM/YY à H:mm") }}
+        </div>
+        <div class="content_comment_user" v-if="user_id == comment.UserId">
           {{ comment.content }}
         </div>
+        <div class="content_comment" v-else>{{ comment.content }}</div>
       </div>
 
       <div class="container_new_comment">
@@ -65,15 +74,17 @@ export default {
 
   data() {
     return {
-      name:{},
+      user: {},
+      //name: {},
       moment: moment,
-      content:"",
+      content: "",
       //posts: [],
       users: [],
       post: {},
       comments: [],
-      comment: {},
-      image: null,
+      //comment: {},
+      //image: null,
+      msgCommentUser: "Vous avez écrit ",
       //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
       user_id: sessionStorage.getItem("userId"),
@@ -88,9 +99,6 @@ export default {
         .post(
           "http://localhost:3000/api/comment/",
           {
-            //content: this.content,
-            // UserId: this.userId,
-            //PostId: this.id,
             content: this.content,
             user_id: this.user_id,
             post_id: this.id,
@@ -106,15 +114,17 @@ export default {
     },
 
     deleteComment(commentId) {
-      axios
-        .delete("http://localhost:3000/api/comment/" + commentId, {
-          //comment: this.comment,
-          headers: {
-            Authorization: "Bearer " + sessionStorage.getItem("token"),
-          },
-        })
-        .then((res) => console.log(res));
-      window.location.reload();
+      let res = confirm("Voulez-vous vraiment supprimer ce commentaire ?");
+      if (res) {
+        axios
+          .delete("http://localhost:3000/api/comment/" + commentId, {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          })
+          .then((res) => console.log(res));
+        window.location.reload();
+      }
     },
   },
 
@@ -128,7 +138,7 @@ export default {
       .then((res) => (this.comments = res.data)); //console.log(res));
 
     axios
-      //Je récupère l'id du post via l'url router.get(':id, userCtrl.getOnePost)
+      //Je récupère l'id du post via l'url router.get du back(':id, userCtrl.getOnePost)
       .get("http://localhost:3000/api/posts/" + this.id, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -141,8 +151,15 @@ export default {
 
 <style scoped>
 .one_post {
- background-color: rgb(245, 234, 234);
- padding-bottom: 200px;;
+  background-color: rgb(245, 234, 234);
+  padding-bottom: 200px;
+}
+.return {
+  text-align: right;
+}
+
+.return:hover {
+  text-decoration: underline;
 }
 
 .container {
@@ -150,16 +167,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
-}
-
-.return {
-  text-align: right;
-}
-
-.return:hover {
-  text-decoration: underline;
 }
 
 article {
@@ -169,10 +178,16 @@ article {
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border-top: 6px solid rgb(241, 116, 116);
+  border: 3px solid rgb(241, 116, 116);
   padding: 5px;
   margin-bottom: 30px;
   box-shadow: 3px 3px 3px rgb(68, 67, 67);
+  border-radius: 15px;
+}
+
+h3 {
+  text-align: left;
+  margin-left: 60px;
 }
 
 .date_post {
@@ -181,30 +196,12 @@ article {
 }
 
 .content_post {
-  border-bottom: 1px solid rgb(83, 83, 110);
   font-size: 18px;
-  border-top: 2px solid rgb(241, 116, 116);
+  border: 2px solid rgb(241, 116, 116);
+  border-radius: 12px;
   min-height: 140px;
   padding: 10px;
   text-align: justify;
-}
-
-.btn_modify_post {
-  padding: 7px 10px;
-  background-color: white;
-  border: 2px solid rgb(83, 83, 110);
-  border-radius: 10px;
-  float: right;
-  margin-top: -8px;
-  transition-duration: 0.6s;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-
-.btn_modify_post:hover {
-  background-color: rgb(83, 83, 110);
-  color: white;
-  box-shadow: none;
 }
 
 .user_name_comment {
@@ -212,7 +209,25 @@ article {
   color: rgb(83, 83, 110);
   font-weight: bold;
   text-align: left;
-  margin-bottom: 5px;;
+  margin-bottom: 5px;
+}
+
+.name_comment {
+  margin-left: 10px;
+  color: rgb(83, 83, 110);
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.content_comment_user {
+  background-color: rgb(245, 172, 172);
+  border-radius: 10px;
+  min-height: 20px;
+  padding: 15px;
+  margin-bottom: 25px;
+  text-align: justify;
+  box-shadow: 3px 3px 5px rgb(83, 83, 110);
 }
 
 .content_comment {
@@ -234,19 +249,18 @@ form {
 
 .btn_delete_comment {
   margin-right: 10px;
-  font-size: 1.2em;
-  margin-top: 25px;
-  color: rgb(248, 88, 88);
-  border: none;
+  font-size: 1.3em;
+  margin-top: 32px;
+  color: rgb(245, 73, 73);
   font-weight: bold;
+  float: right;
   width: 35px;
-  background-color: white;
+  cursor: pointer;
 }
 
 .btn_delete_comment:hover {
-  font-size: 1.3em;
   color: black;
-  background-color: white;
+  border: 1px solid black;
 }
 
 textarea {
@@ -256,20 +270,20 @@ textarea {
   box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 
-button {
+#btn_new_comment {
   padding: 10px 12px;
   border: 2px solid rgb(83, 83, 110);
   background-color: white;
   border-radius: 10px;
-  margin-top: 10px;
-  float: right;
-  transition-duration: 0.6s;
-  font-size: 0.9em;
-  max-width: 200px;
+  margin-top: 50px;
+  max-width: 250px;
   cursor: pointer;
+  transition-duration: 0.6s;
+  font-size: 1em;
+  box-shadow: 3px 3px 5px rgb(83, 83, 110);
 }
 
-button:hover {
+#btn_new_comment:hover {
   background-color: rgb(83, 83, 110);
   color: white;
   box-shadow: none;

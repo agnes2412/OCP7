@@ -38,7 +38,7 @@
 <script>
 // @ is an alias to /src
 import axios from "axios";
-const statut = sessionStorage.getItem("userStatut");
+//const statut = sessionStorage.getItem("userStatut");
 //import router from 'vue-router';
 
 export default {
@@ -50,7 +50,7 @@ export default {
       password: "",
       msg: "Vous pouvez vous connecter ",
       statut: sessionStorage.getItem("userStatut"),
-      user_id: sessionStorage.getItem("userId"),
+      //user_id: sessionStorage.getItem("userId"),
     };
   },
 
@@ -82,14 +82,10 @@ export default {
           sessionStorage.setItem("token", res.data.token);
           console.log(res.data.token);
           console.log(res.data.userStatut);
+          location.href = "http://localhost:8080/#/posts";
           //this.$router.push("/users/groupomania");
-          if (statut == 0 || statut == 2) {
-            location.href = "http://localhost:8080/#/posts";
-          } else {
-            alert("Votre compte a été bloqué, veuillez contacter l'administrateur");
-            //sessionStorage.clear();
-          }
         })
+
         .catch((error) => {
           console.log(error);
         });
@@ -112,10 +108,8 @@ export default {
 
 h1 {
   border-top: 6px solid rgb(241, 116, 116);
-
   margin-top: -100px;
   padding-top: 50px;
-
   color: white;
   font-size: 1.1em;
   text-align: left;

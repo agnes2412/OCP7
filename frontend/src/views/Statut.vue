@@ -78,8 +78,8 @@ export default {
       userStatut: "",
       //Je récupère l'objet user
       user: {},
-      //la variable id correspond ici à l'id du this.id de l'axios get (donc au user)
-      id: this.$route.params.id,
+      //la variable id_user correspond au user de l'axios.get et axios.put et axios.delete
+      id_user: this.$route.params.id,
       user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
@@ -100,9 +100,8 @@ export default {
       this.modify();
     },
     modify() {
-      console.log("statut : " + this.userStatut);
       axios
-        .put("http://localhost:3000/api/auth/moderate/" + this.id, {
+        .put("http://localhost:3000/api/auth/moderate/" + this.id_user, {
           statut: this.userStatut,
 
           headers: {
@@ -115,20 +114,20 @@ export default {
 
     deleteAccountByAdmin() {
       axios
-      .delete("http://localhost:3000/api/auth/moderate/" + this.id, {
+      .delete("http://localhost:3000/api/auth/moderate/" + this.id_user, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
       .then((res) => console.log(res));
-      window.location.reload();
       location.href = "http://localhost:8080/#/admin/";
+      window.location.reload();
     },
   },
 
   mounted() {
     axios
-      .get("http://localhost:3000/api/auth/" + this.id, {
+      .get("http://localhost:3000/api/auth/" + this.id_user, {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -176,6 +175,11 @@ article {
 .return {
   text-align: right;
 }
+
+.return:hover {
+  text-decoration: underline;
+}
+
 .display_statut {
   display: flex;
   margin-left: 25%;
@@ -193,5 +197,24 @@ label {
   border-top: 1px solid #f4330d;
   padding-top: 10px;
   text-align: left;
+}
+
+button {
+  padding: 7px;
+  background-color: white;
+  margin-top: 30px;
+  transition-duration: 0.6s;
+  font-size: 1em;
+  width: 200px;
+  box-shadow: 3px 3px 6px rgb(83, 83, 110);
+  border: 3px solid rgb(83, 83, 110) ;
+}
+
+button:hover {
+  background-color: rgb(83, 83, 110);
+  box-shadow: none;
+  color: white;
+  cursor: pointer;
+  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
 }
 </style>

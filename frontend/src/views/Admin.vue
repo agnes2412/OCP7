@@ -140,6 +140,10 @@ export default {
   text-align: right;
 }
 
+.return:hover {
+  text-decoration: underline;
+}
+
 article {
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;

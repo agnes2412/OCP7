@@ -90,7 +90,7 @@ export default {
 <style scoped>
 .user_account {
   background-color: rgb(245, 234, 234);
-  padding-bottom: 200px;
+  padding-bottom: 500px;
 }
 
 .container {
@@ -100,6 +100,8 @@ export default {
 }
 
 h2 {
+    margin-top: 100px;
+    margin-bottom: 30px;
   text-align: left;
 }
 
@@ -125,8 +127,12 @@ p {
   margin-right: 20px;
 }
 
+.return:hover {
+  text-decoration: underline;
+}
+
 #btn_delete_account {
-  margin-top: 70px;
+  margin-top: 100px;
   font-size: 1.1em;
   padding: 13px;
   max-width: 220px;
@@ -136,7 +142,7 @@ p {
   box-shadow: 3px 3px 3px rgb(83, 83, 110);
 }
 
-span:hover {
+#btn_delete_account:hover {
   background-color: rgb(83, 83, 110);
   color: white;
   box-shadow: none;
