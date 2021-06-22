@@ -1,5 +1,5 @@
 # OCP7
-Projet réalisé dans le cadre de la formation "Développeur Web" d'openClassrooms  
+Projet réalisé dans le cadre de la formation "Développeur Web" d'OpenClassrooms  
 Intitulé : "Créer un réseau social d'entreprise  
 ## Technologies utilisées
 * Projet hébergé par un serveur Node.js - Framework : Express
