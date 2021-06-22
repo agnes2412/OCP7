@@ -20,7 +20,19 @@ Depuis votre terminal, entrez dans le dossier frontend et tapez npm install puis
 
 Entrez l'url suivante depuis votre navigateur http://localhost:8080/#
 
-Créer un fichier .env et copier la ligne suivante : JWT_SECRETE_KEY="mpjnvgft56)"
+Créer un fichier .env et copier la ligne suivante : 
+JWT_SECRETE_KEY= mpjnvgft56)  
+DB_HOSTNAME= 
+DB_USER= 
+DB_PASSWORD=   
+
+Récupérez le dump 'groupomania.sql', installez le sur votre système de gestion de base de données MySql et créez 3 variables d'environnement  
+renseignez les informations dans le fichier.env
+DB_HOSTNAME= localhost
+DB_USER= root
+DB_PASSWORD=   
+
+
 
 Depuis votre terminal, accédez au dossier backend et tapez npm install puis nodemon 
 
