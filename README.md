@@ -1,6 +1,6 @@
 # OCP7
 Projet réalisé dans le cadre de la formation "Développeur Web" d'OpenClassrooms  
-Intitulé : "Créer un réseau social d'entreprise  
+Intitulé : "Créer un réseau social d'entreprise"  
 ## Technologies utilisées
 * Projet hébergé par un serveur Node.js - Framework : Express
 * Base de données : MySql - ORM : Sequelize  
