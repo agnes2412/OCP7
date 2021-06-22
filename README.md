@@ -17,5 +17,6 @@ npm run serve
 * DB_USER= ajoutez l'utilisateur de votre base de données
 * DB_PASSWORD= ajoutez votre mot de passe utilisateur
 #### Enfin, depuis votre terminal, accédez au dossier backend et tapez :  
-npm install puis nodemon
+npm install  
+nodemon
 ### Vous pouvez vous rendre sur votre navigateur et accéder à l'application Groupomania
