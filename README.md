@@ -3,8 +3,9 @@ Projet réalisé dans le cadre de la formation "Développeur Web" d'OpenClassroo
 Intitulé : "Créer un réseau social d'entreprise"  
 ## Technologies utilisées
 * Backend :  **Projet hébergé par un serveur Node.js - Framework : Express
-**Base de données : MySql - ORM : Sequelize  
-* Frontend : **Framework: Vue.js
+** Base de données : MySql - ORM : Sequelize  
+* Frontend : 
+** Framework: Vue.js
 ## Pour accéder à ce projet  
 #### Clonez le repository suivant : https://github.com/agnes2412/OCP7.git
 #### Depuis votre terminal, entrez dans le dossier frontend et tapez npm install puis tapez :  
