@@ -23,7 +23,6 @@
 //import axios from "axios";
 export default {
   name: "Header",
-
   data() {
     return {
       users: [],
@@ -49,7 +48,7 @@ img {
 }
 
 header {
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(41, 45, 73);
   box-shadow: 3px 3px 5px black;
 }
 
@@ -65,7 +64,7 @@ a {
 nav {
   padding-top: 0;
   padding-bottom: 40px;
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(41, 45, 73);
   margin-top: -100px;
   margin-bottom: 20px;
 }

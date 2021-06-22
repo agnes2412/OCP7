@@ -1,5 +1,5 @@
 <template>
-  <div class="posts">
+  <div id="posts">
     <Header />
     <div id="container">
       <a :href="'http://localhost:8080/#/createPost/'"
@@ -18,7 +18,8 @@
           {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }}
         </p>
         <article>
-            <!--post.id est la valeur actuelle passée en argument dans l'écouteur d'évènement qui appelle la fonction "deletePost()-->
+          <!--post.id est la valeur actuelle passée en argument dans l'écouteur d'évènement qui appelle la fonction "deletePost()-->
+          <div>
             <span
               title="Supprimer"
               class="btn_delete_post"
@@ -27,20 +28,19 @@
             >
               X
             </span>
-            <h3 class="title_post">{{ post.title }}</h3>
-            <div class="content_post">
-              {{ post.content }}
-            </div>
-            <!--<div class="image_post"><img :src="post.image" alt="image"></div>-->
+          </div>
+          <h3 class="title_post">{{ post.title }}</h3>
+          <div class="content_post">
+            {{ post.content }}
+          </div>
         </article>
         <a
-            :href="'http://localhost:8080/#/onePost/' + post.id"
-            title="Cliquez pour voir le post"
-          ><button
-              class="btn_display_comment"
-            >
-              Voir les commentaires du post
-            </button></a>
+          :href="'http://localhost:8080/#/onePost/' + post.id"
+          title="Cliquez pour voir le post"
+          ><button class="btn_display_comment">
+            Voir les commentaires du post
+          </button></a
+        >
       </div>
     </div>
   </div>
@@ -60,42 +60,21 @@ export default {
   },
   data() {
     return {
-      title: "",
-      content: "",
-      // name: "",
       moment: moment,
+      //Je déclare un tableau vide qui va contenir les posts des utilisateurs et les utilisateurs
       posts: [],
-      //image: null,
-      //users: [],
-      post_id: this.$route.params.id,
+      users: [],
+      //Lorsqu'un itinéraire est mis en correspondance, la valeur des segments dynamiques sera exposée comme this.$route.params dans chaque composant
       statut: sessionStorage.getItem("userStatut"),
-      user_id: sessionStorage.getItem("userId"),
-      //post_statut: sessionStorage.getItem("postStatut")
+      user_id: sessionStorage.getItem("userId")
     };
   },
 
   methods: {
-    // refused() {
-    //this.userStatut = 2;
-    //J'appelle la fonction pour mettre à jour la base de données
-    //this.deletedPost();
-    // },
-
-    // deletePost(postId) {
-    // axios
-    // .put("http://localhost:3000/api/posts/" + postId, {
-    // headers: {
-    //  Authorization: "Bearer " + sessionStorage.getItem("token"),
-    // },
-    // })
-    //.then((res) => console.log(res));
-    // window.location.reload();
-
-    // }
     //Le paramètre postId est le placeholder
     deletePost(postId) {
-      let res = confirm("Voulez-vous vraiment supprimer ce post ?");
-      if (res) {
+      let alert = confirm("Voulez-vous vraiment supprimer ce post ?");
+      if (alert) {
         axios
           .delete("http://localhost:3000/api/posts/" + postId, {
             headers: {
@@ -111,14 +90,17 @@ export default {
   mounted() {
     if (statut == 1) {
       alert("Votre compte est bloqué, veuillez contacter l'administrateur");
+      sessionStorage.clear();
       location.href = "http://localhost:8080/#";
     } else {
+      //J'envoie la requête vers le back
       axios
         .get("http://localhost:3000/api/posts/", {
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
+        //Je récupère tous les posts que me renvoie le back(res.data) et je les mets dans le tableau posts
         .then((res) => (this.posts = res.data));
 
       axios
@@ -127,22 +109,21 @@ export default {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
-        .then((res) => console.log(res)); //(this.users = res.data.name));
+        .then((res) => console.log(res));
     }
   },
 };
 </script>
 
 <style scoped>
-.posts {
-  background-color: rgb(245, 234, 234);
+#posts {
+  background-color: rgb(226, 203, 203);
 }
 
 #container {
   padding: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   max-width: 800px;
   margin: auto;
 }
@@ -180,26 +161,25 @@ article {
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border: 1px solid lightgrey;
+  border: 1x solid rgb(83, 83, 110);
   min-height: 240px;
-  padding: 0 8px 8px 8px;
+  padding: 5px;
   box-shadow: 3px 3px 3px rgb(68, 67, 67);
-  border-radius: 15px;
 }
 
 h3 {
-  margin-top: 5px;
+  margin-top: 0;
   margin-bottom: 5px;
   text-align: left;
-  padding: 10px 30px 10px 60px;
+  padding: 10px 30px 20px 60px;
+  border-bottom: 3px solid rgb(246, 178, 178);
 }
 
 .content_post {
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 18px;
-  border: 2px solid lightslategray;
   border-radius: 13px;
-  min-height: 143px;
+  min-height: 150px;
   padding: 10px;
   text-align: justify;
   font-weight: normal;
@@ -223,27 +203,28 @@ p {
   float: right;
   width: 35px;
   cursor: pointer;
+   transition-duration: 0.6s;
 }
 
 .btn_delete_post:hover {
   color: black;
-  border: 1px solid black;
+  font-size: 1.5em;
 }
 
-.btn_display_comment{
+.btn_display_comment {
   margin-top: 20px;
   margin-bottom: 80px;
   font-size: 1.2em;
-  padding: 13px;
+  padding: 9px;
   max-width: 300px;
   transition-duration: 0.6s;
-  border: 3px solid rgb(241, 116, 116);
+  border: 2px solid rgb(83, 83, 110);
   background-color: white;
   box-shadow: 3px 3px 5px rgb(32, 32, 42);
 }
 
 .btn_display_comment:hover {
-  background-color: rgb(241, 116, 116);
+  background-color: rgb(83, 83, 110);
   cursor: pointer;
   color: white;
   box-shadow: none;

@@ -1,5 +1,5 @@
 <template>
-  <div class="one_post">
+  <div id="one_post">
     <Header />
     <div class="container">
       <p class="return">
@@ -11,12 +11,6 @@
         <div class="content_post">
           {{ post.content }}
         </div>
-        <!--<div class="image_post"><img :src="post.image" alt="image" /></div>-->
-        <p class="date_post">
-          Post publié le
-          {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }} par
-          {{ post.UserId }}
-        </p>
       </article>
 
       <div class="one_comment" v-for="comment in comments" :key="comment.id">
@@ -85,7 +79,7 @@ export default {
       //comment: {},
       //image: null,
       msgCommentUser: "Vous avez écrit ",
-      //segment dynamique pour afficher le post d'un user
+      //??segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
       user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
@@ -99,9 +93,12 @@ export default {
         .post(
           "http://localhost:3000/api/comment/",
           {
+            //C'est le corps de ma requête (req.body.content)
             content: this.content,
+            //Je demande les clés étrangères de la table post
             user_id: this.user_id,
             post_id: this.id,
+            //test: "ceci est un test"
           },
           {
             headers: {
@@ -109,13 +106,18 @@ export default {
             },
           }
         )
-        .then((res) => console.log(res));
-      window.location.reload();
+        .then((res) => {
+          console.log(res.data);
+          window.location.reload();
+        })
+        .catch((error) => console.log(error));
     },
 
+  
+
     deleteComment(commentId) {
-      let res = confirm("Voulez-vous vraiment supprimer ce commentaire ?");
-      if (res) {
+      let alert = confirm("Voulez-vous vraiment supprimer ce commentaire ?");
+      if (alert) {
         axios
           .delete("http://localhost:3000/api/comment/" + commentId, {
             headers: {
@@ -150,9 +152,8 @@ export default {
 </script>
 
 <style scoped>
-.one_post {
-  background-color: rgb(245, 234, 234);
-  padding-bottom: 200px;
+#one_post {
+  
 }
 .return {
   text-align: right;
@@ -167,7 +168,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 800px;
+  max-width: 700px;
   margin: auto;
 }
 
@@ -197,7 +198,7 @@ h3 {
 
 .content_post {
   font-size: 18px;
-  border: 2px solid rgb(241, 116, 116);
+  border: 2px solid rgb(246, 178, 178);
   border-radius: 12px;
   min-height: 140px;
   padding: 10px;
@@ -276,6 +277,7 @@ textarea {
   background-color: white;
   border-radius: 10px;
   margin-top: 50px;
+  margin-bottom: 200px;;
   max-width: 250px;
   cursor: pointer;
   transition-duration: 0.6s;

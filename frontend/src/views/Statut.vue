@@ -1,5 +1,5 @@
 <template>
-  <div class="statut">
+  <div id="statut">
     <Header />
     <div class="container">
       <p class="return">
@@ -63,10 +63,8 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
-//const statut = sessionStorage.getItem("userStatut");
 
 export default {
-  //user: "",
   name: "Admin",
   components: {
     Header,
@@ -99,6 +97,7 @@ export default {
       this.userStatut = 1;
       this.modify();
     },
+    
     modify() {
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id_user, {
@@ -108,11 +107,13 @@ export default {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
         })
-        .then((res) => (this.userStatut = res.data)); //console.log(res);
+        .then((res) => (this.userStatut = res.data));
       window.location.reload();
     },
 
     deleteAccountByAdmin() {
+      let alert = confirm("Voulez-vous vraiment supprimer le compte de cet utilisateur ?");
+      if (alert) {
       axios
       .delete("http://localhost:3000/api/auth/moderate/" + this.id_user, {
         headers: {
@@ -122,6 +123,7 @@ export default {
       .then((res) => console.log(res));
       location.href = "http://localhost:8080/#/admin/";
       window.location.reload();
+      }
     },
   },
 
@@ -140,7 +142,7 @@ export default {
 
 <style scoped>
 
-.statut {
+#statut {
   background-color: rgb(245, 234, 234);
   padding: 5px;;
 }
@@ -205,7 +207,7 @@ button {
   margin-top: 30px;
   transition-duration: 0.6s;
   font-size: 1em;
-  width: 200px;
+  width: 250px;
   box-shadow: 3px 3px 6px rgb(83, 83, 110);
   border: 3px solid rgb(83, 83, 110) ;
 }

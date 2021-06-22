@@ -1,7 +1,7 @@
 //Utilisation du langage attendu (sequelize)
 "use strict";
 
-//
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const baseName = path.basename(__filename);
@@ -9,8 +9,8 @@ const baseName = path.basename(__filename);
 const db = {};
 const Sequelize = require('sequelize');
 
-let sequelize = new Sequelize('groupomania', 'root', '', {
-    host: 'localhost',
+let sequelize = new Sequelize('groupomania', process.env.DB_USER, process.env.DB_PASSWORD, {
+    host: process.env.DB_HOSTNAME,
     dialect: 'mysql'
 });
 

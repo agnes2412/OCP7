@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div id="admin">
     <Header />
     <div class="container">
       <p class="return">
@@ -16,46 +16,6 @@
         <a :href="'http://localhost:8080/#/Statut/' + user.id"
           ><p class="display_statut">Voir le statut</p></a
         >
-
-       
-
-        <!--<div v-if="isDisplay">
-        <div class="display_statut">
-          <input
-            @click="refused(user.id)"
-            type="radio"
-            id="1"
-            value="Utilisateur refusé"
-            v-model="Userstatut"
-          />
-
-          <label for="userRefused">Utilisateur refusé</label>
-          <br />
-          <input
-            @click="accepted(user.id)"
-            type="radio"
-            id="userAccepted"
-            value="Utilisateur accepté"
-            v-model="Userstatut"
-          />
-          <label for="userAccepted">Utilisateur accepté</label>
-          <br />
-
-          <input
-            @click="admin(user.id)"
-            type="radio"
-            id="userAdmin"
-            value="Administrateur"
-            v-model="Userstatut"
-          />
-          <label for="userAdmin">Administrateur</label>
-
-          <br />
-
-          <span>Statut de l'utilisateur : {{ Userstatut }}</span>
-        </div>
-        <button @click="hideStatut()">Cacher le statut</button>
-      </div>-->
       </article>
     </div>
   </div>
@@ -64,10 +24,8 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
-//const statut = sessionStorage.getItem("userStatut");
 
 export default {
-  users: "",
   name: "Admin",
   components: {
     Header,
@@ -75,42 +33,10 @@ export default {
 
   data() {
     return {
-      //isDisplay: false,
-      //Userstatut: "",
       users: [],
-      //user: [],
-      //id: this.$route.params.id,
       user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
-  },
-
-  methods: {
-    //deleteAccountByAdmin() {
-      //axios
-      //.delete("http://localhost:3000/api/auth/moderate/" + this.id, {
-        //headers: {
-          //Authorization: "Bearer " + sessionStorage.getItem("token"),
-       // },
-      //})
-      //.then((res) => console.log(res));
-    //},
-  //showStatut() {
-  //this.isDisplay = true;
-  //},
-  //hideStatut() {
-  //this.isDisplay = false;
-  //},
-  //refused() {
-  // console.log("statut");
-  // statut == 2;
-  //},
-  //accepted() {
-  //statut == 0;
-  // },
-  //admin() {
-  //statut == 1;
-  // },
   },
 
   mounted() {
@@ -126,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.admin {
+#admin {
   background-color: rgb(245, 234, 234);
   padding: 5px;
 }
@@ -178,7 +104,7 @@ article {
 
 .display_statut:hover {
   color: white;
-   background-color: rgb(83, 83, 110);
+  background-color: rgb(83, 83, 110);
 }
 </style>
 

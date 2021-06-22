@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator');
 //Je crée un schéma pour recevoir des mots de passe sécurisés
 const schema = new passwordValidator();
-const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 const db = require('../models');
 //const user = require('../models/user');
 require('dotenv').config();
@@ -27,9 +26,6 @@ exports.signup = (req, res, next) => {
                 statut: 0
             }
             )
-                //if (!emailRegex.test(email)) {
-                //return res.status(400).json({'error': 'email non valide'})
-                //}
                 //Renvoi d'un 201 pour une création de ressource et un message
                 .then(() => res.status(201).json({
                     message: 'Utilisateur crée !'
@@ -72,11 +68,10 @@ exports.login = (req, res, next) => {
                         //Renvoi d'un objet json qui contient l'identifiant du user dans la base
                         userId: user.id,
                         userStatut: user.statut,
-                        userName: user.name,
                         //Renvoi d'un token, appel de la fonction 'sign' de jwt qui prend comme arguments les données que je veux encoder
                         token: jwt.sign(
                             //1er argument : L'objet userId sera l'identifiant user de l'utilisateur ou de l'admin
-                            { userId: user.id, userStatut: user.statut, userName: user.name },
+                            { userId: user.id, userStatut: user.statut },
                             //2ème argument: clé secrète pour l'encodage
                             `${process.env.JWT_SECRETE_KEY}`,
                             //3ème argument de configuration avec expiration du token à 24h
@@ -90,7 +85,6 @@ exports.login = (req, res, next) => {
 };
 
 exports.deleteAccountUser = (req, res, next) => {
-    //console.log(req.params);
     db.User.destroy({
         where: { id: req.params.id },
     })
@@ -135,16 +129,12 @@ exports.getOneUser = (req, res, next) => {
             //attributes: ["statut"]
         //}]
     })
-        .then(post => res.status(200).json(post))
+        .then(user => res.status(200).json(user))
         .catch(error => res.status(404).json({ error }));
 };
 
-
 exports.getAllUsers = (req, res, next) => {
     db.User.findAll({
-        //where: {
-            //statut: 0
-        //}
     })
         .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));

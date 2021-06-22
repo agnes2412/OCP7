@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     statut: { type: DataTypes.INTEGER(1), },
   },
     {});
-  User.associate = function(models) {
+  User.associate = function (models) {
     //models.User va fournir une clé étrangère à models.Post et à models.Comment
     models.User.hasMany(models.Post),
       models.User.hasMany(models.Comment)

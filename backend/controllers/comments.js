@@ -1,12 +1,8 @@
-//const Comment = require('../models/comments');
 const db = require('../models');
 
 exports.createComment = (req, res, next) => {
+    //console.log(req.body.test);
     db.Comment.create({
-        //Je renseigne la clé étrangère(id de l'utilisateur et du post) pour le champ UserId et PostId de la table comment
-        //UserId: req.body.UserId,
-        //PostId: req.body.PostId,
-        //content: req.body.content,
         //Je renseigne la clé étrangère(id de l'utilisateur et du post) pour le champ UserId et PostId de la table comment
         UserId: req.body.user_id,
         PostId: req.body.post_id,
@@ -31,7 +27,6 @@ exports.getOneComment = (req, res, next) => {
     db.Comment.findOne({
         where: {
             id: req.params.id,
-            //statut: 1
         },
         include: [{
             model: db.User,
@@ -47,7 +42,6 @@ exports.getAllComments = (req, res, next) => {
         where: {
             //Permet de récupérer les commentaires pour chancun des posts
             PostId: req.params.id,
-            //statut: 1
         },
         include: [{
             model: db.User,

@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         //Le split me retourne les élements du tableau, dans le 2ème [1], je récupère la chaine du bearer
         const token = req.headers.authorization.split(' ')[1];
         //Je décode le token qui devient un objet js
-        const decodedToken = jwt.verify(token, `${process.env.JWT_SECRETE_KEY}`);
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRETE_KEY);
         //Je récupère le userId 
         const userId = decodedToken.userId;
         //si il y a un userId dans le corps de la requête et qu'il est différent du userId

@@ -48,7 +48,6 @@ CREATE TABLE `posts` (
   `content` longtext NOT NULL,
   `updatedAt` datetime NOT NULL DEFAULT current_timestamp(),
   `statut` tinyint(1) NOT NULL,
-  `image` blob NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Structure de la table `users`
