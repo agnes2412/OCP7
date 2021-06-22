@@ -19,5 +19,3 @@ npm run serve
 #### Enfin, depuis votre terminal, accédez au dossier backend et tapez :  
 npm install puis nodemon
 ###Vous pouvez vous rendre sur votre navigateur et accéder à l'application Groupomania
-
-
