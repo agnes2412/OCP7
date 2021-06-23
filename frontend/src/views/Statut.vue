@@ -3,11 +3,10 @@
     <Header />
     <div class="container">
       <p class="return">
-        <i class="fas fa-long-arrow-alt-left"></i>
         <a :href="'http://localhost:8080/#/admin/'">Retour</a>
       </p>
 
-      <article class="statut_post">
+      <article>
         <p class="user_name">{{ user.name }}<br /></p>
         <!--la valeur donnée à v-model se synchronise avec la valeur donnée dans data-->
         <div class="display_statut">
@@ -130,7 +129,7 @@ export default {
 
 <style scoped>
 #statut {
-  background-color: rgb(245, 234, 234);
+  background-color: rgb(214, 210, 210);
   padding: 5px;
 }
 .container {
@@ -143,7 +142,7 @@ export default {
   margin-left: 15%;
   padding-bottom: 10px;
   margin-bottom: 35px;
-  border-bottom: 1px solid rgb(241, 116, 116);
+  border-bottom: 6px solid rgb(200, 60, 84);
 }
 
 article {
@@ -152,17 +151,18 @@ article {
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border: 1px solid lightgrey;
-  border-top: 6px solid rgb(241, 116, 116);
+  border: 10px solid rgb(214, 69, 100);
+  font-size: 1.1em;
   margin-top: 50px;
   min-height: 230px;
   padding: 5px;
   margin-bottom: 30px;
-  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 5px black;
 }
 
 .return {
   text-align: right;
+  margin-top: 30px;
 }
 
 .return:hover {
@@ -183,27 +183,27 @@ label {
   margin-top: 50px;
   margin-left: 15%;
   margin-bottom: 20px;
-  border-top: 1px solid #f4330d;
+  border-top: 3px solid rgb(214, 69, 100);
   padding-top: 10px;
   text-align: left;
 }
 
 button {
-  padding: 7px;
+  padding: 9px;
   background-color: white;
-  margin-top: 30px;
+  margin-top: 50px;
   transition-duration: 0.6s;
   font-size: 1em;
-  width: 250px;
-  box-shadow: 3px 3px 6px rgb(83, 83, 110);
-  border: 3px solid rgb(83, 83, 110);
+  max-width: 270px;
+  box-shadow: 3px 3px 5px black;
+  border: 3px solid rgb(214, 69, 100);
 }
 
 button:hover {
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(214, 69, 100);
   box-shadow: none;
   color: white;
   cursor: pointer;
-  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
+  box-shadow: inset 3px 3px 5px black;
 }
 </style>

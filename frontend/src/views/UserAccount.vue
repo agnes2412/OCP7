@@ -6,6 +6,8 @@
         <i class="fas fa-long-arrow-alt-left"></i>
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
+      <div class="border">
+      <div class="article">
       <h2>Votre compte {{ user.name }}</h2>
 
       <p>Votre nom : {{ user.name }}</p>
@@ -21,6 +23,8 @@
         Supprimer votre compte
       </div>
     </div>
+      </div>
+      </div>
   </div>
 </template>
 <script>
@@ -71,64 +75,69 @@ export default {
 
 <style scoped>
 #user_account {
-  background-color: rgb(245, 234, 234);
+  background-color: rgb(214, 210, 210);
   padding-bottom: 500px;
-}
-
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 5px;
-}
-
-h2 {
-  margin-top: 100px;
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
-}
-
-form input {
-  border: 2px solid rgb(83, 83, 110);
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: inset 3px 3px 3px rgb(83, 83, 110);
-}
-
-p {
-  text-align: left;
 }
 
 .return {
   text-align: right;
-  margin-right: 20px;
+  margin: 30px 5px 80px 0;
 }
 
 .return:hover {
   text-decoration: underline;
 }
 
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.article {
+  font-size: 1.2em;
+  max-width: 300px;
+  margin: auto;
+  padding: 5px;
+  color: white;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.border {
+  background-color: rgb(165, 59, 77);
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 3px 3px 5px black;
+  margin: 5px;
+}
+
+h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  text-align: left;
+  font-size: 1.3em;
+}
+
 #btn_delete_account {
-  margin-top: 100px;
-  font-size: 1.1em;
-  padding: 13px;
-  max-width: 220px;
+  color: rgb(165, 59, 77);
+  text-align: center;
+  font-weight: bold;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  font-size: 1em;
+  padding: 10px;
+  max-width: 250px;
   transition-duration: 0.6s;
-  border: 2px solid rgb(83, 83, 110);
+  border: 2px solid white;
   background-color: white;
-  box-shadow: 3px 3px 3px rgb(83, 83, 110);
+  box-shadow: 3px 3px 5px black;
   cursor: pointer;
 }
 
 #btn_delete_account:hover {
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(165, 59, 77);
   color: white;
-  box-shadow: none;
+  box-shadow: inset 3px 3px 5px black;
   border: 2px solid white;
 }
 </style>

@@ -91,12 +91,13 @@ export default {
 <style scoped>
 #login {
   background-color: rgb(41, 45, 73);
-  padding: 10px;
+  padding: 5px;
 }
 .deco {
+  width: 90%;
   margin-top: -140px;
   margin-bottom: 100px;
-  border-bottom: 8px solid rgb(172, 73, 81);
+  border-bottom: 8px solid rgb(214, 69, 100);
 }
 
 .container {
@@ -145,8 +146,10 @@ button:hover {
   background-color: white;
   cursor: pointer;
   color: rgb(41, 45, 73);
+  font-weight: bold;
   box-shadow: none;
-  border: 2px solid rgb(83, 83, 110);
+  border: 2px solid rgb(41, 45, 73);
+  box-shadow: inset 3px 3px 5px black;
 }
 
 img {
