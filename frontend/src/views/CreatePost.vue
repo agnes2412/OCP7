@@ -7,10 +7,10 @@
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
       <article>
-        <h3>Votre post</h3> 
+        <h3>Votre post</h3>
         <!--la valeur donnée à v-model se synchronise avec la valeur donnée dans data-->
         <form class="new_post" @submit.prevent="newPost()">
-           <input
+          <input
             id="title_new_post"
             type="text"
             placeholder="Votre titre..."
@@ -18,9 +18,8 @@
             required
           />
           <label for="title_new_post"></label>
-          
-          
-         <textarea
+
+          <textarea
             id="content_new_post"
             placeholder="Votre contenu..."
             v-model="content"
@@ -38,26 +37,24 @@ import axios from "axios";
 import Header from "@/components/Header.vue";
 
 export default {
-  props: ["langs", "id", "height", "name"],
   name: "CreatePost",
   components: {
     Header,
   },
-  //??data est une fonction qui va récupérer les posts + titre + contenu entrés par l'utilisateur avec la méthode d'axios
-  //axios (requête HTTP)
-  //data est un état local pour la page qui va changer selon les posts
+  //data est un état local où se trouve mes variables
+  //Ces variables vont récupérer les données entrées par les utilisateurs
   data() {
     return {
       title: "",
       content: "",
-      //??sessionStorage.getItem récupère ici l'id' userId et userStatut
+      //Récupération de l'UserId et de l'userStatut depuis la sessionStorage (stockage local des éléments de la session)
       userId: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
 
   methods: {
-    //permet de faire la requête pour envoyer les données rempli par l'utilisateur au backend
+    //axios permet de faire la requête HTTP post pour envoyer les données au backend
     newPost() {
       axios
         .post(
@@ -66,11 +63,12 @@ export default {
             //Je récupère le titre et le contenu du post (c'est le corps de la requête)
             title: this.title,
             content: this.content,
-            //??Je fournis l'id du user associé au post (pour renseigner la clé étrangère UserId de la table post)
+            //Je fournis l'id du user associé au post (pour renseigner la clé étrangère UserId de la table post (dans le controleur))
             user_id: this.userId,
           },
           {
-            //?? Récupération du token depuis la sessionstorage correspondant au user pour l'authentification
+            //Récupération du token depuis la sessionStorage
+            //Ce token est celui attribué à l'utilisateur pour l'authentification
             headers: {
               Authorization: "Bearer " + sessionStorage.getItem("token"),
             },

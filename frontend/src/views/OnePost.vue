@@ -68,18 +68,13 @@ export default {
 
   data() {
     return {
-      user: {},
-      //name: {},
       moment: moment,
       content: "",
-      //posts: [],
       users: [],
       post: {},
       comments: [],
-      //comment: {},
-      //image: null,
       msgCommentUser: "Vous avez écrit ",
-      //??segment dynamique pour afficher le post d'un user
+      //segment dynamique pour afficher le post d'un user
       id: this.$route.params.id,
       user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
@@ -88,7 +83,6 @@ export default {
 
   methods: {
     newComment() {
-      //const post = post.userId.name;
       axios
         .post(
           "http://localhost:3000/api/comment/",
@@ -98,7 +92,6 @@ export default {
             //Je demande les clés étrangères de la table post
             user_id: this.user_id,
             post_id: this.id,
-            //test: "ceci est un test"
           },
           {
             headers: {
@@ -112,8 +105,6 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-
-  
 
     deleteComment(commentId) {
       let alert = confirm("Voulez-vous vraiment supprimer ce commentaire ?");
@@ -137,7 +128,7 @@ export default {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
-      .then((res) => (this.comments = res.data)); //console.log(res));
+      .then((res) => (this.comments = res.data)); 
 
     axios
       //Je récupère l'id du post via l'url router.get du back(':id, userCtrl.getOnePost)
@@ -179,7 +170,7 @@ article {
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border: 3px solid rgb(241, 116, 116);
+  border: 3px solid rgb(245, 73, 73);
   padding: 5px;
   margin-bottom: 30px;
   box-shadow: 3px 3px 3px rgb(68, 67, 67);
@@ -203,6 +194,7 @@ h3 {
   min-height: 140px;
   padding: 10px;
   text-align: justify;
+  
 }
 
 .user_name_comment {
@@ -232,7 +224,7 @@ h3 {
 }
 
 .content_comment {
-  background-color: white;
+  background-color: rgb(233, 230, 230);
   border-radius: 10px;
   min-height: 20px;
   padding: 15px;

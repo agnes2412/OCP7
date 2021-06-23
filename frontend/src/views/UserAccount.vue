@@ -6,7 +6,7 @@
         <i class="fas fa-long-arrow-alt-left"></i>
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
-      <h2>Bienvenue sur votre compte {{ user.name }}</h2>
+      <h2>Votre compte {{ user.name }}</h2>
 
       <p>Votre nom : {{ user.name }}</p>
 

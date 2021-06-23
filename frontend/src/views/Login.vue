@@ -7,10 +7,10 @@
       />
 
       <div class="deco"></div>
-      <p>{{ msg }}</p>
+      
 
       <form @submit.prevent="login()">
-        <h1>Connexion</h1>
+        <p>Bienvenue !<br> Vous pouvez vous connecter !</p>
         <label for="login_email">Email :</label>
         <input
           id="login_email"
@@ -50,7 +50,6 @@ export default {
     return {
       email: "",
       password: "",
-      msg: "Bienvenue ! ",
       statut: sessionStorage.getItem("userStatut"),
       user_id: sessionStorage.getItem("userId"),
     };
@@ -95,10 +94,9 @@ export default {
   padding: 10px;
 }
 .deco {
-  margin-top: -150px;
+  margin-top: -140px;
   margin-bottom: 100px;
-  border-bottom: 12px solid rgb(245, 73, 73);
-  border-radius: 20px;
+  border-bottom: 8px solid rgb(172, 73, 81);
 }
 
 .container {
@@ -106,16 +104,10 @@ export default {
 }
 
 p {
-  padding-bottom: 50px;
-  color: white;
-  font-size: 1.6em;
-  text-align: center;
-}
-
-h1 {
-  color: rgb(31, 31, 70);
-  font-size: 1.4em;
-  margin-bottom: 50px;
+  text-align: left;
+  padding-bottom: 10px;
+  font-size: 1.5em;
+  color: rgb(41, 45, 73);
 }
 
 label {
@@ -129,7 +121,7 @@ label {
 
 form {
   background-color: white;
-  padding: 30px 10px;
+  padding: 0px 10px 30px 10px;
   max-width: 600px;
   margin: auto;
   display: flex;

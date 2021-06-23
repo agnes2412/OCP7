@@ -9,20 +9,7 @@
 
       <article class="statut_post">
         <p class="user_name">{{ user.name }}<br /></p>
-
-        <div class="display_statut">
-          <input
-            @click="admin()"
-            name="statut"
-            type="radio"
-            id="admin"
-            value="Administrateur"
-            v-model="userStatut"
-            :checked="user.statut == 2"
-          />
-
-          <label for="admin">Administrateur</label>
-        </div>
+        <!--la valeur donnée à v-model se synchronise avec la valeur donnée dans data-->
         <div class="display_statut">
           <input
             @click="accepted()"
@@ -52,8 +39,13 @@
         <div class="statut_user">
           Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
         </div>
-        <button class="display_statut" v-if="statut == 2"
-      @click="deleteAccountByAdmin()">Supprimer le compte utilisateur</button>
+        <button
+          class="display_statut"
+          v-if="statut == 2"
+          @click="deleteAccountByAdmin()"
+        >
+          Supprimer le compte utilisateur
+        </button>
       </article>
     </div>
   </div>
@@ -72,7 +64,7 @@ export default {
 
   data() {
     return {
-      //je récupère le statut du user
+      //Je récupère le statut du user
       userStatut: "",
       //Je récupère l'objet user
       user: {},
@@ -84,11 +76,6 @@ export default {
   },
 
   methods: {
-    admin() {
-      this.userStatut = 2;
-      //J'appelle la fonction pour mettre à jour la base de données
-      this.modify();
-    },
     accepted() {
       this.userStatut = 0;
       this.modify();
@@ -97,7 +84,6 @@ export default {
       this.userStatut = 1;
       this.modify();
     },
-    
     modify() {
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id_user, {
@@ -112,17 +98,19 @@ export default {
     },
 
     deleteAccountByAdmin() {
-      let alert = confirm("Voulez-vous vraiment supprimer le compte de cet utilisateur ?");
+      let alert = confirm(
+        "Voulez-vous vraiment supprimer le compte de cet utilisateur ?"
+      );
       if (alert) {
-      axios
-      .delete("http://localhost:3000/api/auth/moderate/" + this.id_user, {
-        headers: {
-          Authorization: "Bearer " + sessionStorage.getItem("token"),
-        },
-      })
-      .then((res) => console.log(res));
-      location.href = "http://localhost:8080/#/admin/";
-      window.location.reload();
+        axios
+          .delete("http://localhost:3000/api/auth/moderate/" + this.id_user, {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("token"),
+            },
+          })
+          .then((res) => console.log(res));
+        location.href = "http://localhost:8080/#/admin/";
+        window.location.reload();
       }
     },
   },
@@ -141,10 +129,9 @@ export default {
 </script>
 
 <style scoped>
-
 #statut {
   background-color: rgb(245, 234, 234);
-  padding: 5px;;
+  padding: 5px;
 }
 .container {
   max-width: 600px;
@@ -209,7 +196,7 @@ button {
   font-size: 1em;
   width: 250px;
   box-shadow: 3px 3px 6px rgb(83, 83, 110);
-  border: 3px solid rgb(83, 83, 110) ;
+  border: 3px solid rgb(83, 83, 110);
 }
 
 button:hover {

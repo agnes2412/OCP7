@@ -9,9 +9,6 @@ const multer = require('../middleware/multer-config');
 //J'importe mes logiques métier (controllers) pour les intégrer à la route correspondante
 const postsCtrl = require('../controllers/posts');
 
-
-
-/*Voilà la route correspondante à la requête post comprenant le middleware auth*/
 //Pour protéger mes routes, j'ajoute le middleware 'auth' avant le controleur
 //J'applique la fonction 'logique métier' correspondante à la route 
 router.post('/', auth, postsCtrl.createPost);

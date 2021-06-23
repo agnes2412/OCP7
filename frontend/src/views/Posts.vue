@@ -18,7 +18,7 @@
           {{ moment(post.createdAt).format("DD/MM/YY à H:mm") }}
         </p>
         <article>
-          <!--post.id est la valeur actuelle passée en argument dans l'écouteur d'évènement qui appelle la fonction "deletePost()-->
+          <!--post.id est la valeur actuelle passée en argument dans l'écouteur d'évènement qui appelle la fonction "deletePost()"-->
           <div>
             <span
               title="Supprimer"
@@ -61,10 +61,9 @@ export default {
   data() {
     return {
       moment: moment,
-      //Je déclare un tableau vide qui va contenir les posts des utilisateurs et les utilisateurs
+      //Je déclare un tableau vide qui va contenir les posts des utilisateurs et un autre les utilisateurs
       posts: [],
       users: [],
-      //Lorsqu'un itinéraire est mis en correspondance, la valeur des segments dynamiques sera exposée comme this.$route.params dans chaque composant
       statut: sessionStorage.getItem("userStatut"),
       user_id: sessionStorage.getItem("userId")
     };

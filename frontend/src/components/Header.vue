@@ -1,6 +1,8 @@
 <template>
   <header>
     <img src="../assets/icon-left-font-monochrome-white.png" alt="" />
+
+    <div class="deco"></div>
     <nav>
       <span @click="disconnect()"
         ><a :href="'http://localhost:8080'">Me déconnecter </a></span
@@ -25,9 +27,6 @@ export default {
   name: "Header",
   data() {
     return {
-      users: [],
-      User: [],
-      user_id: sessionStorage.getItem("userId"),
       statut: sessionStorage.getItem("userStatut"),
     };
   },
@@ -52,6 +51,13 @@ header {
   box-shadow: 3px 3px 5px black;
 }
 
+.deco {
+  width: 75%;
+  margin-top: -120px;
+  margin-bottom: 100px;
+  border-bottom: 8px solid rgb(172, 73, 81);
+}
+
 nav span {
   cursor: pointer;
 }
@@ -62,10 +68,11 @@ a {
 }
 
 nav {
+  margin-right: 40px;
   padding-top: 0;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   background-color: rgb(41, 45, 73);
-  margin-top: -100px;
+  margin-top: -80px;
   margin-bottom: 20px;
 }
 </style>

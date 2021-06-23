@@ -4,7 +4,7 @@ const db = require('../models');
 exports.createPost = (req, res, next) => {
     console.log(req.body);
     db.Post.create({
-        //??Je renseigne la clé étrangère (id de l'utilisateur) pour le champ UserId de la table post
+        //Je renseigne la clé étrangère (id de l'utilisateur) pour le champ UserId de la table post
         UserId: req.body.user_id,
         //Je récupère les données des champs titre et contenu
         title: req.body.title,
@@ -47,7 +47,7 @@ exports.getOnePost = (req, res, next) => {
     db.Post.findOne({
         where: {
             id: req.params.id,
-            //statut: 0,
+            statut: 0,
         },
         include: [{
             model: db.User,
