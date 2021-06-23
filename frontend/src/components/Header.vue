@@ -55,7 +55,7 @@ header {
   width: 75%;
   margin-top: -120px;
   margin-bottom: 100px;
-  border-bottom: 8px solid rgb(165, 59, 77);
+  border-bottom: 5px solid rgb(165, 59, 77);
 }
 
 nav span {

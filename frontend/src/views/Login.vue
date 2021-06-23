@@ -97,7 +97,7 @@ export default {
   width: 90%;
   margin-top: -140px;
   margin-bottom: 100px;
-  border-bottom: 8px solid rgb(214, 69, 100);
+  border-bottom: 5px solid rgb(165, 59, 77);
 }
 
 .container {

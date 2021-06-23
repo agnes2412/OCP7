@@ -1,5 +1,5 @@
 <template>
-  <div id="one_post">
+  <div id="onepost">
     <Header />
     <div class="container">
       <p class="return">
@@ -143,9 +143,10 @@ export default {
 </script>
 
 <style scoped>
-#one_post {
-  
+#onepost {
+  background-color: rgb(214, 210, 210);
 }
+
 .return {
   text-align: right;
 }
@@ -170,10 +171,10 @@ article {
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border: 3px solid rgb(245, 73, 73);
+  border: 3px solid rgb(165, 59, 77);
   padding: 5px;
   margin-bottom: 30px;
-  box-shadow: 3px 3px 3px rgb(68, 67, 67);
+  box-shadow: 3px 3px 5px black;
   border-radius: 15px;
 }
 
@@ -194,7 +195,6 @@ h3 {
   min-height: 140px;
   padding: 10px;
   text-align: justify;
-  
 }
 
 .user_name_comment {
@@ -214,7 +214,7 @@ h3 {
 }
 
 .content_comment_user {
-  background-color: rgb(245, 172, 172);
+  background-color: rgb(248, 188, 188);
   border-radius: 10px;
   min-height: 20px;
   padding: 15px;
@@ -243,8 +243,8 @@ form {
 .btn_delete_comment {
   margin-right: 10px;
   font-size: 1.3em;
-  margin-top: 32px;
-  color: rgb(245, 73, 73);
+  margin-top: 33px;
+  color: rgb(165, 59, 77);
   font-weight: bold;
   float: right;
   width: 35px;
@@ -253,7 +253,13 @@ form {
 
 .btn_delete_comment:hover {
   color: black;
-  border: 1px solid black;
+  font-size: 1.4em;
+}
+
+h4 {
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
 
 textarea {
@@ -265,21 +271,21 @@ textarea {
 
 #btn_new_comment {
   padding: 10px 12px;
-  border: 2px solid rgb(83, 83, 110);
-  background-color: white;
-  border-radius: 10px;
-  margin-top: 50px;
+  border: 2px solid rgb(165, 59, 77);
+  background-color: rgb(165, 59, 77);
+  color: white;
+  margin-top: 10px;
   margin-bottom: 200px;;
   max-width: 250px;
   cursor: pointer;
   transition-duration: 0.6s;
   font-size: 1em;
-  box-shadow: 3px 3px 5px rgb(83, 83, 110);
+  box-shadow: 3px 3px 5px black;
 }
 
 #btn_new_comment:hover {
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(165, 59, 77);
   color: white;
-  box-shadow: none;
+  box-shadow: inset 3px 3px 5px black;
 }
 </style>

@@ -53,12 +53,12 @@ export default {
 
 <style scoped>
 #admin {
-  background-color: rgb(245, 234, 234);
+  background-color: rgb(214, 210, 210);
   padding: 5px;
 }
 
 .container {
-  max-width: 700px;
+  max-width: 500px;
   margin: auto;
 }
 
@@ -77,11 +77,11 @@ article {
   background-size: 60px;
   background-color: white;
   border: 1px solid lightgrey;
-  border-top: 6px solid rgb(241, 116, 116);
+  border-top: 6px solid rgb(165, 59, 77);
   min-height: 100px;
   padding: 5px;
   margin-bottom: 30px;
-  box-shadow: 3px 3px 5px rgb(105, 50, 50);
+  box-shadow: 3px 3px 5px black;
 }
 .user_name {
   text-align: left;
@@ -91,8 +91,11 @@ article {
 
 .display_statut {
   padding: 10px 12px;
-  border: 2px solid rgb(83, 83, 110);
-  background-color: white;
+  border: 2px solid rgb(165, 59, 77);
+  background-color: rgb(165, 59, 77);
+  color: white;
+  border: 3px solid rgb(165, 59, 77);
+  box-shadow: 3px 3px 5px black;
   border-radius: 10px;
   float: right;
   transition-duration: 0.6s;
@@ -103,8 +106,10 @@ article {
 }
 
 .display_statut:hover {
-  color: white;
-  background-color: rgb(83, 83, 110);
+  color: rgb(165, 59, 77);
+  background-color: white;
+  border: 3px solid rgb(165, 59, 77);
+  box-shadow: inset 3px 3px 5px black;
 }
 </style>
 

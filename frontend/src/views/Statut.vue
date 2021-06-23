@@ -39,11 +39,10 @@
           Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
         </div>
         <button
-          class="display_statut"
           v-if="statut == 2"
           @click="deleteAccountByAdmin()"
         >
-          Supprimer le compte utilisateur
+          Supprimer le compte de {{ user.name }}
         </button>
       </article>
     </div>
@@ -130,28 +129,31 @@ export default {
 <style scoped>
 #statut {
   background-color: rgb(214, 210, 210);
-  padding: 5px;
+  padding-bottom: 200px;
 }
+
 .container {
   max-width: 600px;
   margin: auto;
-  padding-bottom: 400px;
+  padding: 5px;
 }
+
 .user_name {
   text-align: left;
-  margin-left: 15%;
-  padding-bottom: 10px;
-  margin-bottom: 35px;
-  border-bottom: 6px solid rgb(200, 60, 84);
+  color: rgb(41, 45, 73);
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 20%;
+  margin-bottom: 60px;
 }
 
 article {
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
-  background-size: 60px;
+  background-size: 80px;
   background-color: white;
-  border: 10px solid rgb(214, 69, 100);
+  border: 3px solid rgb(41, 45, 73);
   font-size: 1.1em;
   margin-top: 50px;
   min-height: 230px;
@@ -162,7 +164,7 @@ article {
 
 .return {
   text-align: right;
-  margin-top: 30px;
+  margin-right: 5px;
 }
 
 .return:hover {
@@ -171,7 +173,7 @@ article {
 
 .display_statut {
   display: flex;
-  margin-left: 25%;
+  margin-left: 5%;
   margin-bottom: 20px;
 }
 
@@ -180,29 +182,31 @@ label {
 }
 
 .statut_user {
-  margin-top: 50px;
-  margin-left: 15%;
+  margin-top: 40px;
+  margin-left: 5%;
   margin-bottom: 20px;
-  border-top: 3px solid rgb(214, 69, 100);
+  border-top: 2px solid rgb(41, 45, 73);
   padding-top: 10px;
   text-align: left;
 }
 
 button {
   padding: 9px;
-  background-color: white;
+  background-color: rgb(41, 45, 73);
+  color: white;
   margin-top: 50px;
+  margin-bottom: 30px;
   transition-duration: 0.6s;
   font-size: 1em;
-  max-width: 270px;
+  max-width: 350px;
   box-shadow: 3px 3px 5px black;
-  border: 3px solid rgb(214, 69, 100);
+  border: 2px solid rgb(41, 45, 73);
 }
 
 button:hover {
-  background-color: rgb(214, 69, 100);
+  background-color: white;
   box-shadow: none;
-  color: white;
+  color: rgb(41, 45, 73);
   cursor: pointer;
   box-shadow: inset 3px 3px 5px black;
 }

@@ -2,7 +2,7 @@
   <div id="posts">
     <Header />
     <div id="container">
-      <a :href="'http://localhost:8080/#/createPost/'"
+      <a :href="'http://localhost:8080/#/createPost/'" title="Cliquez pour créer un post"
         ><div class="create_post">
           <h2>Créer votre post</h2>
         </div></a
@@ -116,7 +116,7 @@ export default {
 
 <style scoped>
 #posts {
-  background-color: rgb(226, 203, 203);
+  background-color: rgb(214, 210, 210);
 }
 
 #container {
@@ -129,7 +129,7 @@ export default {
 
 .create_post {
   max-height: 100px;
-  background-color: white;
+  background-color: rgb(165, 59, 77);
   min-height: 50px;
   box-shadow: 3px 3px 3px rgb(68, 67, 67);
   border-radius: 10px;
@@ -140,48 +140,46 @@ export default {
 }
 
 .create_post:hover {
-  background-color: rgb(83, 83, 110);
-  box-shadow: none;
+  background-color: white;
+  box-shadow: inset 3px 3px 5px;
 }
 
 h2 {
-  color: rgb(83, 83, 110);
+  color: white;
   padding: 20px;
 }
 
 h2:hover {
-  color: white;
+  color: rgb(165, 59, 77)
 }
 
 article {
-  color: rgb(65, 65, 88);
   background-image: url("../assets/icon.png");
   background-repeat: no-repeat;
   background-position: top-left;
   background-size: 60px;
   background-color: white;
-  border: 1x solid rgb(83, 83, 110);
-  min-height: 240px;
+  border: 3px solid rgb(165, 59, 77);
   padding: 5px;
-  box-shadow: 3px 3px 3px rgb(68, 67, 67);
+  margin-bottom: 30px;
+  box-shadow: 3px 3px 5px black;
+  border-radius: 15px;
 }
 
 h3 {
-  margin-top: 0;
-  margin-bottom: 5px;
+  margin: 3px;
   text-align: left;
   padding: 10px 30px 20px 60px;
-  border-bottom: 3px solid rgb(246, 178, 178);
+  color: rgb(165, 59, 77);
 }
 
 .content_post {
-  margin-top: 5px;
   font-size: 18px;
-  border-radius: 13px;
-  min-height: 150px;
+  border: 2px solid rgb(246, 178, 178);
+  border-radius: 12px;
+  min-height: 140px;
   padding: 10px;
   text-align: justify;
-  font-weight: normal;
 }
 
 p {
@@ -197,12 +195,12 @@ p {
   margin-right: 10px;
   font-size: 1.4em;
   margin-top: 15px;
-  color: rgb(245, 73, 73);
+  color: rgb(165, 59, 77);
   font-weight: bold;
   float: right;
   width: 35px;
   cursor: pointer;
-   transition-duration: 0.6s;
+  transition-duration: 0.6s;
 }
 
 .btn_delete_post:hover {
@@ -211,22 +209,21 @@ p {
 }
 
 .btn_display_comment {
-  margin-top: 20px;
   margin-bottom: 80px;
   font-size: 1.2em;
   padding: 9px;
-  max-width: 300px;
   transition-duration: 0.6s;
-  border: 2px solid rgb(83, 83, 110);
-  background-color: white;
-  box-shadow: 3px 3px 5px rgb(32, 32, 42);
+  border: 2px solid rgb(165, 59, 77);
+  color: white;
+  background-color: rgb(165, 59, 77);
+  box-shadow: 3px 3px 5px black;
 }
 
 .btn_display_comment:hover {
-  background-color: rgb(83, 83, 110);
+  background-color: white;
   cursor: pointer;
-  color: white;
-  box-shadow: none;
-  border: 2px solid white;
+  color: rgb(165, 59, 77);
+  box-shadow: inset 3px 3px 5px black;
+  border: 2px solid rgb(165, 59, 77);
 }
 </style>
