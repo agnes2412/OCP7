@@ -20,3 +20,4 @@ npm run serve
 npm install  
 nodemon
 ### Vous pouvez vous rendre sur votre navigateur et accéder à l'application Groupomania
+Le compte admin est le suivant : admin@admin.fr - mdp: admin123
