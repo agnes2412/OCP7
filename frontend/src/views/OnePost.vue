@@ -1,5 +1,5 @@
 <template>
-  <div id="onepost">
+  <div id="one_post">
     <Header />
     <div class="container">
       <p class="return">
@@ -51,12 +51,14 @@
         </form>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 const moment = require("moment");
 //@ is an alias to /src
 
@@ -64,6 +66,7 @@ export default {
   name: "OnePost",
   components: {
     Header,
+    Footer,
   },
 
   data() {
@@ -143,7 +146,7 @@ export default {
 </script>
 
 <style scoped>
-#onepost {
+#one_post {
   background-color: rgb(214, 210, 210);
 }
 
@@ -179,8 +182,10 @@ article {
 }
 
 h3 {
+  margin-top: 15px;
   text-align: left;
   margin-left: 60px;
+  color: rgb(165, 59, 77);
 }
 
 .date_post {
@@ -275,11 +280,10 @@ textarea {
   background-color: rgb(165, 59, 77);
   color: white;
   margin-top: 10px;
-  margin-bottom: 200px;;
+  margin-bottom: 60px;;
   max-width: 250px;
   cursor: pointer;
-  transition-duration: 0.6s;
-  font-size: 1em;
+  font-size: 1.1em;
   box-shadow: 3px 3px 5px black;
 }
 

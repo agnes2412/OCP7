@@ -128,8 +128,8 @@ export default {
 
 <style scoped>
 #statut {
-  background-color: rgb(214, 210, 210);
-  padding-bottom: 200px;
+  background-color: rgb(245, 239, 239);
+  padding-bottom: 300px;
 }
 
 .container {

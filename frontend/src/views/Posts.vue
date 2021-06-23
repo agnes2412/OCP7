@@ -43,6 +43,7 @@
         >
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -51,12 +52,14 @@
 import axios from "axios";
 const moment = require("moment");
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 const statut = sessionStorage.getItem("userStatut");
 
 export default {
   name: "Posts",
   components: {
     Header,
+    Footer,
   },
   data() {
     return {
@@ -116,7 +119,7 @@ export default {
 
 <style scoped>
 #posts {
-  background-color: rgb(214, 210, 210);
+  background-color: rgb(245, 239, 239);
 }
 
 #container {
@@ -161,7 +164,7 @@ article {
   background-color: white;
   border: 3px solid rgb(165, 59, 77);
   padding: 5px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   box-shadow: 3px 3px 5px black;
   border-radius: 15px;
 }
@@ -177,7 +180,7 @@ h3 {
   font-size: 18px;
   border: 2px solid rgb(246, 178, 178);
   border-radius: 12px;
-  min-height: 140px;
+  min-height: 90px;
   padding: 10px;
   text-align: justify;
 }
@@ -211,8 +214,9 @@ p {
 .btn_display_comment {
   margin-bottom: 80px;
   font-size: 1.2em;
+  width: 99%;
+  border-radius: 15px;
   padding: 9px;
-  transition-duration: 0.6s;
   border: 2px solid rgb(165, 59, 77);
   color: white;
   background-color: rgb(165, 59, 77);
@@ -220,10 +224,7 @@ p {
 }
 
 .btn_display_comment:hover {
-  background-color: white;
   cursor: pointer;
-  color: rgb(165, 59, 77);
   box-shadow: inset 3px 3px 5px black;
-  border: 2px solid rgb(165, 59, 77);
 }
 </style>

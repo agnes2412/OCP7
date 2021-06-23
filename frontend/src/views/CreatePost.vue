@@ -29,17 +29,20 @@
         </form>
       </article>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "CreatePost",
   components: {
     Header,
+    Footer,
   },
   //data est un état local où se trouve mes variables
   //Ces variables vont récupérer les données entrées par les utilisateurs
@@ -87,8 +90,7 @@ export default {
 
 <style scoped>
 #create_post {
-  background-color: rgb(245, 234, 234);
-  padding-bottom: 400px;
+ background-color: rgb(245, 239, 239);
 }
 
 .return {
@@ -104,15 +106,20 @@ export default {
 .container_new_post {
   max-width: 800px;
   margin: auto;
+  padding-bottom: 150px; 
 }
 
 article {
-  margin-top: 80px;
-  background-color: rgb(169, 169, 185);
+  margin: 80px 5px 0 5px;
+  background-color: rgb(41, 45, 73);
   border: 3px solid white;
-  padding: 5px;
+  padding:  5px;
   min-height: 320px;
-  box-shadow: 5px 10px 10px rgb(141, 117, 117);
+  box-shadow: 3px 3px 5px black;
+}
+
+h3 {
+  color: white;
 }
 
 .new_post {
@@ -125,7 +132,7 @@ input {
   margin-bottom: 15px;
   margin-top: 5px;
   border: none;
-  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
+  box-shadow: inset 3px 3px 5px black;
 }
 
 textarea {
@@ -134,7 +141,7 @@ textarea {
   margin-bottom: 50px;
   margin-top: 5px;
   border: none;
-  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
+  box-shadow: inset 3px 3px 5px black;
 }
 
 button {
@@ -144,16 +151,16 @@ button {
   transition-duration: 0.6s;
   font-size: 1em;
   width: 200px;
-  box-shadow: 3px 3px 6px rgb(83, 83, 110);
-  border: none;
+  box-shadow: 3px 3px 5px black;
+  border:3px solid white;
   font-size: 1.2em;
 }
 
 button:hover {
-  background-color: rgb(83, 83, 110);
+  background-color: rgb(214, 210, 210);
   box-shadow: none;
-  color: white;
+  border: 3px solid white;
   cursor: pointer;
-  box-shadow: inset 3px 3px 5px rgb(83, 83, 110);
+  box-shadow: inset 3px 3px 5px black;
 }
 </style>

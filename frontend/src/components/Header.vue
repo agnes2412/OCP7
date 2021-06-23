@@ -48,7 +48,6 @@ img {
 
 header {
   background-color: rgb(41, 45, 73);
-  box-shadow: 3px 3px 5px black;
 }
 
 .deco {

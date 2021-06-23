@@ -25,16 +25,19 @@
     </div>
       </div>
       </div>
+      <Footer />
   </div>
 </template>
 <script>
 import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 import axios from "axios";
 
 export default {
   name: "UserAccount",
   components: {
     Header,
+    Footer,
   },
   data() {
     return {
@@ -75,7 +78,7 @@ export default {
 
 <style scoped>
 #user_account {
-  background-color: rgb(214, 210, 210);
+  background-color: rgb(245, 239, 239);
   padding-bottom: 500px;
 }
 

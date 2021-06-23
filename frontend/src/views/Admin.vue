@@ -53,8 +53,8 @@ export default {
 
 <style scoped>
 #admin {
-  background-color: rgb(214, 210, 210);
-  padding: 5px;
+  background-color: rgb(245, 239, 239);
+  padding-bottom: 200px;
 }
 
 .container {
