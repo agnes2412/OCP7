@@ -37,7 +37,6 @@
 
 <script>
 import axios from "axios";
-// @ is an alias to /src
 
 export default {
   name: "Signup",
