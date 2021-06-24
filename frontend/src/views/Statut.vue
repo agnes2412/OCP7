@@ -38,10 +38,7 @@
         <div class="statut_user">
           Statut de l'utilisateur {{ user.name }} : {{ user.statut }}
         </div>
-        <button
-          v-if="statut == 2"
-          @click="deleteAccountByAdmin()"
-        >
+        <button v-if="statut == 2" @click="deleteAccountByAdmin()">
           Supprimer le compte de {{ user.name }}
         </button>
       </article>
@@ -83,19 +80,25 @@ export default {
       this.userStatut = 1;
       this.modify();
     },
-  
-    modify() { 
-      console.log(this.id_user);
+
+    modify() {
+      //console.log(this.id_user);
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id_user, {
-          statut: this.userStatut,
+          statut: this.userStatut},
+          {
 
           headers: {
             Authorization: "Bearer " + sessionStorage.getItem("token"),
           },
+          
         })
-        .then((res) => (this.userStatut = res.data));
-     // window.location.reload();
+        
+        .then(res => {
+          this.userStatut = res.data;
+          
+          // window.location.reload();
+        });
     },
 
     deleteAccountByAdmin() {
