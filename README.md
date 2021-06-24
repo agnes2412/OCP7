@@ -16,7 +16,7 @@ npm run serve
 * DB_HOSTNAME= ajoutez l'adresse du serveur de votre base de données
 * DB_USER= ajoutez l'utilisateur de votre base de données
 * DB_PASSWORD= ajoutez votre mot de passe utilisateur  
-###La base de donnée se nomme 'Groupomania'
+### La base de donnée se nomme 'Groupomania'
 #### Enfin, depuis votre terminal, accédez au dossier backend et tapez :  
 npm install  
 nodemon
