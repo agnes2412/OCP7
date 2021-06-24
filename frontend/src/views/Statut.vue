@@ -53,6 +53,7 @@
 <script>
 import axios from "axios";
 import Header from "@/components/Header.vue";
+//const statut = sessionStorage.getItem("userStatut");
 
 export default {
   name: "Admin",
@@ -82,7 +83,9 @@ export default {
       this.userStatut = 1;
       this.modify();
     },
-    modify() {
+  
+    modify() { 
+      console.log(this.id_user);
       axios
         .put("http://localhost:3000/api/auth/moderate/" + this.id_user, {
           statut: this.userStatut,
@@ -92,7 +95,7 @@ export default {
           },
         })
         .then((res) => (this.userStatut = res.data));
-      window.location.reload();
+     // window.location.reload();
     },
 
     deleteAccountByAdmin() {
@@ -108,7 +111,7 @@ export default {
           })
           .then((res) => console.log(res));
         location.href = "http://localhost:8080/#/admin/";
-        window.location.reload();
+        //window.location.reload();
       }
     },
   },
@@ -198,7 +201,7 @@ button {
   margin-bottom: 30px;
   transition-duration: 0.6s;
   font-size: 1em;
-  max-width: 350px;
+  width: 90%;
   box-shadow: 3px 3px 5px black;
   border: 2px solid rgb(41, 45, 73);
 }

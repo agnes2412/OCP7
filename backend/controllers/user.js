@@ -93,7 +93,6 @@ exports.deleteAccountUser = (req, res, next) => {
 };
 
 exports.deleteAccountUserByAdmin = (req, res, next) => {
-    console.log(req.params);
     db.User.destroy({
         //Je récupère l'objet de l'id passé dans l'url du DELETE
         where: { id: req.params.id },
@@ -103,8 +102,6 @@ exports.deleteAccountUserByAdmin = (req, res, next) => {
 };
 
 exports.modifyStatutUser = (req, res, next) => {
-    console.log(req.body);
-    console.log(req.params.id);
     db.User.update({
         statut: req.body.statut
     },
@@ -119,7 +116,7 @@ exports.modifyStatutUser = (req, res, next) => {
 };
 
 exports.getOneUser = (req, res, next) => {
-    console.log(req.params.id)
+    //console.log(req.params.id)
     db.User.findOne({
         where: {
             id: req.params.id,

@@ -55,6 +55,7 @@ export default {
 #admin {
   background-color: rgb(245, 239, 239);
   padding-bottom: 200px;
+  padding: 5px;
 }
 
 .container {

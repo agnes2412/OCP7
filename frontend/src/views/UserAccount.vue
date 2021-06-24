@@ -7,37 +7,34 @@
         <a :href="'http://localhost:8080/#/posts/'">Retour</a>
       </p>
       <div class="border">
-      <div class="article">
-      <h2>Votre compte {{ user.name }}</h2>
+        <div class="article">
+          <h2>Votre compte {{ user.name }}</h2>
 
-      <p>Votre nom : {{ user.name }}</p>
+          <p>Votre nom : {{ user.name }}</p>
 
-      <p>Votre email : {{ user.email }}</p>
+          <p>Votre email : {{ user.email }}</p>
 
-      <div
-        id="btn_delete_account"
-        type="submit"
-        v-if="user.statut == 0"
-        @click="deleteAccount()"
-      >
-        Supprimer votre compte
+          <div
+            id="btn_delete_account"
+            type="submit"
+            v-if="user.statut == 0"
+            @click="deleteAccount()"
+          >
+            Supprimer votre compte
+          </div>
+        </div>
       </div>
     </div>
-      </div>
-      </div>
-      <Footer />
   </div>
 </template>
 <script>
 import Header from "@/components/Header.vue";
-import Footer from "@/components/Footer.vue";
 import axios from "axios";
 
 export default {
   name: "UserAccount",
   components: {
     Header,
-    Footer,
   },
   data() {
     return {
@@ -79,7 +76,7 @@ export default {
 <style scoped>
 #user_account {
   background-color: rgb(245, 239, 239);
-  padding-bottom: 500px;
+  padding-bottom: 400px;
 }
 
 .return {
@@ -129,7 +126,7 @@ h2 {
   margin-bottom: 40px;
   font-size: 1em;
   padding: 10px;
-  max-width: 250px;
+  width: 90%;
   transition-duration: 0.6s;
   border: 2px solid white;
   background-color: white;

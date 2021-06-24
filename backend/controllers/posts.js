@@ -15,7 +15,7 @@ exports.createPost = (req, res, next) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.modifyPost = (req, res, next) => {
+/*exports.modifyPost = (req, res, next) => {
     db.Post.update({
         UserId: req.body.user,
         post: req.body.post
@@ -29,7 +29,7 @@ exports.modifyPost = (req, res, next) => {
     })
         .then(() => res.status(200).json({ message: 'Post modifié !' }))
         .catch(error => res.status(400).json({ error }));
-};
+};*/
 
 exports.deletePost = (req, res, next) => {
     db.Post.destroy(
@@ -43,7 +43,6 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-    console.log(req.params);
     db.Post.findOne({
         where: {
             id: req.params.id,

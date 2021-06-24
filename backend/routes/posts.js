@@ -13,7 +13,7 @@ const postsCtrl = require('../controllers/posts');
 //J'applique la fonction 'logique métier' correspondante à la route 
 router.post('/', auth, postsCtrl.createPost);
 
-router.put('/:id', auth, postsCtrl.modifyPost);
+//router.put('/:id', auth, postsCtrl.modifyPost);
 router.delete('/:id', auth, postsCtrl.deletePost);
 //Le : devant id indique à Express que ce chemin est dynamique 
 router.get('/:id', auth, postsCtrl.getOnePost);

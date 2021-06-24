@@ -86,7 +86,7 @@ export default {
 <style scoped>
 #signup {
   background-color: rgb(238, 236, 236);
-  padding: 10px;
+  padding: 5px;
 }
 
 label {
@@ -95,7 +95,7 @@ label {
 
 form {
   background-color: rgb(172, 73, 81);
-  margin-top: -90px;
+  margin-top: -100px;
   display: flex;
   flex-direction: column;
   border: 3px solid white;
@@ -133,7 +133,7 @@ button:hover {
 }
 
 img {
-  margin-top: -120px;
+  margin-top: -135px;
   width: 100%;
   max-width: 450px;
 }

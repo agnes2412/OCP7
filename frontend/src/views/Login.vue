@@ -107,8 +107,9 @@ export default {
 p {
   text-align: left;
   padding-bottom: 10px;
-  font-size: 1.5em;
+  font-size: 1.4em;
   color: rgb(41, 45, 73);
+  font-weight: bold;
 }
 
 label {
@@ -116,12 +117,8 @@ label {
   color: rgb(31, 31, 70);
 }
 
-#thanks_signup {
-  font-size: 1.6em;
-}
-
 form {
-  background-color: white;
+  background-color: rgb(233, 231, 231);
   padding: 0px 10px 30px 10px;
   max-width: 600px;
   margin: auto;
@@ -136,10 +133,10 @@ button {
   padding: 10px;
   max-width: 180px;
   transition-duration: 0.6s;
-  border: 2px solid white;
+  border: 2px solid rgb(41, 45, 73);
   background-color: rgb(41, 45, 73);
   color: white;
-  box-shadow: 3px 3px 5px rgb(32, 32, 42);
+  box-shadow: 3px 3px 5px black;
 }
 
 button:hover {
