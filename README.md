@@ -15,7 +15,8 @@ npm run serve
 #### Récupérez le dump 'groupomania.sql(4)' qui se trouve à la racine du projet, installez le sur votre système de gestion de base de données MySql et créez 3 variables d'environnement dans le fichier.env comme ci-dessous. Compléter les avec vos informations.  
 * DB_HOSTNAME= ajoutez l'adresse du serveur de votre base de données
 * DB_USER= ajoutez l'utilisateur de votre base de données
-* DB_PASSWORD= ajoutez votre mot de passe utilisateur
+* DB_PASSWORD= ajoutez votre mot de passe utilisateur  
+###La base de donnée se nomme 'Groupomania'
 #### Enfin, depuis votre terminal, accédez au dossier backend et tapez :  
 npm install  
 nodemon
